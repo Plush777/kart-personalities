@@ -1,0 +1,10 @@
+---
+const { align = 'center' } = Astro.props;
+
+const pcStyle = 'max-w-[768px] mx-auto flex flex-col items-center h-screen';
+const mobile500Style = 'max-[500px]:p-8';
+---
+
+<main class={`${pcStyle} ${mobile500Style} ${align === 'center' ? 'justify-center' : ''}`}>
+	<slot />
+</main>

@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'Recipekorea';
+	font-display: block;
+	src:
+		url('/fonts/Recipekorea.woff2') format('woff2'),
+		url('/fonts/Recipekorea.woff') format('woff');
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+button:not(:disabled) {
+	cursor: pointer !important;
+}
+
+img {
+	-webkit-user-drag: none;
+	-khtml-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+}

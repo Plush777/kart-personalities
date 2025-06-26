@@ -1,0 +1,17 @@
+---
+import HtmlLayout from '@/layouts/HtmlLayout.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
+import TextField from '@/components/form/TextField.vue';
+import Button from '@/components/button/Button.vue';
+import { questions } from '@/data/questions';
+import Question from '@/components/question/Question.vue';
+import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
+---
+
+<HtmlLayout>
+	<MainLayout>
+		<ContentsInnerLayout type="question">
+			<Question client:load questions={questions} initialAnswers={[]} />
+		</ContentsInnerLayout>
+	</MainLayout>
+</HtmlLayout>

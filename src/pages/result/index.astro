@@ -1,0 +1,50 @@
+---
+import HtmlLayout from '@/layouts/HtmlLayout.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
+import ResultWrapper from '@/components/result/ResultWrapper.vue';
+import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
+
+// localStorage에서 답변 데이터 가져오기
+let answers = [];
+let characterType = '';
+let characterInfo = {};
+
+if (typeof window !== 'undefined') {
+	try {
+		const storedAnswers = localStorage.getItem('quizAnswers');
+		if (storedAnswers) {
+			answers = JSON.parse(storedAnswers);
+
+			// 캐릭터 타입 계산
+			const typeCounts = {};
+
+			answers.forEach((answerIndex, questionIndex) => {
+				const question = questions[questionIndex];
+				const selectedOption = question.options[answerIndex];
+
+				selectedOption.types.forEach((type) => {
+					typeCounts[type] = (typeCounts[type] || 0) + 1;
+				});
+			});
+
+			// 가장 많이 선택된 타입 찾기
+			const maxCount = Math.max(...Object.values(typeCounts));
+			const topTypes = Object.keys(typeCounts).filter((type) => typeCounts[type] === maxCount);
+			characterType = topTypes[0]; // 첫 번째 타입 선택
+
+			// 캐릭터 정보 설정
+			characterInfo = getCharacterInfo(characterType);
+		}
+	} catch (error) {
+		console.error('답변 데이터를 불러오는 중 오류가 발생했습니다:', error);
+	}
+}
+---
+
+<HtmlLayout>
+	<MainLayout align="start">
+		<ContentsInnerLayout>
+			<ResultWrapper client:load />
+		</ContentsInnerLayout>
+	</MainLayout>
+</HtmlLayout>
