@@ -1,10 +1,10 @@
 <template>
-	<div class="max-[500px]:flex-col max-[500px]:flex max-[500px]:m-[0_auto] space-y-2">
+	<div class="options-list space-y-2">
 		<Button
 			v-for="(option, index) in options"
 			:key="index"
 			styleType="outline-white"
-			bindClass="max-[500px]:max-w-[300px] text-center"
+			bindClass="text-center"
 			:clickClass="getOptionClasses(index)"
 			:click="() => selectOption(index)"
 		>
@@ -38,3 +38,9 @@ const selectOption = (optionIndex) => {
 	emit('select', optionIndex);
 };
 </script>
+
+<style scoped>
+.options-list button {
+	@apply break-keep;
+}
+</style>

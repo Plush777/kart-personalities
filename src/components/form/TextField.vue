@@ -1,7 +1,8 @@
 <template>
 	<input
 		:id="id"
-		:class="`${getStyleType()} ${getHeight()} ${getAlign()} ${width} font-[Pretendard_Variable] duration-300 ease-in-out focus:outline-none`"
+		:class="`${getStyleType()} ${getHeight()} ${getAlign()} ${width} font-[Pretendard_Variable] 
+		duration-300 ease-in-out focus:outline-none bg-white`"
 		:type="formType"
 		:placeholder="placeholder"
 		:value="value"

@@ -1,5 +1,7 @@
 ---
 import '@/styles/global.css';
+
+const { bodyClassName = '' } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,7 +25,7 @@ import '@/styles/global.css';
 		/>
 		<title>카트라이더 캐릭터로 알아보는 성격 테스트</title>
 	</head>
-	<body>
+	<body class={bodyClassName}>
 		<div id="app" class="select-none">
 			<slot />
 		</div>
@@ -38,12 +40,3 @@ import '@/styles/global.css';
 		font-family: 'Pretendard Variable', sans-serif;
 	}
 </style>
-
-<script>
-	// 로컬스토리지에 quizAnswers 키가 있으면 #app의 배경을 bg-sky-50, 아니면 bg-white
-	if (localStorage.getItem('quizAnswers')) {
-		document.getElementById('app').classList.add('bg-sky-50');
-	} else {
-		document.getElementById('app').classList.remove('bg-sky-50');
-	}
-</script>

@@ -8,7 +8,7 @@ import Question from '@/components/question/Question.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
 ---
 
-<HtmlLayout>
+<HtmlLayout bodyClassName="bg-sky-50">
 	<MainLayout>
 		<ContentsInnerLayout type="question">
 			<Question client:load questions={questions} initialAnswers={[]} />

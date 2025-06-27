@@ -2,9 +2,20 @@
 const { align = 'center' } = Astro.props;
 
 const pcStyle = 'max-w-[768px] mx-auto flex flex-col items-center h-screen';
-const mobile500Style = 'max-[500px]:p-8';
+const mobile500Style = 'max-md:p-8';
+
+const copyStyle = 'pb-[8px] text-center text-[13px] text-gray-500 underline';
 ---
 
-<main class={`${pcStyle} ${mobile500Style} ${align === 'center' ? 'justify-center' : ''}`}>
-	<slot />
-</main>
+<div class={`relative ${pcStyle} ${mobile500Style} ${align === 'center' ? 'justify-center' : ''}`}>
+	<main class="flex flex-col items-center">
+		<slot />
+	</main>
+	<footer class="absolute bottom-[10px] left-1/2 -translate-x-1/2">
+		<a
+			href="https://github.com/Plush777/kartrider-personality-test-app"
+			target="_blank"
+			class={copyStyle}>Made by Plush &copy; 2025</a
+		>
+	</footer>
+</div>

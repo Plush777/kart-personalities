@@ -73,9 +73,12 @@ function loadResult() {
 		}
 	} catch (error) {
 		console.error('답변 데이터를 불러오는 중 오류가 발생했습니다:', error);
-	} finally {
-		loading.value = false;
 	}
+
+	// 최소 1초간 로딩 상태 유지
+	setTimeout(() => {
+		loading.value = false;
+	}, 2500);
 }
 
 function handleImageError(event) {

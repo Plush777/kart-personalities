@@ -66,3 +66,17 @@ export const characters = {
 		image: '/images/characters/img-erini.webp'
 	}
 };
+
+export const introCharacterList = [
+	{ name: 'dao', image: '/images/characters/img-dao.webp' },
+	{ name: 'bazzi', image: '/images/characters/img-bazzi.webp' },
+	{ name: 'diz', image: '/images/characters/img-diz.webp' },
+	{ name: 'uni', image: '/images/characters/img-uni.webp' },
+	{ name: 'marid', image: '/images/characters/img-marid.webp' },
+	{ name: 'tiera', image: '/images/characters/img-tiera.webp' },
+	{ name: 'keffy', image: '/images/characters/img-keffy.webp' },
+	{ name: 'erini', image: '/images/characters/img-erini.webp' },
+	{ name: 'kris', image: '/images/characters/img-kris.webp' },
+	{ name: 'ethen', image: '/images/characters/img-ethen.webp' },
+	{ name: 'mos', image: '/images/characters/img-mos.webp' }
+];
