@@ -1,10 +1,22 @@
 <template>
 	<div
-		class="navigation-buttons mt-8 flex justify-between items-center max-[500px]:flex-col max-[500px]:gap-y-2"
+		class="navigation-buttons mt-8 flex justify-between items-center max-md:flex-col max-md:gap-y-2"
 	>
-		<Button styleType="fill-gray" :disabled="!canGoBack" @click="goBack"> 이전 </Button>
+		<Button
+			styleType="fill-gray"
+			:bindClass="questionNavigationButtonStyle"
+			:disabled="!canGoBack"
+			@click="goBack"
+		>
+			이전
+		</Button>
 
-		<Button :styleType="nextButtonStyleType" :disabled="!canGoNext" @click="goNext">
+		<Button
+			:styleType="nextButtonStyleType"
+			:bindClass="questionNavigationButtonStyle"
+			:disabled="!canGoNext"
+			@click="goNext"
+		>
 			{{ nextButtonText }}
 		</Button>
 	</div>
@@ -28,6 +40,8 @@ const props = defineProps({
 		default: false
 	}
 });
+
+const questionNavigationButtonStyle = 'max-md:h-9';
 
 const emit = defineEmits(['prev', 'next']);
 
@@ -58,9 +72,3 @@ const goNext = () => {
 	}
 };
 </script>
-
-<style scoped>
-.navigation-buttons button {
-	@apply max-[500px]:w-full;
-}
-</style>

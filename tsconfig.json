@@ -6,6 +6,8 @@
 		"jsx": "preserve",
 		"checkJs": false,
 		"baseUrl": ".",
+		"noImplicitAny": false,
+		"strict": false,
 		"paths": {
 			"@/*": ["src/*"]
 		}

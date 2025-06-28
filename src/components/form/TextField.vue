@@ -41,9 +41,6 @@ const props = defineProps({
 	width: {
 		type: String
 	},
-	height: {
-		type: Number
-	},
 	align: {
 		type: String,
 		default: 'center'
@@ -52,13 +49,13 @@ const props = defineProps({
 
 function getStyleType() {
 	if (props.styleType === 'outline-white') {
-		return 'border border-solid border-gray-300 rounded-xl p-[0_18px] text-base placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500';
+		return 'border border-solid border-gray-300 rounded-xl p-[0_18px] text-base placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 max-md:text-sm max-md:p-[0_12px]';
 	}
 }
 
 function getHeight() {
 	if (props.heightType === 'md') {
-		return 'h-12';
+		return 'h-12 max-md:h-10';
 	}
 
 	return 'h-10';

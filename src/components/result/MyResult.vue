@@ -1,7 +1,7 @@
 <template>
 	<SectionWrapper>
 		<h2 class="text-2xl font-bold text-gray-800 break-keep">
-			당신은 "{{ props.characterInfo.title }}" 와 가장 비슷한 성격을 가지고 있어요.
+			{{ userName }}님은 "{{ props.characterInfo.title }}" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col">
 			<CharacterProfileWrapper>
@@ -9,7 +9,7 @@
 					<img
 						:src="props.characterInfo.image"
 						:alt="props.characterInfo.title"
-						class="w-[200px] h-[170px]"
+						class="w-[150px]"
 						@error="props.handleImageError"
 					/>
 				</figure>
@@ -31,6 +31,8 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import { getUserName } from '@/util/getUserName.js';
 import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
 import Button from '@/components/button/Button.vue';
@@ -57,5 +59,11 @@ const props = defineProps({
 		type: Function,
 		required: true
 	}
+});
+
+const userName = ref('');
+
+onMounted(() => {
+	userName.value = getUserName() || 'undefined';
 });
 </script>

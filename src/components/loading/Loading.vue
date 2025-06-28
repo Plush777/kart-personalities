@@ -6,32 +6,34 @@
 			<img
 				src="/images/face/img-dao-face.webp"
 				alt=""
-				class="loading-image dao-image size-[130px] max-[500px]:size-[25%]"
+				class="loading-image dao-image size-[130px] max-md:size-[25%]"
 			/>
 			<img
 				src="/images/face/img-diz-face.webp"
 				alt=""
-				class="loading-image diz-image size-[120px] max-[500px]:size-[25%]"
+				class="loading-image diz-image size-[120px] max-md:size-[25%]"
 			/>
 			<img
 				src="/images/face/img-bazzi-face.webp"
 				alt=""
-				class="loading-image bazzi-image size-[130px] max-[500px]:size-[25%]"
+				class="loading-image bazzi-image size-[130px] max-md:size-[25%]"
 			/>
 		</div>
 
-		<p class="text-xl font-bold text-gray-600 max-[500px]:text-lg max-[375px]:text-base">
-			{{ props.userName }}님의 결과를 분석하고 있어요.
+		<p class="text-xl font-bold text-gray-600 max-md:text-lg max-[375px]:text-base">
+			{{ userName }}님의 결과를 분석하고 있어요.
 		</p>
 	</div>
 </template>
 
 <script setup>
-const props = defineProps({
-	userName: {
-		type: String,
-		required: true
-	}
+import { ref, onMounted } from 'vue';
+import { getUserName } from '@/util/getUserName.js';
+
+const userName = ref('');
+
+onMounted(() => {
+	userName.value = getUserName() || 'undefined';
 });
 </script>
 

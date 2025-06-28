@@ -15,7 +15,7 @@ export const characters = {
 		title: '디지니',
 		description:
 			'디지니는 수줍어하는 성격으로 차를 무서워했으나 다오가 카트운전 면허를 딴 이후 자신도 많은 노력을 하여 상당한 수준에 이르게 된 라이더입니다. 남자친구인 다오와 함께 악당 로두마니를 찾아 나서는 것이 지금 당장의 목표입니다. 곱상한 외모와는 달리 의외로 과감한 드라이빙을 할 때가 있습니다.',
-		image: '/images/characters/img-dizini.webp'
+		image: '/images/characters/img-diz.webp'
 	},
 	우니: {
 		title: '우니',

@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="`${getStyleType()} duration-300 ease-in-out focus:outline-none ${bindClass}`"
+		:class="`${commonStyle} ${getStyleType()} ${bindClass} ${mobileStyle}`"
 		:type="type"
 		@click="handleClick"
 	>
@@ -12,7 +12,6 @@
 const props = defineProps({
 	type: {
 		type: String,
-		required: true,
 		default: 'button'
 	},
 	styleType: {
@@ -40,7 +39,9 @@ const handleClick = () => {
 	}
 };
 
+const commonStyle = 'flex items-center justify-center duration-300 ease-in-out';
 const disabledStyle = 'disabled:opacity-50 disabled:cursor-not-allowed';
+const mobileStyle = 'max-md:text-sm max-md:p-[12px] max-md:w-full';
 
 /* blue */
 const defaultBlueStyle =
@@ -52,6 +53,8 @@ const outlineWhiteStyle =
 	'w-full p-[16px_24px] border-2 rounded-full hover:border-blue-400 hover:text-gray-900 hover:bg-blue-50';
 const focusWhiteStyle =
 	'focus:outline-blue-200 focus:ring-2 focus:ring-blue-200 focus:text-gray-900 ';
+const outlineWhiteActiveClickClass = 'border-blue-400 bg-blue-50 text-gray-900';
+const outlineWhiteInactiveClickClass = 'bg-white border-gray-200 text-gray-500';
 
 /* gray */
 const fillGrayStyle =
@@ -77,7 +80,7 @@ function getStyleType() {
 	}
 
 	if (props.styleType === 'outline-white') {
-		return `${outlineWhiteStyle} ${props.clickClass ? 'border-blue-400 bg-blue-50 text-gray-900' : 'bg-white border-gray-200 text-gray-500'} ${focusWhiteStyle}	`;
+		return `${outlineWhiteStyle} ${props.clickClass ? outlineWhiteActiveClickClass : outlineWhiteInactiveClickClass} ${focusWhiteStyle}	`;
 	}
 
 	if (props.styleType === 'fill-gray') {

@@ -1,4 +1,6 @@
 ---
+// @ts-nocheck
+
 import HtmlLayout from '@/layouts/HtmlLayout.astro';
 import MainLayout from '@/layouts/MainLayout.astro';
 import TextField from '@/components/form/TextField.vue';
@@ -36,18 +38,20 @@ const textFieldStyle = 'min-w-[230px] max-w-[230px]';
 					id="nameInput"
 					width={`${textFieldStyle}`}
 					maxLength={10}
-					align="left"
+					align="center"
 					placeholder="이름을 입력해주세요."
 				/>
-				<p class="text-xs text-gray-500">*이름은 최대 10글자까지만 설정 가능해요.</p>
+				<p class="text-xs text-center text-gray-500">*이름은 최대 10글자까지만 설정 가능해요.</p>
 			</div>
 
-			<Button bindClass="start-button" styleType="fill-blue-md">테스트 시작하기</Button>
+			<Button bindClass="start-button max-md:h-10" styleType="fill-blue-md">테스트 시작하기</Button>
 		</div>
 	</MainLayout>
 </HtmlLayout>
 
 <script>
+	// @ts-nocheck
+
 	const startButton = document.querySelector('.start-button');
 	const nameInput = document.querySelector('#nameInput');
 

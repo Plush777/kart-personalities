@@ -1,24 +1,23 @@
 <template>
-	<!-- 진행률 표시 -->
-	<ProgressBar :current-question="currentQuestionIndex + 1" :total-questions="questions.length" />
+	<SectionWrapper>
+		<ProgressBar :current-question="currentQuestionIndex + 1" :total-questions="questions.length" />
 
-	<!-- 질문 -->
-	<QuestionText :question="currentQuestion.question" />
+		<QuestionText :question="currentQuestion.question" />
 
-	<!-- 선택지 -->
-	<OptionsList
-		:options="currentQuestion.options"
-		:selected-option="selectedOption"
-		@select="selectOption"
-	/>
+		<OptionsList
+			:options="currentQuestion.options"
+			:selected-option="selectedOption"
+			@select="selectOption"
+		/>
 
-	<NavigationButtons
-		:can-go-back="currentQuestionIndex > 0"
-		:can-go-next="selectedOption !== null"
-		:is-last-question="isLastQuestion"
-		@prev="prevQuestion"
-		@next="nextQuestion"
-	/>
+		<NavigationButtons
+			:can-go-back="currentQuestionIndex > 0"
+			:can-go-next="selectedOption !== null"
+			:is-last-question="isLastQuestion"
+			@prev="prevQuestion"
+			@next="nextQuestion"
+		/>
+	</SectionWrapper>
 </template>
 
 <script setup>
@@ -27,6 +26,7 @@ import ProgressBar from '@/components/progressBar/ProgressBar.vue';
 import QuestionText from '@/components/question/QuestionText.vue';
 import OptionsList from '@/components/question/OptionsList.vue';
 import NavigationButtons from '@/components/question/NavigationButtons.vue';
+import SectionWrapper from '@/components/section/SectionWrapper.vue';
 
 const props = defineProps({
 	questions: {
