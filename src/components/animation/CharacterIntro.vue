@@ -1,27 +1,12 @@
 <template>
-	<CharacterProfileWrapper>
-		<figure
-			v-for="(character, index) in characters"
-			:key="character.name"
-			class="character-item"
-			:class="{
-				active: currentIndex === index,
-				'fade-out': currentIndex > index
-			}"
-		>
-			<img
-				:class="`w-[150px] max-md:w-[128px] [&&]:max-[375px]:w-[100px] object-contain`"
-				:src="character.image"
-				:alt="character.name"
-			/>
-		</figure>
-	</CharacterProfileWrapper>
+	<CharacterProfile type="intro" :characterData="characters" :currentIndex="currentIndex" />
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import { introCharacterList } from '@/data/characters';
 import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
+import CharacterProfile from '@/components/characterProfile/CharacterProfile.vue';
 
 const characters = introCharacterList;
 
@@ -44,22 +29,3 @@ onUnmounted(() => {
 	}
 });
 </script>
-
-<style scoped>
-.character-item {
-	position: absolute;
-	opacity: 0;
-	transform: scale(0.8);
-	transition: all 0.5s ease-in-out;
-}
-
-.character-item.active {
-	opacity: 1;
-	transform: scale(1);
-}
-
-.character-item.fade-out {
-	opacity: 0;
-	transform: scale(0.8);
-}
-</style>

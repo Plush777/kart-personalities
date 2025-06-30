@@ -3,7 +3,7 @@
 		class="navigation-buttons mt-8 flex justify-between items-center max-md:flex-col max-md:gap-y-2"
 	>
 		<Button
-			styleType="fill-gray"
+			styleType="fill-gray-md"
 			:bindClass="questionNavigationButtonStyle"
 			:disabled="!canGoBack"
 			@click="goBack"

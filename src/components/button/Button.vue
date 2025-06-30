@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="`${commonStyle} ${getStyleType()} ${bindClass} ${mobileStyle}`"
+		:class="`${commonStyle} ${getStyleType()} ${bindClass} ${mobileStyle} gap-x-2`"
 		:type="type"
 		@click="handleClick"
 	>
@@ -43,6 +43,11 @@ const commonStyle = 'flex items-center justify-center duration-300 ease-in-out';
 const disabledStyle = 'disabled:opacity-50 disabled:cursor-not-allowed';
 const mobileStyle = 'max-md:text-sm max-md:p-[12px] max-md:w-full';
 
+/* size */
+const lgSize = 'h-14 text-lg';
+const mdSize = 'min-w-[80px] h-12 text-base';
+const smSize = 'min-w-[80px] h-10 text-sm';
+
 /* blue */
 const defaultBlueStyle =
 	'bg-blue-500 text-white rounded-lg p-[0_16px] hover:bg-blue-600 disabled:hover:bg-blue-600';
@@ -57,8 +62,9 @@ const outlineWhiteActiveClickClass = 'border-blue-400 bg-blue-50 text-gray-900';
 const outlineWhiteInactiveClickClass = 'bg-white border-gray-200 text-gray-500';
 
 /* gray */
-const fillGrayStyle =
-	'min-w-[80px] h-12 p-[0_16px] text-white rounded-lg bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
+const defaultGrayStyle =
+	'p-[0_16px] text-white rounded-lg bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
+const defaultGray2Style = `p-[0_16px] text-white rounded-lg bg-zinc-800 hover:bg-zinc-900 disabled:hover:bg-zinc-900`;
 const focusGrayStyle = 'focus:bg-zinc-600 focus:ring-2 focus:ring-zinc-400';
 
 /* green */
@@ -68,15 +74,15 @@ const focusGreenStyle = 'focus:bg-green-600 focus:ring-2 focus:ring-green-400';
 
 function getStyleType() {
 	if (props.styleType === 'fill-blue') {
-		return `h-14 text-lg ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+		return `${lgSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
 	}
 
 	if (props.styleType === 'fill-blue-md') {
-		return `min-w-[80px] h-12 text-base ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+		return `${mdSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
 	}
 
 	if (props.styleType === 'fill-blue-sm') {
-		return `h-10 text-sm ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+		return `${smSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
 	}
 
 	if (props.styleType === 'outline-white') {
@@ -84,7 +90,19 @@ function getStyleType() {
 	}
 
 	if (props.styleType === 'fill-gray') {
-		return `${fillGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+		return `${lgSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	}
+
+	if (props.styleType === 'fill-gray-md') {
+		return `${mdSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	}
+
+	if (props.styleType === 'fill-gray-sm') {
+		return `${smSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	}
+
+	if (props.styleType === 'fill-gray2-sm') {
+		return `${smSize} ${defaultGray2Style} ${disabledStyle} ${focusGrayStyle}`;
 	}
 
 	if (props.styleType === 'fill-green') {

@@ -9,14 +9,21 @@ const { bodyClassName = '' } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:description" content="나는 어떤 캐릭터의 성격일까?" />
 		<meta property="og:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
-		<!-- <meta property="og:image" content="/og-image.png" /> -->
+		<meta property="og:image" content="/images/og/og.png" />
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
 		<meta property="og:locale" content="ko_KR" />
+		<meta property="og:image:width" content="1920" />
+		<meta property="og:image:height" content="1080" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
+		<meta name="twitter:description" content="나는 어떤 캐릭터의 성격일까?" />
+		<meta name="twitter:image" content="/images/og/og.png" />
+		<meta name="keywords" content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트" />
+		<link rel="shortcut icon" id="favi" href="/favicon/32x32/img-dao-face.png" />
 		<link
 			rel="stylesheet"
 			as="style"
@@ -29,6 +36,26 @@ const { bodyClassName = '' } = Astro.props;
 		<div id="app" class="select-none">
 			<slot />
 		</div>
+
+		<script is:inline>
+			const favi = document.getElementById('favi');
+			const faviArr = [
+				'/favicon/32x32/img-dao-face.png',
+				'/favicon/32x32/img-diz-face.png',
+				'/favicon/32x32/img-bazzi-face.png'
+			];
+
+			if (!window.matchMedia('(max-width: 768px)').matches) {
+				let i = 0;
+
+				setInterval(() => {
+					i = (i + 1) % faviArr.length;
+					favi.href = faviArr[i];
+				}, 2000);
+			}
+		</script>
+
+		<script type="module" src="/view-count.js"></script>
 	</body>
 </html>
 

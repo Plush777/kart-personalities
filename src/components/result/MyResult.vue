@@ -4,38 +4,30 @@
 			{{ userName }}님은 "{{ props.characterInfo.title }}" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col">
-			<CharacterProfileWrapper>
-				<figure v-if="!props.imageError">
-					<img
-						:src="props.characterInfo.image"
-						:alt="props.characterInfo.title"
-						class="w-[150px]"
-						@error="props.handleImageError"
-					/>
-				</figure>
-
-				<span v-else class="text-sm text-gray-500 text-center break-keep"
-					>이미지를 불러오지 못했어요.</span
-				>
-			</CharacterProfileWrapper>
+			<CharacterProfile
+				type="result"
+				:characterInfo="props.characterInfo"
+				:imageError="props.imageError"
+				:handleImageError="props.handleImageError"
+			/>
 			<p class="text-base leading-[1.5] break-keep text-gray-600 max-w-2xl mx-auto">
 				{{ props.characterInfo.description }}
 			</p>
 		</div>
 
-		<ButtonGroup className="mt-10">
-			<Button styleType="fill-blue-sm" @click="props.restartTest">다시 테스트하기</Button>
-			<Button styleType="fill-blue-sm" @click="props.goToQuestion">질문으로 돌아가기</Button>
-		</ButtonGroup>
+		<ButtonGroup
+			className="mt-10"
+			:restartTest="props.restartTest"
+			:goToQuestion="props.goToQuestion"
+		/>
 	</SectionWrapper>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserName } from '@/util/getUserName.js';
-import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
+import CharacterProfile from '@/components/characterProfile/CharacterProfile.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
-import Button from '@/components/button/Button.vue';
 import ButtonGroup from '@/components/button/ButtonGroup.vue';
 
 const props = defineProps({

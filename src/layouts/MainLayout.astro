@@ -2,12 +2,12 @@
 const { align = 'center' } = Astro.props;
 
 const pcStyle = 'max-w-[768px] mx-auto flex flex-col items-center h-screen';
-const mobile500Style = 'max-md:p-8';
+const mobileStyle = 'max-md:p-6';
 
-const copyStyle = 'pb-[8px] text-center text-[13px] text-gray-500 underline';
+const copyStyle = 'text-center text-[13px] text-gray-500 underline max-md:text-xs max-md:mt-4';
 ---
 
-<div class={`relative ${pcStyle} ${mobile500Style} ${align === 'center' ? 'justify-center' : ''}`}>
+<div class={`relative ${pcStyle} ${mobileStyle} ${align === 'center' ? 'justify-center' : ''}`}>
 	<main class="flex flex-col items-center">
 		<slot />
 	</main>
