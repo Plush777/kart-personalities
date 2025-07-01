@@ -4,7 +4,7 @@
 			<img
 				:src="props.characterInfo.image"
 				:alt="props.characterInfo.title"
-				class="w-[150px]"
+				:class="imageStyle"
 				@error="props.handleImageError"
 			/>
 		</figure>
@@ -19,11 +19,7 @@
 				'fade-out': currentIndex > index
 			}"
 		>
-			<img
-				:class="`w-[150px] max-md:w-[128px] [&&]:max-[375px]:w-[100px] object-contain`"
-				:src="character.image"
-				:alt="character.name"
-			/>
+			<img :class="imageStyle" :src="character.image" :alt="character.name" />
 		</figure>
 
 		<span v-else class="text-sm text-gray-500 text-center break-keep"
@@ -34,6 +30,8 @@
 
 <script setup>
 import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
+
+const imageStyle = 'w-[150px] max-md:w-[128px] [&&]:max-[375px]:w-[100px] object-contain';
 
 const props = defineProps({
 	type: {

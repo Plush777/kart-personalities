@@ -1,7 +1,7 @@
 <template>
 	<Loading v-if="loading" />
 
-	<MyResult
+	<ResultSection
 		v-else-if="characterInfo"
 		:characterInfo="characterInfo"
 		:restartTest="restartTest"
@@ -17,7 +17,7 @@
 import { ref, onMounted } from 'vue';
 import { questions, getCharacterInfo } from '@/data/questions.js';
 import AnswerNotFound from '@/components/question/AnswerNotFound.vue';
-import MyResult from '@/components/result/MyResult.vue';
+import ResultSection from '@/components/result/ResultSection.vue';
 import Loading from '@/components/loading/Loading.vue';
 
 // 반응형 상태

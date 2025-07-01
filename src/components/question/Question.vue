@@ -1,5 +1,5 @@
 <template>
-	<SectionWrapper>
+	<SectionWrapper type="question">
 		<ProgressBar :current-question="currentQuestionIndex + 1" :total-questions="questions.length" />
 
 		<QuestionText :question="currentQuestion.question" />

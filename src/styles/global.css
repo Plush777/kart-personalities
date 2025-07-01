@@ -23,3 +23,12 @@ img {
 	-moz-user-drag: none;
 	-o-user-drag: none;
 }
+
+em,
+i {
+	font-style: normal;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}

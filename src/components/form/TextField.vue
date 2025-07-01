@@ -21,12 +21,10 @@ const props = defineProps({
 	},
 	styleType: {
 		type: String,
-		required: true,
 		default: 'outline-white'
 	},
 	formType: {
 		type: String,
-		required: true,
 		default: 'text'
 	},
 	placeholder: {

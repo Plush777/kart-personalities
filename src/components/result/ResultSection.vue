@@ -1,18 +1,28 @@
 <template>
-	<SectionWrapper>
+	<SectionWrapper type="result">
 		<h2 class="text-2xl font-bold text-gray-800 break-keep">
 			{{ userName }}님은 "{{ props.characterInfo.title }}" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col">
 			<CharacterProfile
 				type="result"
-				:characterInfo="props.characterInfo"
+				:characterInfo="characterInfo"
 				:imageError="props.imageError"
 				:handleImageError="props.handleImageError"
 			/>
-			<p class="text-base leading-[1.5] break-keep text-gray-600 max-w-2xl mx-auto">
-				{{ props.characterInfo.description }}
-			</p>
+
+			<div class="flex flex-col gap-y-6">
+				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
+				<ResultBox title="장점" contentType="list" :data="characterInfo.info.meritArray" />
+				<ResultBox title="단점" contentType="list" :data="characterInfo.info.shortcomingArray" />
+				<ResultBox
+					title="자주 듣는 말"
+					contentType="list"
+					:data="characterInfo.info.commentArray"
+				/>
+				<ResultBox title="잘 맞는 유형" contentType="text" :dataText="characterInfo.info.well" />
+				<ResultBox title="안 맞는 유형" contentType="text" :dataText="characterInfo.info.bad" />
+			</div>
 		</div>
 
 		<ButtonGroup
@@ -26,9 +36,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserName } from '@/util/getUserName.js';
+
 import CharacterProfile from '@/components/characterProfile/CharacterProfile.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
 import ButtonGroup from '@/components/button/ButtonGroup.vue';
+import ResultBox from '@/components/result/ResultBox.vue';
 
 const props = defineProps({
 	characterInfo: {
@@ -52,6 +64,8 @@ const props = defineProps({
 		required: true
 	}
 });
+
+const characterInfo = ref(props.characterInfo);
 
 const userName = ref('');
 
