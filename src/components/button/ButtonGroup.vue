@@ -1,28 +1,36 @@
 <template>
-	<div :class="`flex flex-col justify-center gap-2 items-center ${props.className}`">
+	<div class="flex flex-col justify-center gap-2 items-center">
 		<Button
 			styleType="fill-blue-sm"
-			@click="props.restartTest"
-			v-if="props.type === 'all' || props.type === 'restart'"
+			@click="bluePropObject.function"
+			v-if="bluePropObject?.show == true"
 		>
-			<ResetIcon />
-			<span>다시 테스트하기</span>
+			<ResetIcon v-if="bluePropObject.icon === 'reset'" />
+			<BackIcon v-if="bluePropObject.icon === 'back'" />
+			<ShareIcon v-if="bluePropObject.icon === 'share'" />
+			<span>{{ bluePropObject.text }}</span>
 		</Button>
+
 		<Button
 			styleType="fill-gray-sm"
-			@click="props.goToQuestion"
-			v-if="props.type === 'all' || props.type === 'back'"
+			@click="grayPropObject.function"
+			v-if="grayPropObject?.show == true"
 		>
-			<BackIcon />
-			<span>질문으로 돌아가기</span>
+			<ResetIcon v-if="grayPropObject.icon === 'reset'" />
+			<BackIcon v-if="grayPropObject.icon === 'back'" />
+			<ShareIcon v-if="grayPropObject.icon === 'share'" />
+			<span>{{ grayPropObject.text }}</span>
 		</Button>
+
 		<Button
 			styleType="fill-gray2-sm"
-			@click="copyToClipboard"
-			v-if="props.type === 'all' || props.type === 'share'"
+			@click="gray2PropObject.function"
+			v-if="gray2PropObject?.show == true"
 		>
-			<ShareIcon />
-			<span>공유하기</span>
+			<ResetIcon v-if="gray2PropObject.icon === 'reset'" />
+			<BackIcon v-if="gray2PropObject.icon === 'back'" />
+			<ShareIcon v-if="gray2PropObject.icon === 'share'" />
+			<span>{{ gray2PropObject.text }}</span>
 		</Button>
 	</div>
 </template>
@@ -34,33 +42,20 @@ import BackIcon from '@/components/icons/Back.vue';
 import ShareIcon from '@/components/icons/Share.vue';
 
 const props = defineProps({
-	className: {
-		type: String,
-		default: ''
+	bluePropObject: {
+		type: Object
 	},
-	type: {
-		type: String,
-		default: 'all'
+	grayPropObject: {
+		type: Object
 	},
-	restartTest: {
-		type: Function,
-		required: true
-	},
-	goToQuestion: {
-		type: Function,
-		required: true
+	gray2PropObject: {
+		type: Object
 	}
 });
 
-const copyToClipboard = async () => {
-	try {
-		await navigator.clipboard.writeText(window.location.href);
-		alert('URL이 클립보드에 복사되었습니다!');
-	} catch (err) {
-		console.error('클립보드 복사 실패:', err);
-		alert('URL 복사에 실패했습니다.');
-	}
-};
+const bluePropObject = props.bluePropObject;
+const grayPropObject = props.grayPropObject;
+const gray2PropObject = props.gray2PropObject;
 </script>
 
 <style scoped>

@@ -2,16 +2,18 @@
 // @ts-nocheck
 
 import HtmlLayout from '@/layouts/HtmlLayout.astro';
-import MainLayout from '@/layouts/MainLayout.astro';
+import MainLayout from '@/layouts/MainLayout.vue';
 import { questions } from '@/data/questions';
 import Question from '@/components/question/Question.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
+import Footer from '@/layouts/Footer.vue';
 ---
 
 <HtmlLayout bodyClassName="bg-sky-50">
-	<MainLayout>
+	<MainLayout client:load>
 		<ContentsInnerLayout type="question">
 			<Question client:load questions={questions} initialAnswers={[]} />
 		</ContentsInnerLayout>
 	</MainLayout>
+	<Footer client:load />
 </HtmlLayout>

@@ -110,19 +110,16 @@ watch(
 
 // 완료 처리 함수
 function handleQuizComplete(answers) {
-	// console.log('Vue 컴포넌트에서 직접 완료 처리');
-	// console.log('받은 답변:', answers);
-
 	// 답변을 localStorage에 저장 (백업용)
 	localStorage.setItem('quizAnswers', JSON.stringify(answers));
 
 	// URL 파라미터로 답변 데이터 전달
 	const answersParam = encodeURIComponent(JSON.stringify(answers));
+	// console.log('인코딩된 답변 파라미터:', answersParam);
 
-	// 잠시 후 결과 페이지로 이동
-	setTimeout(() => {
-		// console.log('결과 페이지로 이동 중...');
-		window.location.href = `/result?answers=${answersParam}`;
-	}, 500);
+	// 결과 페이지로 이동
+	const resultUrl = `/result?answers=${answersParam}`;
+	// console.log('이동할 URL:', resultUrl);
+	window.location.href = resultUrl;
 }
 </script>

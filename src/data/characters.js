@@ -20,8 +20,8 @@ export const characters = {
 				'너무 딱딱하게 굴지 마.',
 				'말보단 행동으로 보여주는 스타일이네.'
 			],
-			well: '케피, 모스처럼 성실하고 신중한 사람',
-			bad: '배찌, 크리스처럼 즉흥적이고 자유로운 사람'
+			well: ['케피', '모스'],
+			bad: ['배찌', '크리스']
 		}
 	},
 	배찌: {
@@ -44,8 +44,8 @@ export const characters = {
 				'진짜 아무 생각 없는 듯한데, 갑자기 천재 같을 때 있음.',
 				'귀찮아서 안 움직이는 거지, 못 하는 게 아니야.'
 			],
-			well: '에리니, 크리스처럼 즉흥적이고 유쾌한 스타일',
-			bad: '다오, 케피처럼 계획적이거나 내향적인 성향'
+			well: ['에리니', '크리스'],
+			bad: ['다오', '케피']
 		},
 		image: '/images/characters/img-bazzi.webp'
 	},
@@ -61,8 +61,8 @@ export const characters = {
 				'생각보다 열정적이네?',
 				'너무 배려하다가 네 마음 다치지 마.'
 			],
-			well: '우니, 티이라처럼 안정적이고 배려심 깊은 사람',
-			bad: '크리스, 모스처럼 직설적이고 거친 사람'
+			well: ['우니', '티이라'],
+			bad: ['크리스', '모스']
 		},
 		image: '/images/characters/img-diz.webp'
 	},
@@ -81,8 +81,8 @@ export const characters = {
 				'뭔가 보호해주고 싶은 느낌.',
 				'쟨 언젠가 진짜 크게 될 애야.'
 			],
-			well: '디지니, 에리니처럼 따뜻하고 격려해주는 사람',
-			bad: '모스, 에띠처럼 강하고 직선적이거나 공감을 못해주는 사람'
+			well: ['디지니', '에리니'],
+			bad: ['모스', '에띠']
 		},
 		image: '/images/characters/img-uni.webp'
 	},
@@ -102,8 +102,8 @@ export const characters = {
 				'진심이 느껴져서 좋다.',
 				'마음이 너무 앞서서 다칠까 걱정돼.'
 			],
-			well: '디지니, 티이라처럼 감정을 공감해주는 사람',
-			bad: '모스, 에띠처럼 이성적이고 분석적인 사람'
+			well: ['디지니', '티이라'],
+			bad: ['모스', '에띠']
 		},
 		image: '/images/characters/img-marid.webp'
 	},
@@ -127,8 +127,8 @@ export const characters = {
 				'속을 알 수 없어서 더 궁금해.',
 				'말은 없지만 진짜 따뜻한 사람.'
 			],
-			well: '디지니, 마리드처럼 감성을 이해해주는 사람',
-			bad: '에리니, 크리스처럼 활발한 사람'
+			well: ['디지니', '마리드'],
+			bad: ['에리니', '크리스']
 		},
 		image: '/images/characters/img-tiera.webp'
 	},
@@ -151,8 +151,8 @@ export const characters = {
 				'갑자기 튀지는 않지만, 꼭 필요한 존재.',
 				'이런 사람이 진짜 꾸준히 자기 일 잘 하는 스타일이야.'
 			],
-			well: '다오, 에띠 같이 계획적이고 신중한 타입',
-			bad: '에리니, 배찌 같이 충동적이고 자유로운 타입'
+			well: ['다오', '에띠'],
+			bad: ['에리니', '배찌']
 		},
 		image: '/images/characters/img-keffy.webp'
 	},
@@ -176,8 +176,8 @@ export const characters = {
 				'말 없이 혼자 잘 해.',
 				'설명은 어렵지만 믿음은 간다.'
 			],
-			well: '에띠, 케피처럼 실용적이고 분석적인 사람',
-			bad: '마리드, 디지니처럼 감정 중심형 사람'
+			well: ['에띠', '케피'],
+			bad: ['마리드', '디지니']
 		},
 		image: '/images/characters/img-ethen.webp'
 	},
@@ -201,8 +201,8 @@ export const characters = {
 				'차보다 사람이 더 좋아지면 어떨래?',
 				'조용히 다 해놓는 스타일.'
 			],
-			well: '에띠, 케피처럼 차분하고 계획적인 사람',
-			bad: '마리드, 에리니처럼 감성적이거나 즉흥적인 사람'
+			well: ['에띠', '케피'],
+			bad: ['마리드', '에리니']
 		},
 		image: '/images/characters/img-mos.webp'
 	},
@@ -218,8 +218,8 @@ export const characters = {
 				'똑똑하긴 한데 사람 피곤하게 해.',
 				'매번 사고 쳐도 미워할 수가 없어.'
 			],
-			well: '배찌, 에리니처럼 유쾌하거나 가벼운 스타일',
-			bad: '다오, 티이라처럼 안정적이고 배려심 많은 사람'
+			well: ['배찌', '에리니'],
+			bad: ['다오', '티이라']
 		},
 		image: '/images/characters/img-kris.webp'
 	},
@@ -235,8 +235,8 @@ export const characters = {
 				'정신없긴 한데, 재밌다.',
 				'마냥 애 같지만 은근히 감정 풍부해.'
 			],
-			well: '우니, 배찌처럼 활동적이고 외향적인 사람',
-			bad: '케피, 모스처럼 조용하고 무게감 있는 사람'
+			well: ['우니', '배찌'],
+			bad: ['케피', '모스']
 		},
 		image: '/images/characters/img-erini.webp'
 	}

@@ -5,8 +5,9 @@
 		duration-300 ease-in-out focus:outline-none bg-white`"
 		:type="formType"
 		:placeholder="placeholder"
-		:value="value"
+		:value="modelValue"
 		:maxlength="maxLength"
+		@input="$emit('update:modelValue', $event.target.value)"
 	/>
 </template>
 
@@ -30,8 +31,9 @@ const props = defineProps({
 	placeholder: {
 		type: String
 	},
-	value: {
-		type: String
+	modelValue: {
+		type: String,
+		default: ''
 	},
 	maxLength: {
 		type: Number
@@ -44,6 +46,8 @@ const props = defineProps({
 		default: 'center'
 	}
 });
+
+defineEmits(['update:modelValue']);
 
 function getStyleType() {
 	if (props.styleType === 'outline-white') {

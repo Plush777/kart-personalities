@@ -6,7 +6,7 @@
 
 <script setup>
 const pcStyle = 'flex flex-col ';
-const mobile500Style = 'max-[500px]:max-w-none max-[500px]:min-w-auto w-[calc(100vw_-_40px)]';
+const mobile500Style = 'max-[500px]:max-w-none max-[500px]:min-w-auto';
 
 const props = defineProps({
 	type: {
@@ -21,7 +21,7 @@ function getTypeStyle() {
 	}
 
 	if (props.type === 'result') {
-		return 'w-full max-w-[500px]';
+		return 'w-full max-w-[500px] mx-auto';
 	}
 
 	return '';

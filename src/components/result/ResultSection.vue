@@ -20,15 +20,16 @@
 					contentType="list"
 					:data="characterInfo.info.commentArray"
 				/>
-				<ResultBox title="잘 맞는 유형" contentType="text" :dataText="characterInfo.info.well" />
-				<ResultBox title="안 맞는 유형" contentType="text" :dataText="characterInfo.info.bad" />
+				<ResultBox title="잘 맞는 유형" contentType="image" :data="characterInfo.info.well" />
+				<ResultBox title="안 맞는 유형" contentType="image" :data="characterInfo.info.bad" />
 			</div>
 		</div>
 
 		<ButtonGroup
 			className="mt-10"
-			:restartTest="props.restartTest"
-			:goToQuestion="props.goToQuestion"
+			:bluePropObject="bluePropObject"
+			:grayPropObject="grayPropObject"
+			:gray2PropObject="gray2PropObject"
 		/>
 	</SectionWrapper>
 </template>
@@ -62,8 +63,33 @@ const props = defineProps({
 	handleImageError: {
 		type: Function,
 		required: true
+	},
+	copyToClipboard: {
+		type: Function,
+		required: true
 	}
 });
+
+const bluePropObject = {
+	function: props.restartTest,
+	icon: 'reset',
+	text: '다시 테스트하기',
+	show: true
+};
+
+const grayPropObject = {
+	function: props.goToQuestion,
+	icon: 'back',
+	text: '질문으로 돌아가기',
+	show: true
+};
+
+const gray2PropObject = {
+	function: props.copyToClipboard,
+	icon: 'share',
+	text: '공유하기',
+	show: true
+};
 
 const characterInfo = ref(props.characterInfo);
 
