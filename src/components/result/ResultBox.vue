@@ -1,5 +1,5 @@
 <template>
-	<div
+	<section
 		:class="`flex flex-col gap-y-3 border-1 border-gray-200 rounded-lg p-3 ${contentType === 'image' ? 'gap-y-5' : ''}`"
 	>
 		<h3 class="text-base font-bold text-black">
@@ -38,17 +38,27 @@
 					:alt="item"
 					:class="`w-[120px] h-[100px] max-[375px]:h-auto max-[375px]:w-[100px] object-cover ${imagePosition(item)}`"
 				/>
-				<p class="text-center text-sm leading-[1.5] break-keep text-gray-700">
+				<span class="text-center text-sm leading-[1.5] break-keep font-bold text-gray-700">
 					{{ item }}
-				</p>
+				</span>
+
+				<Button styleType="fill-gray1-xs" @click="() => openPopup(item)"> 캐릭터 설명 보기 </Button>
 			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script setup>
+import Button from '@/components/button/Button.vue';
+
 const listBeforeStyle =
 	'before:content-[""] before:mb-auto before:mt-[9px] before:min-w-[4px] before:min-h-[4px] before:bg-black before:rounded-full';
+
+const emit = defineEmits(['openPopup']);
+
+function openPopup(characterName) {
+	emit('openPopup', characterName);
+}
 
 const props = defineProps({
 	title: {
@@ -73,8 +83,8 @@ function getEmoji(title) {
 	if (title === '장점') return 'before:content-["👍"]';
 	if (title === '단점') return 'before:content-["👎"]';
 	if (title === '자주 듣는 말') return 'before:content-["💬"]';
-	if (title === '잘 맞는 유형') return 'before:content-["❤️"]';
-	if (title === '안 맞는 유형') return 'before:content-["💔"]';
+	if (title === '잘 맞는 캐릭터') return 'before:content-["❤️"]';
+	if (title === '안 맞는 캐릭터') return 'before:content-["💔"]';
 
 	return '';
 }

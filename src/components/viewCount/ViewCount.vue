@@ -13,7 +13,7 @@ import { ref, onMounted } from 'vue';
 const animatedCount = ref(0);
 const targetCount = ref(0);
 
-const animateCount = () => {
+function animateCount() {
 	const duration = 500;
 	const steps = 60; // 60프레임으로 나누기
 	const increment = targetCount.value / steps;
@@ -30,7 +30,7 @@ const animateCount = () => {
 			clearInterval(timer);
 		}
 	}, stepDuration);
-};
+}
 
 /* 
 	로컬에서 테스트한 수치가 프로덕션에 그대로 반영되면 안되기 때문에 환경에 따라 다른 slug 사용
@@ -41,7 +41,7 @@ const animateCount = () => {
 
 onMounted(() => {
 	// views 데이터 호출
-	const fetchViewCount = async () => {
+	async function fetchViewCount() {
 		try {
 			let slug = window.location.pathname;
 			if (slug === '/') {
@@ -59,7 +59,7 @@ onMounted(() => {
 		} catch (err) {
 			console.error('조회수 불러오기 실패:', err);
 		}
-	};
+	}
 
 	fetchViewCount();
 });

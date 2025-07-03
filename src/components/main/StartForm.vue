@@ -12,7 +12,7 @@
 			<p class="text-xs text-center text-gray-500">*이름은 최대 10글자까지만 설정 가능해요.</p>
 		</div>
 
-		<Button class="start-button max-md:h-10" styleType="fill-blue-md" @click="handleStartTest">
+		<Button class="start-button max-md:h-10" styleType="fill-blue1-md" @click="handleStartTest">
 			테스트 시작하기
 		</Button>
 	</div>
@@ -20,13 +20,13 @@
 
 <script setup>
 import { ref } from 'vue';
-import TextField from './form/TextField.vue';
-import Button from './button/Button.vue';
+import TextField from '@/components/form/TextField.vue';
+import Button from '@/components/button/Button.vue';
 
 const userName = ref('');
 const textFieldStyle = 'min-w-[230px] max-w-[230px]';
 
-const handleStartTest = async () => {
+async function handleStartTest() {
 	const name = userName.value.trim();
 
 	if (!name) {
@@ -44,10 +44,7 @@ const handleStartTest = async () => {
 		console.error('조회수 증가 실패:', err);
 	}
 
-	// 로컬스토리지에 이름 저장
 	localStorage.setItem('userName', name);
-
-	// 페이지 이동
 	window.location.href = '/question';
-};
+}
 </script>

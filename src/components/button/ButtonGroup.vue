@@ -1,24 +1,20 @@
 <template>
 	<div class="flex flex-col justify-center gap-2 items-center">
 		<Button
-			styleType="fill-blue-sm"
+			styleType="fill-blue1-sm"
 			@click="bluePropObject.function"
 			v-if="bluePropObject?.show == true"
 		>
-			<ResetIcon v-if="bluePropObject.icon === 'reset'" />
-			<BackIcon v-if="bluePropObject.icon === 'back'" />
-			<ShareIcon v-if="bluePropObject.icon === 'share'" />
+			<ButtonIconGroup :icon="bluePropObject.icon" />
 			<span>{{ bluePropObject.text }}</span>
 		</Button>
 
 		<Button
-			styleType="fill-gray-sm"
+			styleType="fill-gray1-sm"
 			@click="grayPropObject.function"
 			v-if="grayPropObject?.show == true"
 		>
-			<ResetIcon v-if="grayPropObject.icon === 'reset'" />
-			<BackIcon v-if="grayPropObject.icon === 'back'" />
-			<ShareIcon v-if="grayPropObject.icon === 'share'" />
+			<ButtonIconGroup :icon="grayPropObject.icon" />
 			<span>{{ grayPropObject.text }}</span>
 		</Button>
 
@@ -27,15 +23,14 @@
 			@click="gray2PropObject.function"
 			v-if="gray2PropObject?.show == true"
 		>
-			<ResetIcon v-if="gray2PropObject.icon === 'reset'" />
-			<BackIcon v-if="gray2PropObject.icon === 'back'" />
-			<ShareIcon v-if="gray2PropObject.icon === 'share'" />
+			<ButtonIconGroup :icon="gray2PropObject.icon" />
 			<span>{{ gray2PropObject.text }}</span>
 		</Button>
 	</div>
 </template>
 
 <script setup>
+import ButtonIconGroup from '@/components/icons/ButtonIconGroup.vue';
 import Button from '@/components/button/Button.vue';
 import ResetIcon from '@/components/icons/Reset.vue';
 import BackIcon from '@/components/icons/Back.vue';

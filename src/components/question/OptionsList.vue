@@ -3,7 +3,7 @@
 		<Button
 			v-for="(option, index) in options"
 			:key="index"
-			styleType="outline-white"
+			styleType="outline-white1"
 			bindClass="text-center"
 			:clickClass="getOptionClasses(index)"
 			:click="() => selectOption(index)"

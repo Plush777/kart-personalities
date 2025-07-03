@@ -10,8 +10,6 @@
 	/>
 
 	<AnswerNotFound v-else :restart="restartTest" />
-
-	<!-- <AnswerNotFound :restart="restartTest" /> -->
 </template>
 
 <script setup>

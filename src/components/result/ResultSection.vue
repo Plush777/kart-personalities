@@ -1,7 +1,8 @@
 <template>
 	<SectionWrapper type="result">
 		<h2 class="text-2xl font-bold text-gray-800 break-keep">
-			{{ userName }}님은 "{{ props.characterInfo.title }}" 와 가장 비슷한 성격을 가지고 있어요.
+			{{ userName }}님은 "<em>{{ props.characterInfo.title }}</em
+			>" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col">
 			<CharacterProfile
@@ -11,7 +12,7 @@
 				:handleImageError="props.handleImageError"
 			/>
 
-			<div class="flex flex-col gap-y-6">
+			<div class="flex flex-col gap-y-6 mb-10">
 				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
 				<ResultBox title="장점" contentType="list" :data="characterInfo.info.meritArray" />
 				<ResultBox title="단점" contentType="list" :data="characterInfo.info.shortcomingArray" />
@@ -20,28 +21,63 @@
 					contentType="list"
 					:data="characterInfo.info.commentArray"
 				/>
-				<ResultBox title="잘 맞는 유형" contentType="image" :data="characterInfo.info.well" />
-				<ResultBox title="안 맞는 유형" contentType="image" :data="characterInfo.info.bad" />
+				<ResultBox
+					title="잘 맞는 캐릭터"
+					contentType="image"
+					:data="characterInfo.info.well"
+					@openPopup="openPopup"
+				/>
+				<ResultBox
+					title="안 맞는 캐릭터"
+					contentType="image"
+					:data="characterInfo.info.bad"
+					@openPopup="openPopup"
+				/>
 			</div>
 		</div>
 
 		<ButtonGroup
-			className="mt-10"
 			:bluePropObject="bluePropObject"
 			:grayPropObject="grayPropObject"
 			:gray2PropObject="gray2PropObject"
 		/>
 	</SectionWrapper>
+
+	<teleport to="#popup-root">
+		<Popup :isOpen="isPopupOpen" @close="closePopup">
+			<template #content>
+				<PopupSection :contentText="selectedCharacter?.info.originalExplanation" />
+			</template>
+		</Popup>
+	</teleport>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getUserName } from '@/util/getUserName.js';
+import { scrollLock } from '@/util/event';
+import { characters } from '@/data/characters.js';
 
 import CharacterProfile from '@/components/characterProfile/CharacterProfile.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
 import ButtonGroup from '@/components/button/ButtonGroup.vue';
 import ResultBox from '@/components/result/ResultBox.vue';
+import Popup from '@/components/popup/Popup.vue';
+import PopupSection from '@/components/popup/PopupSection.vue';
+
+const isPopupOpen = ref(false);
+const selectedCharacter = ref(null);
+
+function openPopup(characterName) {
+	selectedCharacter.value = characters[characterName];
+	isPopupOpen.value = true;
+	scrollLock.enable();
+}
+
+function closePopup() {
+	isPopupOpen.value = false;
+	scrollLock.disable();
+}
 
 const props = defineProps({
 	characterInfo: {
@@ -87,7 +123,7 @@ const grayPropObject = {
 const gray2PropObject = {
 	function: props.copyToClipboard,
 	icon: 'share',
-	text: '공유하기',
+	text: '테스트 결과 공유하기',
 	show: true
 };
 

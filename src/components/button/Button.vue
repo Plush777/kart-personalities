@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="`${commonStyle} ${getStyleType()} ${bindClass} ${mobileStyle} gap-x-2`"
+		:class="`${commonStyle} ${getStyleType()} ${getSizeType()} ${bindClass} max-md:w-full gap-x-2`"
 		:type="type"
 		@click="handleClick"
 	>
@@ -17,7 +17,7 @@ const props = defineProps({
 	styleType: {
 		type: String,
 		required: true,
-		default: 'outline-white'
+		default: 'outline-white1'
 	},
 	bindClass: {
 		type: String,
@@ -33,28 +33,40 @@ const props = defineProps({
 	}
 });
 
-const handleClick = () => {
+function handleClick() {
 	if (props.click) {
 		props.click();
 	}
-};
+}
 
 const commonStyle = 'flex items-center justify-center duration-300 ease-in-out';
 const disabledStyle = 'disabled:opacity-50 disabled:cursor-not-allowed';
-const mobileStyle = 'max-md:text-sm max-md:p-[12px] max-md:w-full';
 
 /* size */
-const lgSize = 'h-14 text-lg';
-const mdSize = 'min-w-[80px] h-12 text-base';
-const smSize = 'min-w-[80px] h-10 text-sm';
+const lgSize = 'h-14 text-lg max-md:text-base';
+const mdSize = 'h-12 text-base max-md:text-sm';
+const smSize = 'h-10 text-sm max-md:text-xs';
+const xsSize = 'h-8 text-[13px]';
+
+/* padding */
+const lgPadding = 'p-[0_16px] max-md:p-[0_12px]';
+const mdPadding = 'p-[0_12px]';
+const smPadding = 'p-[0_8px]';
+const xsPadding = 'p-[0_4px]';
+
+/* rounded */
+const lgRounded = 'rounded-lg';
+const mdRounded = 'rounded-md';
+const fullRounded = 'rounded-full';
+
+/* ============ color style ============ */
 
 /* blue */
-const defaultBlueStyle =
-	'bg-blue-500 text-white rounded-lg p-[0_16px] hover:bg-blue-600 disabled:hover:bg-blue-600';
+const defaultBlue1Style = 'bg-blue-500 text-white hover:bg-blue-600 disabled:hover:bg-blue-600';
 const focusBlueStyle = 'focus:border-blue-300 focus:ring-2 focus:ring-blue-300';
 
 /* white */
-const outlineWhiteStyle =
+const outlineWhite1Style =
 	'w-full p-[16px_24px] border-2 rounded-full hover:border-blue-400 hover:text-gray-900 hover:bg-blue-50';
 const focusWhiteStyle =
 	'focus:outline-blue-200 focus:ring-2 focus:ring-blue-200 focus:text-gray-900 ';
@@ -62,51 +74,55 @@ const outlineWhiteActiveClickClass = 'border-blue-400 bg-blue-50 text-gray-900';
 const outlineWhiteInactiveClickClass = 'bg-white border-gray-200 text-gray-500';
 
 /* gray */
-const defaultGrayStyle =
-	'p-[0_16px] text-white rounded-lg bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
-const defaultGray2Style = `p-[0_16px] text-white rounded-lg bg-zinc-800 hover:bg-zinc-900 disabled:hover:bg-zinc-900`;
+const defaultGray1Style = 'text-white bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
+const defaultGray2Style = `text-white bg-zinc-800 hover:bg-zinc-900 disabled:hover:bg-zinc-900`;
 const focusGrayStyle = 'focus:bg-zinc-600 focus:ring-2 focus:ring-zinc-400';
 
 /* green */
-const fillGreenStyle =
-	'h-12 p-[0_16px] text-white rounded-lg bg-green-600 hover:bg-green-700 disabled:hover:bg-green-600';
+const fillGreen1Style = 'text-white bg-green-600 hover:bg-green-700 disabled:hover:bg-green-600';
 const focusGreenStyle = 'focus:bg-green-600 focus:ring-2 focus:ring-green-400';
 
+/* ============ color style ============ */
+
 function getStyleType() {
-	if (props.styleType === 'fill-blue') {
-		return `${lgSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+	if (props.styleType.includes('fill-blue1')) {
+		return `${defaultBlue1Style} ${disabledStyle} ${focusBlueStyle}`;
 	}
 
-	if (props.styleType === 'fill-blue-md') {
-		return `${mdSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+	if (props.styleType.includes('outline-white1')) {
+		return `${outlineWhite1Style} ${props.clickClass ? outlineWhiteActiveClickClass : outlineWhiteInactiveClickClass} ${focusWhiteStyle}	`;
 	}
 
-	if (props.styleType === 'fill-blue-sm') {
-		return `${smSize} ${defaultBlueStyle} ${disabledStyle} ${focusBlueStyle}`;
+	if (props.styleType.includes('fill-gray1')) {
+		return `${defaultGray1Style} ${disabledStyle} ${focusGrayStyle}`;
 	}
 
-	if (props.styleType === 'outline-white') {
-		return `${outlineWhiteStyle} ${props.clickClass ? outlineWhiteActiveClickClass : outlineWhiteInactiveClickClass} ${focusWhiteStyle}	`;
+	if (props.styleType.includes('fill-gray2')) {
+		return `${defaultGray2Style} ${disabledStyle} ${focusGrayStyle}`;
 	}
 
-	if (props.styleType === 'fill-gray') {
-		return `${lgSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	if (props.styleType.includes('fill-green1')) {
+		return `${fillGreen1Style} ${disabledStyle} ${focusGreenStyle}`;
 	}
 
-	if (props.styleType === 'fill-gray-md') {
-		return `${mdSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	return '';
+}
+
+function getSizeType() {
+	if (props.styleType.includes('lg')) {
+		return `${lgSize} ${lgPadding} ${lgRounded}`;
 	}
 
-	if (props.styleType === 'fill-gray-sm') {
-		return `${smSize} ${defaultGrayStyle} ${disabledStyle} ${focusGrayStyle}`;
+	if (props.styleType.includes('md')) {
+		return `${mdSize} ${mdPadding} ${lgRounded}`;
 	}
 
-	if (props.styleType === 'fill-gray2-sm') {
-		return `${smSize} ${defaultGray2Style} ${disabledStyle} ${focusGrayStyle}`;
+	if (props.styleType.includes('sm')) {
+		return `${smSize} ${smPadding} ${mdRounded}`;
 	}
 
-	if (props.styleType === 'fill-green') {
-		return `${fillGreenStyle} ${disabledStyle} ${focusGreenStyle}`;
+	if (props.styleType.includes('xs')) {
+		return `${xsSize} ${xsPadding} ${mdRounded}`;
 	}
 
 	return '';

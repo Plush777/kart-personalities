@@ -13,11 +13,11 @@ const characters = introCharacterList;
 const currentIndex = ref(0);
 let intervalId = null;
 
-const startAnimation = () => {
+function startAnimation() {
 	intervalId = setInterval(() => {
 		currentIndex.value = (currentIndex.value + 1) % characters.length;
 	}, 2000); // 2초마다 다음 캐릭터로 변경
-};
+}
 
 onMounted(() => {
 	startAnimation();

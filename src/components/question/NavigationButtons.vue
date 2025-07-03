@@ -3,7 +3,7 @@
 		class="navigation-buttons mt-8 flex justify-between items-center max-md:flex-col max-md:gap-y-2"
 	>
 		<Button
-			styleType="fill-gray-md"
+			styleType="fill-gray1-md"
 			:bindClass="questionNavigationButtonStyle"
 			:disabled="!canGoBack"
 			@click="goBack"
@@ -41,7 +41,7 @@ const props = defineProps({
 	}
 });
 
-const questionNavigationButtonStyle = 'max-md:h-9';
+const questionNavigationButtonStyle = 'min-w-[80px] max-md:h-9';
 
 const emit = defineEmits(['prev', 'next']);
 
@@ -50,16 +50,16 @@ const nextButtonText = computed(() => {
 });
 
 const nextButtonStyleType = computed(() => {
-	return props.isLastQuestion ? 'fill-green' : 'fill-blue-md';
+	return props.isLastQuestion ? 'fill-green1-md' : 'fill-blue1-md';
 });
 
-const goBack = () => {
+function goBack() {
 	if (props.canGoBack) {
 		emit('prev');
 	}
-};
+}
 
-const goNext = () => {
+function goNext() {
 	// console.log('NavigationButtons - goNext 함수 호출됨');
 	// console.log('canGoNext:', props.canGoNext);
 	// console.log('isLastQuestion:', props.isLastQuestion);
@@ -70,5 +70,5 @@ const goNext = () => {
 	} else {
 		// console.log('canGoNext가 false라서 이벤트 발생 안함');
 	}
-};
+}
 </script>
