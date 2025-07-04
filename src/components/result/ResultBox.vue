@@ -32,18 +32,18 @@
 			v-else-if="props.contentType === 'image'"
 			class="max-[375px]:flex-col max-[375px]:gap-y-[10px] flex items-center justify-center gap-x-8"
 		>
-			<div class="flex flex-col gap-y-2" v-for="item in props.data">
+			<figure class="flex flex-col gap-y-2" v-for="item in props.data">
 				<img
 					:src="getImage(item)"
 					:alt="item"
 					:class="`w-[120px] h-[100px] max-[375px]:h-auto max-[375px]:w-[100px] object-cover ${imagePosition(item)}`"
 				/>
-				<span class="text-center text-sm leading-[1.5] break-keep font-bold text-gray-700">
-					{{ item }}
-				</span>
+				<figcaption class="text-center text-sm leading-[1.5] break-keep font-bold text-gray-700">
+					{{ item.name }}
+				</figcaption>
 
 				<Button styleType="fill-gray1-xs" @click="() => openPopup(item)"> 캐릭터 설명 보기 </Button>
-			</div>
+			</figure>
 		</div>
 	</section>
 </template>

@@ -4,7 +4,15 @@ import '@/styles/global.css';
 const { bodyClassName = '' } = Astro.props;
 ---
 
-<!doctype html>
+<!--
+  _  __             _   
+ | |/ /            | |  
+ | ' /  __ _  _ __ | |_ 
+ |  <  / _` || '__|| __|
+ | . \| (_| || |   | |_ 
+ |_|\_\\__,_||_|    \__|
+
+--><!doctype html>
 <html lang="ko">
 	<head>
 		<meta charset="UTF-8" />
@@ -24,6 +32,8 @@ const { bodyClassName = '' } = Astro.props;
 		<meta name="twitter:image" content="/images/og/og.png" />
 		<meta name="keywords" content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트" />
 		<link rel="shortcut icon" id="favi" href="/favicon/32x32/img-dao-face.png" />
+		<script src="/scripts/console.js" is:inline></script>
+		<script src="/scripts/favi.js" is:inline></script>
 		<link
 			rel="stylesheet"
 			as="style"
@@ -37,24 +47,6 @@ const { bodyClassName = '' } = Astro.props;
 			<slot />
 		</div>
 		<div id="popup-root"></div>
-
-		<script is:inline>
-			const favi = document.getElementById('favi');
-			const faviArr = [
-				'/favicon/32x32/img-dao-face.png',
-				'/favicon/32x32/img-diz-face.png',
-				'/favicon/32x32/img-bazzi-face.png'
-			];
-
-			if (!window.matchMedia('(max-width: 768px)').matches) {
-				let i = 0;
-
-				setInterval(() => {
-					i = (i + 1) % faviArr.length;
-					favi.href = faviArr[i];
-				}, 2000);
-			}
-		</script>
 	</body>
 </html>
 

@@ -1,6 +1,6 @@
 <template>
 	<main
-		class="relative flex flex-col items-center"
+		class="relative z-0 flex flex-col items-center"
 		:class="[
 			isMobilePadding ? 'max-md:p-6' : '',
 			hscreen ? 'h-screen' : '',
@@ -119,7 +119,7 @@ function loadResultData() {
 	// 2.5초 후 로딩 완료
 	setTimeout(() => {
 		loading.value = false;
-		console.log('로딩 완료, 최종 characterInfo:', characterInfo.value);
+		// console.log('로딩 완료, 최종 characterInfo:', characterInfo.value);
 	}, 2500);
 }
 

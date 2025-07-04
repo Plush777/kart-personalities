@@ -23,7 +23,7 @@
 	<div
 		id="dimmed"
 		@click="closePopup"
-		:class="`fixed left-0 top-0 size-full inset-0 bg-black/50 ${transitionStyle} ${props.isOpen ? `${openStyle} z-[30] opacity-100` : `${closeStyle} opacity-0`}`"
+		:class="`fixed left-0 top-0 size-full inset-0 bg-black/50  ${transitionStyle} ${props.isOpen ? `${openStyle} z-[30] opacity-100` : `${closeStyle} opacity-0`}`"
 	></div>
 </template>
 

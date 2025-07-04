@@ -46,7 +46,11 @@
 	<teleport to="#popup-root">
 		<Popup :isOpen="isPopupOpen" @close="closePopup">
 			<template #content>
-				<PopupSection :contentText="selectedCharacter?.info.originalExplanation" />
+				<PopupSection
+					:isPopupOpen="isPopupOpen"
+					:data="selectedCharacter"
+					:contentText="selectedCharacter?.info.originalExplanation"
+				/>
 			</template>
 		</Popup>
 	</teleport>
@@ -65,6 +69,7 @@ import ResultBox from '@/components/result/ResultBox.vue';
 import Popup from '@/components/popup/Popup.vue';
 import PopupSection from '@/components/popup/PopupSection.vue';
 
+const characterOriginData = ref(characters);
 const isPopupOpen = ref(false);
 const selectedCharacter = ref(null);
 
