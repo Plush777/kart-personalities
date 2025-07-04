@@ -16,6 +16,7 @@
 import { ref } from 'vue';
 import AnswerNotFound from '@/components/question/AnswerNotFound.vue';
 import ResultSection from '@/components/result/ResultSection.vue';
+import { getUserName, getUsernameFromUrl } from '@/util/sessionStorage.js';
 
 const props = defineProps({
 	characterInfo: {
@@ -34,7 +35,6 @@ function handleImageError(event) {
 }
 
 function restartTest() {
-	localStorage.removeItem('quizAnswers');
 	window.location.href = '/';
 }
 
@@ -44,7 +44,21 @@ function goToQuestion() {
 
 async function copyToClipboard() {
 	try {
-		await navigator.clipboard.writeText(window.location.href);
+		// URL에서 username 파라미터 확인
+		const urlUsername = getUsernameFromUrl();
+		const currentUsername = getUserName();
+
+		// 공유할 username 결정 (URL 파라미터가 있으면 그것을, 없으면 현재 사용자명 사용)
+		const shareUsername = urlUsername || currentUsername;
+
+		let shareUrl;
+		if (shareUsername) {
+			shareUrl = `${window.location.origin}/result?username=${encodeURIComponent(shareUsername)}`;
+		} else {
+			shareUrl = window.location.href;
+		}
+
+		await navigator.clipboard.writeText(shareUrl);
 		alert('URL이 클립보드에 복사되었습니다!');
 	} catch (err) {
 		console.error('클립보드 복사 실패:', err);

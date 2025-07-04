@@ -18,6 +18,13 @@
 import { ref, onMounted, provide, computed } from 'vue';
 import { questions, getCharacterInfo } from '@/data/questions.js';
 import ResultContent from '@/components/result/ResultContent.vue';
+import {
+	getQuizAnswers,
+	getUserResult,
+	saveUserResult,
+	getUsernameFromUrl,
+	getUserName
+} from '@/util/sessionStorage.js';
 
 const props = defineProps({
 	align: {
@@ -81,36 +88,33 @@ function calculateCharacterType(answers) {
 // 데이터 로딩 함수
 function loadResultData() {
 	try {
-		let answers = null;
+		// URL에서 username 파라미터 확인
+		const urlUsername = getUsernameFromUrl();
 
-		// console.log('loadResultData 시작');
-		// console.log('현재 URL:', window.location.href);
-
-		// URL 파라미터에서 답변 데이터 확인
-		const urlParams = new URLSearchParams(window.location.search);
-		const answersParam = urlParams.get('answers');
-		// console.log('URL 파라미터 answers:', answersParam);
-
-		if (answersParam) {
-			// URL 파라미터에서 데이터 로드
-			answers = JSON.parse(decodeURIComponent(answersParam));
-			// localStorage에도 저장 (백업용)
-			localStorage.setItem('quizAnswers', JSON.stringify(answers));
-		} else {
-			// localStorage에서 답변 데이터 확인
-			const storedAnswers = localStorage.getItem('quizAnswers');
-			if (storedAnswers) {
-				answers = JSON.parse(storedAnswers);
+		if (urlUsername) {
+			// URL에 username이 있으면 해당 사용자의 결과 불러오기
+			const userResult = getUserResult(urlUsername);
+			if (userResult && userResult.characterInfo) {
+				characterInfo.value = userResult.characterInfo;
+			} else {
+				console.log('해당 사용자의 결과를 찾을 수 없습니다.');
 			}
-		}
-
-		if (answers && answers.length > 0) {
-			const characterType = calculateCharacterType(answers);
-			characterInfo.value = getCharacterInfo(characterType);
-			// console.log('캐릭터 타입:', characterType);
-			// console.log('캐릭터 정보:', characterInfo.value);
 		} else {
-			// console.log('답변 데이터가 없습니다. answers:', answers);
+			// URL에 username이 없으면 현재 사용자의 답변으로 결과 계산
+			const answers = getQuizAnswers();
+			const currentUsername = getUserName();
+
+			if (answers && answers.length > 0) {
+				const characterType = calculateCharacterType(answers);
+				characterInfo.value = getCharacterInfo(characterType);
+
+				// 현재 사용자의 결과를 저장 (username이 있는 경우에만)
+				if (currentUsername) {
+					saveUserResult(currentUsername, characterInfo.value);
+				}
+			} else {
+				console.log('답변 데이터가 없습니다.');
+			}
 		}
 	} catch (error) {
 		console.error('답변 데이터를 불러오는 중 오류가 발생했습니다:', error);
@@ -119,7 +123,6 @@ function loadResultData() {
 	// 2.5초 후 로딩 완료
 	setTimeout(() => {
 		loading.value = false;
-		// console.log('로딩 완료, 최종 characterInfo:', characterInfo.value);
 	}, 2500);
 }
 
@@ -135,8 +138,5 @@ const mainLayoutData = {
 	characterInfo
 };
 
-// console.log('MainLayout provide 데이터:', mainLayoutData);
-// console.log('loading.value:', loading.value);
-// console.log('characterInfo.value:', characterInfo.value);
 provide('mainLayoutRef', mainLayoutData);
 </script>

@@ -21,12 +21,18 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import ProgressBar from '@/components/progressBar/ProgressBar.vue';
 import QuestionText from '@/components/question/QuestionText.vue';
 import OptionsList from '@/components/question/OptionsList.vue';
 import NavigationButtons from '@/components/question/NavigationButtons.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
+import {
+	getQuizAnswers,
+	setQuizAnswers,
+	getCurrentQuestionIndex,
+	setCurrentQuestionIndex
+} from '@/util/sessionStorage.js';
 
 const props = defineProps({
 	questions: {
@@ -41,50 +47,75 @@ const props = defineProps({
 
 const emit = defineEmits(['update:answers', 'complete']);
 
-// 반응형 상태
+// 반응형 상태 - 초기값 설정
 const currentQuestionIndex = ref(0);
 const selectedOption = ref(null);
-const answers = ref([...props.initialAnswers]);
+const answers = ref([]);
 
 // 계산된 속성들
 const currentQuestion = computed(() => props.questions[currentQuestionIndex.value]);
 const isLastQuestion = computed(() => currentQuestionIndex.value === props.questions.length - 1);
 
+// 세션 스토리지에서 데이터 로드 함수
+const loadSessionData = () => {
+	if (typeof window === 'undefined') return;
+
+	const savedAnswers = getQuizAnswers();
+	const savedIndex = getCurrentQuestionIndex();
+
+	// 세션 스토리지에 데이터가 있으면 복원
+	if (savedAnswers.length > 0) {
+		answers.value = savedAnswers;
+		currentQuestionIndex.value = savedIndex;
+		selectedOption.value = savedAnswers[savedIndex] ?? null;
+	} else if (props.initialAnswers.length > 0) {
+		// props에 초기 데이터가 있으면 사용
+		answers.value = [...props.initialAnswers];
+		setQuizAnswers(answers.value);
+	}
+};
+
+// 컴포넌트 마운트 시 데이터 로드
+onMounted(() => {
+	loadSessionData();
+
+	// 세션 스토리지에 초기 데이터가 없고 props에 initialAnswers가 있으면 저장
+	if (getQuizAnswers().length === 0 && props.initialAnswers.length > 0) {
+		setQuizAnswers(props.initialAnswers);
+	}
+
+	// 현재 인덱스가 저장되지 않았으면 저장
+	if (getCurrentQuestionIndex() === 0 && currentQuestionIndex.value > 0) {
+		setCurrentQuestionIndex(currentQuestionIndex.value);
+	}
+});
+
 // 메서드들
 function selectOption(optionIndex) {
 	selectedOption.value = optionIndex;
 	answers.value[currentQuestionIndex.value] = optionIndex;
+	setQuizAnswers(answers.value);
 	emit('update:answers', answers.value);
 }
 
 function nextQuestion() {
-	// console.log('nextQuestion 함수 호출됨');
-	// console.log('selectedOption:', selectedOption.value);
-	// console.log('isLastQuestion:', isLastQuestion.value);
-
 	if (selectedOption.value === null) {
-		// console.log('답변을 선택해주세요.');
 		return;
 	}
 
 	// 선택된 답변 저장
 	answers.value[currentQuestionIndex.value] = selectedOption.value;
+	setQuizAnswers(answers.value);
 	console.log(`질문 ${currentQuestionIndex.value + 1}: 선택 ${selectedOption.value + 1}`);
 
 	if (isLastQuestion.value) {
 		// 마지막 질문이면 완료 처리
-		// console.log('마지막 질문 - complete 이벤트 발생');
-		// console.log('전송할 답변:', answers.value);
-
-		// 이벤트 발생
 		emit('complete', answers.value);
-
-		// 직접 처리도 추가
 		handleQuizComplete(answers.value);
 	} else {
 		// 다음 질문으로 이동
-		// console.log('다음 질문으로 이동');
 		currentQuestionIndex.value++;
+		setCurrentQuestionIndex(currentQuestionIndex.value);
 		selectedOption.value = answers.value[currentQuestionIndex.value] ?? null;
 	}
 }
@@ -92,17 +123,17 @@ function nextQuestion() {
 function prevQuestion() {
 	if (currentQuestionIndex.value > 0) {
 		currentQuestionIndex.value--;
+		setCurrentQuestionIndex(currentQuestionIndex.value);
 		selectedOption.value = answers.value[currentQuestionIndex.value] ?? null;
 	}
 }
 
-// 초기화: 이전 답변이 있으면 선택 상태로 표시
+// props 변경 감지하여 데이터 로드
 watch(
 	() => props.initialAnswers,
 	(newAnswers) => {
-		if (newAnswers.length > 0) {
-			answers.value = [...newAnswers];
-			selectedOption.value = answers.value[currentQuestionIndex.value] ?? null;
+		if (newAnswers.length > 0 && answers.value.length === 0) {
+			loadSessionData();
 		}
 	},
 	{ immediate: true }
@@ -110,16 +141,8 @@ watch(
 
 // 완료 처리 함수
 function handleQuizComplete(answers) {
-	// 답변을 localStorage에 저장 (백업용)
-	localStorage.setItem('quizAnswers', JSON.stringify(answers));
-
-	// URL 파라미터로 답변 데이터 전달
-	const answersParam = encodeURIComponent(JSON.stringify(answers));
-	// console.log('인코딩된 답변 파라미터:', answersParam);
-
-	// 결과 페이지로 이동
-	const resultUrl = `/result?answers=${answersParam}`;
-	// console.log('이동할 URL:', resultUrl);
+	// 결과 페이지로 이동 (URL 파라미터 없이)
+	const resultUrl = '/result';
 	window.location.href = resultUrl;
 }
 </script>

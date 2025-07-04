@@ -58,7 +58,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getUserName } from '@/util/getUserName.js';
+import { getUserName, getUsernameFromUrl } from '@/util/sessionStorage.js';
 import { scrollLock } from '@/util/event';
 import { characters } from '@/data/characters.js';
 
@@ -137,6 +137,11 @@ const characterInfo = ref(props.characterInfo);
 const userName = ref('');
 
 onMounted(() => {
-	userName.value = getUserName() || 'undefined';
+	// URL에서 username 파라미터 확인
+	const urlUsername = getUsernameFromUrl();
+	const currentUsername = getUserName();
+
+	// URL 파라미터의 username을 우선적으로 사용
+	userName.value = urlUsername || currentUsername || 'undefined';
 });
 </script>

@@ -20,6 +20,8 @@
 
 <script setup>
 import { ref } from 'vue';
+import { setUserName, clearQuizData } from '@/util/sessionStorage';
+
 import TextField from '@/components/form/TextField.vue';
 import Button from '@/components/button/Button.vue';
 
@@ -44,7 +46,8 @@ async function handleStartTest() {
 		console.error('조회수 증가 실패:', err);
 	}
 
-	localStorage.setItem('userName', name);
+	setUserName(name);
+	clearQuizData();
 	window.location.href = '/question';
 }
 </script>
