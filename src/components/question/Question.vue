@@ -14,8 +14,10 @@
 			:can-go-back="currentQuestionIndex > 0"
 			:can-go-next="selectedOption !== null"
 			:is-last-question="isLastQuestion"
+			:is-first-question="currentQuestionIndex === 0"
 			@prev="prevQuestion"
 			@next="nextQuestion"
+			@go-home="goHome"
 		/>
 	</SectionWrapper>
 </template>
@@ -31,7 +33,9 @@ import {
 	getQuizAnswers,
 	setQuizAnswers,
 	getCurrentQuestionIndex,
-	setCurrentQuestionIndex
+	setCurrentQuestionIndex,
+	clearQuizData,
+	setQuizCompleted
 } from '@/util/sessionStorage.js';
 
 const props = defineProps({
@@ -63,15 +67,32 @@ const loadSessionData = () => {
 	const savedAnswers = getQuizAnswers();
 	const savedIndex = getCurrentQuestionIndex();
 
-	// 세션 스토리지에 데이터가 있으면 복원
-	if (savedAnswers.length > 0) {
-		answers.value = savedAnswers;
-		currentQuestionIndex.value = savedIndex;
-		selectedOption.value = savedAnswers[savedIndex] ?? null;
+	// 세션 스토리지에 데이터가 있고 유효한지 확인
+	if (savedAnswers.length > 0 && savedAnswers.length === props.questions.length) {
+		// 모든 답변이 null이 아닌지 확인
+		const hasValidAnswers = savedAnswers.every((answer) => answer !== null && answer !== undefined);
+
+		if (hasValidAnswers && savedIndex >= 0 && savedIndex < props.questions.length) {
+			// 유효한 데이터가 있으면 복원
+			answers.value = savedAnswers;
+			currentQuestionIndex.value = savedIndex;
+			selectedOption.value = savedAnswers[savedIndex] ?? null;
+		} else {
+			// 유효하지 않은 데이터면 초기화
+			clearQuizData();
+			answers.value = new Array(props.questions.length).fill(null);
+			currentQuestionIndex.value = 0;
+			selectedOption.value = null;
+		}
 	} else if (props.initialAnswers.length > 0) {
 		// props에 초기 데이터가 있으면 사용
 		answers.value = [...props.initialAnswers];
 		setQuizAnswers(answers.value);
+	} else {
+		// 초기 데이터도 없으면 빈 배열로 초기화
+		answers.value = new Array(props.questions.length).fill(null);
+		currentQuestionIndex.value = 0;
+		selectedOption.value = null;
 	}
 };
 
@@ -90,7 +111,6 @@ onMounted(() => {
 	}
 });
 
-// 메서드들
 function selectOption(optionIndex) {
 	selectedOption.value = optionIndex;
 	answers.value[currentQuestionIndex.value] = optionIndex;
@@ -128,6 +148,11 @@ function prevQuestion() {
 	}
 }
 
+function goHome() {
+	const homeUrl = '/';
+	window.location.href = homeUrl;
+}
+
 // props 변경 감지하여 데이터 로드
 watch(
 	() => props.initialAnswers,
@@ -141,6 +166,9 @@ watch(
 
 // 완료 처리 함수
 function handleQuizComplete(answers) {
+	// 테스트 완료 상태 저장
+	setQuizCompleted(true);
+
 	// 결과 페이지로 이동 (URL 파라미터 없이)
 	const resultUrl = '/result';
 	window.location.href = resultUrl;

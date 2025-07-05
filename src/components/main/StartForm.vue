@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { setUserName, clearQuizData } from '@/util/sessionStorage';
+import { setUserName, clearQuizCompleted } from '@/util/sessionStorage';
 
 import TextField from '@/components/form/TextField.vue';
 import Button from '@/components/button/Button.vue';
@@ -46,8 +46,10 @@ async function handleStartTest() {
 		console.error('조회수 증가 실패:', err);
 	}
 
+	// 새로운 테스트 시작 시 완료 상태 초기화
+	clearQuizCompleted();
+
 	setUserName(name);
-	clearQuizData();
 	window.location.href = '/question';
 }
 </script>

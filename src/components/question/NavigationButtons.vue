@@ -2,13 +2,8 @@
 	<div
 		class="navigation-buttons mt-8 flex justify-between items-center max-md:flex-col max-md:gap-y-2"
 	>
-		<Button
-			styleType="fill-gray1-md"
-			:bindClass="questionNavigationButtonStyle"
-			:disabled="!canGoBack"
-			@click="goBack"
-		>
-			이전
+		<Button styleType="fill-gray1-md" :bindClass="questionNavigationButtonStyle" @click="goBack">
+			{{ backButtonText }}
 		</Button>
 
 		<Button
@@ -38,12 +33,20 @@ const props = defineProps({
 	isLastQuestion: {
 		type: Boolean,
 		default: false
+	},
+	isFirstQuestion: {
+		type: Boolean,
+		default: false
 	}
 });
 
 const questionNavigationButtonStyle = 'min-w-[80px] max-md:h-9';
 
-const emit = defineEmits(['prev', 'next']);
+const emit = defineEmits(['prev', 'next', 'goHome']);
+
+const backButtonText = computed(() => {
+	return props.isFirstQuestion ? '처음으로' : '이전';
+});
 
 const nextButtonText = computed(() => {
 	return props.isLastQuestion ? '결과보기' : '다음';
@@ -54,7 +57,9 @@ const nextButtonStyleType = computed(() => {
 });
 
 function goBack() {
-	if (props.canGoBack) {
+	if (props.isFirstQuestion) {
+		emit('goHome');
+	} else if (props.canGoBack) {
 		emit('prev');
 	}
 }

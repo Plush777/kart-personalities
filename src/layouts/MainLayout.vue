@@ -23,7 +23,12 @@ import {
 	getUserResult,
 	saveUserResult,
 	getUsernameFromUrl,
-	getUserName
+	getUserName,
+	clearQuizData,
+	getQuizCompleted,
+	clearQuizCompleted,
+	getResultFromUrl,
+	encodeResultForUrl
 } from '@/util/sessionStorage.js';
 
 const props = defineProps({
@@ -59,6 +64,10 @@ onMounted(() => {
 	if (isResultPage.value) {
 		loadResultData();
 	} else {
+		// 메인 페이지에서는 세션 스토리지 초기화
+		if (window.location.pathname === '/') {
+			clearQuizData();
+		}
 		// 다른 페이지에서는 로딩을 즉시 완료
 		loading.value = false;
 	}
@@ -88,11 +97,23 @@ function calculateCharacterType(answers) {
 // 데이터 로딩 함수
 function loadResultData() {
 	try {
-		// URL에서 username 파라미터 확인
+		// 1. URL에서 결과 데이터 확인 (가장 우선순위)
+		const urlResult = getResultFromUrl();
+		console.log('MainLayout - URL에서 읽은 결과:', urlResult ? '있음' : '없음');
+
+		if (urlResult) {
+			// URL에서 결과를 바로 읽어온 경우 로딩 상태 건너뛰기
+			characterInfo.value = urlResult;
+			console.log('MainLayout - 결과 설정됨:', characterInfo.value.title);
+			loading.value = false; // 즉시 로딩 완료
+			return;
+		}
+
+		// 2. URL에서 username 파라미터 확인
 		const urlUsername = getUsernameFromUrl();
 
 		if (urlUsername) {
-			// URL에 username이 있으면 해당 사용자의 결과 불러오기
+			// URL에 username이 있으면 로컬 sessionStorage에서 시도
 			const userResult = getUserResult(urlUsername);
 			if (userResult && userResult.characterInfo) {
 				characterInfo.value = userResult.characterInfo;
@@ -103,14 +124,29 @@ function loadResultData() {
 			// URL에 username이 없으면 현재 사용자의 답변으로 결과 계산
 			const answers = getQuizAnswers();
 			const currentUsername = getUserName();
+			const isQuizCompleted = getQuizCompleted();
 
 			if (answers && answers.length > 0) {
+				// 답변 데이터가 있으면 결과 계산
 				const characterType = calculateCharacterType(answers);
 				characterInfo.value = getCharacterInfo(characterType);
 
 				// 현재 사용자의 결과를 저장 (username이 있는 경우에만)
 				if (currentUsername) {
 					saveUserResult(currentUsername, characterInfo.value);
+				}
+
+				// 결과가 계산되면 URL 업데이트 (공유 가능하도록)
+				updateResultUrl(currentUsername, characterInfo.value);
+			} else if (isQuizCompleted && currentUsername) {
+				// 답변 데이터는 없지만 테스트가 완료되었고 사용자명이 있으면 저장된 결과 사용
+				const userResult = getUserResult(currentUsername);
+				if (userResult && userResult.characterInfo) {
+					characterInfo.value = userResult.characterInfo;
+					// 저장된 결과로 URL 업데이트
+					updateResultUrl(currentUsername, characterInfo.value);
+				} else {
+					console.log('저장된 결과를 찾을 수 없습니다.');
 				}
 			} else {
 				console.log('답변 데이터가 없습니다.');
@@ -124,6 +160,27 @@ function loadResultData() {
 	setTimeout(() => {
 		loading.value = false;
 	}, 2500);
+}
+
+// 결과 URL 업데이트 함수
+function updateResultUrl(username, characterInfo) {
+	if (typeof window === 'undefined') {
+		return;
+	}
+
+	try {
+		const encodedResult = encodeResultForUrl(characterInfo);
+		const newUrl = `${window.location.origin}/result?username=${encodeURIComponent(username)}#${encodedResult}`;
+
+		// 브라우저 히스토리에 추가 (뒤로가기 가능하도록)
+		window.history.pushState({}, '', newUrl);
+		console.log('결과 URL 업데이트됨:', newUrl);
+
+		// URL 업데이트 후 결과를 다시 설정 (공유 가능하도록)
+		characterInfo.value = characterInfo;
+	} catch (error) {
+		console.error('URL 업데이트 중 오류 발생:', error);
+	}
 }
 
 // 자식 컴포넌트에 전달할 데이터
