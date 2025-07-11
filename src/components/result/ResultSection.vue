@@ -1,5 +1,5 @@
 <template>
-	<SectionWrapper type="result">
+	<SectionWrapper>
 		<h2 class="text-2xl font-bold text-gray-800 break-keep">
 			{{ userName }}님은 "<em>{{ props.characterInfo.title }}</em
 			>" 와 가장 비슷한 성격을 가지고 있어요.

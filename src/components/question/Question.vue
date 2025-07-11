@@ -1,14 +1,18 @@
 <template>
-	<SectionWrapper type="question">
+	<SectionWrapper>
 		<ProgressBar :current-question="currentQuestionIndex + 1" :total-questions="questions.length" />
 
-		<QuestionText :question="currentQuestion.question" />
+		<transition name="fade" mode="out-in">
+			<div v-if="isDataLoaded" v-cloak :key="currentQuestionIndex" class="question-content">
+				<QuestionText :question="currentQuestion.question" />
 
-		<OptionsList
-			:options="currentQuestion.options"
-			:selected-option="selectedOption"
-			@select="selectOption"
-		/>
+				<OptionsList
+					:options="currentQuestion.options"
+					:selected-option="selectedOption"
+					@select="selectOption"
+				/>
+			</div>
+		</transition>
 
 		<NavigationButtons
 			:can-go-back="currentQuestionIndex > 0"
@@ -55,6 +59,7 @@ const emit = defineEmits(['update:answers', 'complete']);
 const currentQuestionIndex = ref(0);
 const selectedOption = ref(null);
 const answers = ref([]);
+const isDataLoaded = ref(false);
 
 // 계산된 속성들
 const currentQuestion = computed(() => props.questions[currentQuestionIndex.value]);
@@ -94,6 +99,9 @@ const loadSessionData = () => {
 		currentQuestionIndex.value = 0;
 		selectedOption.value = null;
 	}
+
+	// 데이터 로드 완료 표시
+	isDataLoaded.value = true;
 };
 
 // 컴포넌트 마운트 시 데이터 로드
@@ -174,3 +182,28 @@ function handleQuizComplete(answers) {
 	window.location.href = resultUrl;
 }
 </script>
+
+<style scoped>
+.question-content {
+	width: 100%;
+}
+
+/* Fade 애니메이션 */
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.3s ease;
+}
+
+.fade-enter-from {
+	opacity: 0;
+}
+
+.fade-leave-to {
+	opacity: 0;
+}
+
+/* v-cloak 디렉티브를 위한 스타일 */
+[v-cloak] {
+	display: none;
+}
+</style>

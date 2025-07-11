@@ -1,13 +1,12 @@
 <template>
 	<main
 		class="relative z-0 flex flex-col items-center"
-		:class="[
-			isMobilePadding ? 'max-md:p-6' : '',
-			hscreen ? 'h-screen' : '',
-			align === 'center' ? 'justify-center' : ''
-		]"
+		:class="[hscreen ? 'h-screen' : '', align === 'center' ? 'justify-center' : '']"
 	>
-		<div class="flex flex-col w-full items-center z-20" :class="isBackground ? 'bg-sky-50' : ''">
+		<div
+			class="flex flex-col size-full items-center justify-center z-20"
+			:class="isBackground ? 'bg-sky-50' : ''"
+		>
 			<ResultContent v-if="isResultPage" :loading="loading" :characterInfo="characterInfo" />
 			<slot v-else />
 		</div>
