@@ -1,9 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-
 import tailwindcss from '@tailwindcss/vite';
-
 import vue from '@astrojs/vue';
+import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,5 +13,9 @@ export default defineConfig({
 	devToolbar: {
 		enabled: false
 	},
-	integrations: [vue()]
+
+	integrations: [vue()],
+
+	output: 'server',
+	adapter: netlify()
 });

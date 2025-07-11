@@ -1,0 +1,11 @@
+---
+// @ts-nocheck
+
+import HtmlLayout from '@/layouts/HtmlLayout.astro';
+import MainLayout from '@/layouts/MainLayout.vue';
+import LoadingWrapper from '@/components/result/ResultContent.vue';
+---
+
+<HtmlLayout bodyClassName="bg-sky-50">
+	<MainLayout client:load hscreen={false} isMobilePadding={false} />
+</HtmlLayout>
