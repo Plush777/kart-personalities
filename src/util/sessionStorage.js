@@ -199,6 +199,14 @@ export function getUsernameFromUrl() {
 
 	try {
 		const urlParams = new URLSearchParams(window.location.search);
+
+		// 압축된 URL 파라미터 확인 (배포 환경용)
+		const compressedUsername = urlParams.get('u');
+		if (compressedUsername) {
+			return decodeURIComponent(compressedUsername);
+		}
+
+		// 기존 username 파라미터 확인
 		return urlParams.get('username');
 	} catch (error) {
 		console.error('URL 파라미터 파싱 중 오류 발생:', error);
@@ -213,7 +221,33 @@ export function getResultFromUrl() {
 	}
 
 	try {
-		// 해시 프래그먼트에서 결과 데이터 확인
+		// 압축된 URL 파라미터 확인 (배포 환경용)
+		const urlParams = new URLSearchParams(window.location.search);
+		const compressedHash = urlParams.get('h');
+
+		if (compressedHash) {
+			// 압축된 해시를 원래 형태로 복원
+			const hash = compressedHash.replace(/-/g, '+').replace(/_/g, '/');
+
+			// 패딩 추가
+			const paddedHash = hash + '='.repeat((4 - (hash.length % 4)) % 4);
+
+			try {
+				// Base64 디코딩 후 UTF-8 디코딩, JSON 파싱
+				const decoded = atob(paddedHash);
+				const utf8String = decodeURIComponent(escape(decoded));
+				const compressedData = JSON.parse(utf8String);
+
+				// 압축된 데이터 복원
+				const parsed = decompressResultData(compressedData);
+				console.log('압축된 URL에서 파싱된 결과:', parsed.title);
+				return parsed;
+			} catch (error) {
+				console.error('압축된 해시 파싱 중 오류:', error);
+			}
+		}
+
+		// 기존 해시 프래그먼트에서 결과 데이터 확인
 		const hash = window.location.hash.substring(1); // # 제거
 
 		console.log('=== URL 해시 디버깅 ===');
@@ -384,6 +418,31 @@ export async function shortenUrl(originalUrl) {
 	} catch (error) {
 		console.error('URL 단축 중 오류 발생:', error);
 		return originalUrl; // 실패 시 원본 URL 반환
+	}
+}
+
+// 클라이언트 사이드 URL 압축 함수 (배포 환경용)
+function compressUrlForSharing(originalUrl) {
+	try {
+		// URL에서 해시 부분만 추출하여 압축
+		const url = new URL(originalUrl);
+		const hash = url.hash.substring(1); // # 제거
+
+		if (hash) {
+			// 해시 데이터가 있으면 더 짧은 형태로 압축
+			// Base64를 더 짧은 형태로 변환 (URL 안전한 문자만 사용)
+			const compressedHash = btoa(hash).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+
+			// 압축된 URL 생성
+			const compressedUrl = `${url.origin}/result?u=${encodeURIComponent(url.searchParams.get('username') || '')}&h=${compressedHash}`;
+			console.log('압축된 URL 생성:', compressedUrl);
+			return compressedUrl;
+		}
+
+		return originalUrl;
+	} catch (error) {
+		console.error('URL 압축 중 오류 발생:', error);
+		return originalUrl;
 	}
 }
 
