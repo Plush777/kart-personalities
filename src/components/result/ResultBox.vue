@@ -1,16 +1,18 @@
 <template>
 	<section
-		:class="`flex flex-col gap-y-3 border-1 border-gray-200 rounded-lg p-3 ${contentType === 'image' ? 'gap-y-5' : ''}`"
+		:class="`result-box flex flex-col gap-y-3 border-1 border-gray-200 rounded-lg p-3 ${contentType === 'image' ? 'gap-y-5' : ''}`"
 	>
 		<h3 class="text-base font-bold text-black">
-			<span :class="`${getEmoji(props.title)} flex items-center gap-x-1 justify-center`">
+			<span
+				:class="`${getEmoji(props.title)} data-text-title flex items-center gap-x-1 justify-center`"
+			>
 				{{ props.title }}</span
 			>
 		</h3>
 
 		<!-- content text -->
 		<p
-			class="text-center text-sm leading-[1.5] break-keep text-gray-700"
+			class="data-text text-center text-sm leading-[1.5] break-keep text-gray-700"
 			v-if="props.contentType === 'text'"
 		>
 			{{ dataText }}
@@ -20,7 +22,7 @@
 		<ul class="flex flex-col gap-y-1" v-else-if="props.contentType === 'list'">
 			<li v-for="item in props.data" :key="item">
 				<p
-					:class="`${listBeforeStyle} flex items-center gap-x-2.5 max-w-[360px] text-left relative text-sm leading-[1.5] break-keep text-gray-700`"
+					:class="`${listBeforeStyle} data-text flex items-center gap-x-2.5 max-w-[360px] text-left relative text-sm leading-[1.5] break-keep text-gray-700`"
 				>
 					{{ item }}
 				</p>

@@ -1,5 +1,5 @@
 <template>
-	<section class="pt-[190px] relative flex flex-col items-center gap-y-2">
+	<section class="popup-section pt-[190px] relative flex flex-col items-center gap-y-2">
 		<div :class="characterObject.top" class="absolute -translate-1/2 left-1/2 z-0">
 			<img
 				:class="characterObject.imgSize"
@@ -8,13 +8,22 @@
 			/>
 		</div>
 		<div class="relative z-10 border-t border-gray-200 pt-3.5">
-			<p class="text-sm text-gray-700 break-keep">{{ contentText }}</p>
+			<p class="mb-5 text-sm text-center text-gray-700 break-keep">{{ contentText }}</p>
+
+			<ResultBoxContainer type="popup">
+				<ResultBox title="한줄 요약" contentType="text" :dataText="props.data?.info?.summary" />
+				<ResultBox title="장점" contentType="list" :data="props.data?.info?.meritArray" />
+				<ResultBox title="단점" contentType="list" :data="props.data?.info?.shortcomingArray" />
+				<ResultBox title="자주 듣는 말" contentType="list" :data="props.data?.info?.commentArray" />
+			</ResultBoxContainer>
 		</div>
 	</section>
 </template>
 
 <script setup>
 import { computed, ref, watch, onUnmounted } from 'vue';
+import ResultBox from '@/components/result/ResultBox.vue';
+import ResultBoxContainer from '@/components/result/ResultBoxContainer.vue';
 
 const props = defineProps({
 	data: {

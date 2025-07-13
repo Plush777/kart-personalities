@@ -4,7 +4,7 @@
 			{{ userName }}님은 "<em>{{ props.characterInfo.title }}</em
 			>" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
-		<div class="flex flex-col">
+		<div class="flex flex-col mb-10">
 			<CharacterProfile
 				type="result"
 				:characterInfo="characterInfo"
@@ -12,7 +12,7 @@
 				:handleImageError="props.handleImageError"
 			/>
 
-			<div class="flex flex-col gap-y-6 mb-10">
+			<ResultBoxContainer type="default">
 				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
 				<ResultBox title="장점" contentType="list" :data="characterInfo.info.meritArray" />
 				<ResultBox title="단점" contentType="list" :data="characterInfo.info.shortcomingArray" />
@@ -33,7 +33,7 @@
 					:data="characterInfo.info.bad"
 					@openPopup="openPopup"
 				/>
-			</div>
+			</ResultBoxContainer>
 		</div>
 
 		<ButtonGroup
@@ -66,6 +66,7 @@ import CharacterProfile from '@/components/characterProfile/CharacterProfile.vue
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
 import ButtonGroup from '@/components/button/ButtonGroup.vue';
 import ResultBox from '@/components/result/ResultBox.vue';
+import ResultBoxContainer from '@/components/result/ResultBoxContainer.vue';
 import Popup from '@/components/popup/Popup.vue';
 import PopupSection from '@/components/popup/PopupSection.vue';
 

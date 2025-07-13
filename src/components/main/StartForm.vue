@@ -12,8 +12,13 @@
 			<p class="text-xs text-center text-gray-500">*이름은 최대 10글자까지만 설정 가능해요.</p>
 		</div>
 
-		<Button class="start-button max-md:h-10" styleType="fill-blue1-md" @click="handleStartTest">
-			테스트 시작하기
+		<Button
+			bindClass="start-button max-md:h-10"
+			styleType="fill-blue1-md"
+			:disabled="isLoading"
+			@click="handleStartTest"
+		>
+			{{ isLoading ? '이동하는중....' : '테스트 시작하기' }}
 		</Button>
 	</div>
 </template>
@@ -26,6 +31,7 @@ import TextField from '@/components/form/TextField.vue';
 import Button from '@/components/button/Button.vue';
 
 const userName = ref('');
+const isLoading = ref(false);
 const textFieldStyle = 'min-w-[230px] max-w-[230px]';
 
 async function handleStartTest() {
@@ -35,6 +41,9 @@ async function handleStartTest() {
 		alert('먼저 이름을 입력해주세요');
 		return;
 	}
+
+	// 로딩 상태 시작
+	isLoading.value = true;
 
 	// 조회수 증가 (환경에 따라 다른 slug 사용)
 	try {

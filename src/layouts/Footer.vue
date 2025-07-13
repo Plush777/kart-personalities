@@ -21,7 +21,7 @@ const props = defineProps({
 
 function getStyle() {
 	if (props.type === 'absolute') return 'absolute z-0 bottom-[10px] left-1/2 -translate-x-1/2';
-	if (props.type === 'static') return 'static translate-none bg-white max-w-[500px] mx-auto';
+	if (props.type === 'static') return 'static pb-3 translate-none bg-white max-w-[500px] mx-auto';
 
 	return '';
 }

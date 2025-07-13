@@ -32,3 +32,11 @@ i {
 .scrollbar-hide::-webkit-scrollbar {
 	display: none;
 }
+
+.popup-section .result-box .data-text-title {
+	@apply text-[15px];
+}
+
+.popup-section .result-box .data-text {
+	@apply text-[13px];
+}
