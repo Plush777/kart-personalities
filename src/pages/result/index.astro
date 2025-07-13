@@ -3,11 +3,13 @@
 
 import HtmlLayout from '@/layouts/HtmlLayout.astro';
 import MainLayout from '@/layouts/MainLayout.vue';
-import LoadingWrapper from '@/components/result/ResultContent.vue';
+import ResultContent from '@/components/result/ResultContent.vue';
 ---
 
 <HtmlLayout bodyClassName="bg-sky-50">
-	<MainLayout client:load hscreen={false} isMobilePadding={false} />
+	<MainLayout client:load hscreen={false} isMobilePadding={false}>
+		<ResultContent client:load />
+	</MainLayout>
 	<div class="hidden">
 		<img src="/images/profile/img-dao-profile.webp" alt="" />
 		<img src="/images/profile/img-bazzi-profile.webp" alt="" />

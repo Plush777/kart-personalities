@@ -28,7 +28,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getUserName, getUsernameFromUrl } from '@/util/sessionStorage.js';
+import { getUserName } from '@/util/sessionStorage.js';
+import { getUsernameFromUrl } from '@/util/urlShortener.js';
 
 const userName = ref('');
 

@@ -16,12 +16,8 @@
 import { ref } from 'vue';
 import AnswerNotFound from '@/components/question/AnswerNotFound.vue';
 import ResultSection from '@/components/result/ResultSection.vue';
-import {
-	getUserName,
-	getUsernameFromUrl,
-	encodeResultForUrl,
-	shortenUrl
-} from '@/util/sessionStorage.js';
+import { getUserName } from '@/util/sessionStorage.js';
+import { shortenUrl, getUsernameFromUrl, encodeResultForUrl } from '@/util/urlShortener.js';
 
 const props = defineProps({
 	characterInfo: {
@@ -77,7 +73,7 @@ async function copyToClipboard() {
 
 		// 단축된 URL을 클립보드에 복사
 		await navigator.clipboard.writeText(shortUrl);
-		alert('단축된 URL이 클립보드에 복사되었습니다!');
+		alert('URL이 클립보드에 복사되었습니다! 다른 곳에 공유해보세요.');
 	} catch (err) {
 		console.error('클립보드 복사 실패:', err);
 		alert('URL 복사에 실패했습니다.');

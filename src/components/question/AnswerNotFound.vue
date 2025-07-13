@@ -1,6 +1,6 @@
 <template>
 	<SectionWrapper type="answerNotFound">
-		<div class="text-center py-12">
+		<div class="text-center py-12" v-if="!isLoading">
 			<h3 class="text-xl font-semibold mb-4 text-gray-700 break-keep">
 				{{
 					isSharedLink
@@ -18,12 +18,10 @@
 
 			<div class="flex flex-col gap-y-4">
 				<ButtonGroup :bluePropObject="bluePropObject" />
-				<span
-					v-if="!isSharedLink"
-					class="text-gray-500 break-keep text-[13px] font-medium text-center"
+				<span class="text-gray-500 break-keep text-[13px] font-medium text-center"
 					>또는 해당 에러가 계속 지속된다면</span
 				>
-				<ButtonGroup v-if="!isSharedLink" :grayPropObject="grayPropObject" />
+				<ButtonGroup :grayPropObject="grayPropObject" />
 			</div>
 		</div>
 	</SectionWrapper>
@@ -33,7 +31,7 @@
 import { ref, onMounted } from 'vue';
 import ButtonGroup from '@/components/button/ButtonGroup.vue';
 import SectionWrapper from '@/components/section/SectionWrapper.vue';
-import { getUsernameFromUrl } from '@/util/sessionStorage.js';
+import { getUsernameFromUrl } from '@/util/urlShortener.js';
 
 const props = defineProps({
 	restart: {
@@ -43,10 +41,12 @@ const props = defineProps({
 });
 
 const isSharedLink = ref(false);
+const isLoading = ref(true);
 
 onMounted(() => {
 	// URL에 username 파라미터가 있으면 공유 링크로 간주
 	isSharedLink.value = !!getUsernameFromUrl();
+	isLoading.value = false;
 });
 
 const bluePropObject = {

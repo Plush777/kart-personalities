@@ -74,16 +74,14 @@ const loadSessionData = () => {
 
 	// 세션 스토리지에 데이터가 있고 유효한지 확인
 	if (savedAnswers.length > 0 && savedAnswers.length === props.questions.length) {
-		// 모든 답변이 null이 아닌지 확인
-		const hasValidAnswers = savedAnswers.every((answer) => answer !== null && answer !== undefined);
-
-		if (hasValidAnswers && savedIndex >= 0 && savedIndex < props.questions.length) {
+		// 저장된 인덱스가 유효한 범위인지 확인
+		if (savedIndex >= 0 && savedIndex < props.questions.length) {
 			// 유효한 데이터가 있으면 복원
 			answers.value = savedAnswers;
 			currentQuestionIndex.value = savedIndex;
 			selectedOption.value = savedAnswers[savedIndex] ?? null;
 		} else {
-			// 유효하지 않은 데이터면 초기화
+			// 저장된 인덱스가 유효하지 않으면 초기화
 			clearQuizData();
 			answers.value = new Array(props.questions.length).fill(null);
 			currentQuestionIndex.value = 0;

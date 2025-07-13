@@ -77,6 +77,7 @@ const outlineWhiteInactiveClickClass = 'bg-white border-gray-200 text-gray-500';
 const defaultGray1Style = 'text-white bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
 const defaultGray2Style = `text-white bg-zinc-800 hover:bg-zinc-900 disabled:hover:bg-zinc-900`;
 const focusGrayStyle = 'focus:bg-zinc-600 focus:ring-2 focus:ring-zinc-400';
+const focusGray2Style = 'focus:bg-zinc-900 focus:ring-2 focus:ring-zinc-700';
 
 /* green */
 const fillGreen1Style = 'text-white bg-green-600 hover:bg-green-700 disabled:hover:bg-green-600';
@@ -98,7 +99,7 @@ function getStyleType() {
 	}
 
 	if (props.styleType.includes('fill-gray2')) {
-		return `${defaultGray2Style} ${disabledStyle} ${focusGrayStyle}`;
+		return `${defaultGray2Style} ${disabledStyle} ${focusGray2Style}`;
 	}
 
 	if (props.styleType.includes('fill-green1')) {

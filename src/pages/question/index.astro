@@ -6,7 +6,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
 import { questions } from '@/data/questions';
 import Question from '@/components/question/Question.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
-import Footer from '@/layouts/Footer.vue';
+import FootSection from '@/components/section/FootSection.vue';
 
 // 서버 사이드에서는 빈 배열로 시작 (클라이언트에서 세션 스토리지 데이터로 대체됨)
 const initialAnswers = [];
@@ -17,6 +17,6 @@ const initialAnswers = [];
 		<ContentsInnerLayout>
 			<Question client:only="vue" questions={questions} initialAnswers={initialAnswers} />
 		</ContentsInnerLayout>
-		<Footer type="static" client:load />
+		<FootSection type="static" client:idle />
 	</MainLayout>
 </HtmlLayout>

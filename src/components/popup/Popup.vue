@@ -14,7 +14,7 @@
 					<Close />
 				</button>
 			</header>
-			<article class="h-[calc(100vh_-_200px)] overflow-y-auto p-4">
+			<article class="h-[calc(100vh_-_200px)] scrollbar-hide overflow-y-auto p-4">
 				<slot name="content" />
 			</article>
 		</div>

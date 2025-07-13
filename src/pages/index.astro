@@ -6,7 +6,7 @@ import HtmlLayout from '@/layouts/HtmlLayout.astro';
 import MainLayout from '@/layouts/MainLayout.vue';
 import StartForm from '@/components/main/StartForm.vue';
 import CharacterIntro from '@/components/animation/CharacterIntro.vue';
-import Footer from '@/layouts/Footer.vue';
+import FootSection from '@/components/section/FootSection.vue';
 
 const titleStyle =
 	'text-5xl text-blue-300 text-center leading-[1.3] font-[Recipekorea] drop-shadow-[2px_2px_0px_rgb(22,135,245)] break-keep';
@@ -33,5 +33,5 @@ const mobileDescriptionStyle = 'max-md:text-xl [&&]:max-[375px]:text-lg';
 
 		<ViewCount client:idle />
 	</MainLayout>
-	<Footer />
+	<FootSection client:idle />
 </HtmlLayout>
