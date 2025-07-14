@@ -1,3 +1,0 @@
-[build.environment]
-  VITE_ENABLE_LOGGING = "false"
-  NODE_ENV = "production"
