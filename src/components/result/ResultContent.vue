@@ -6,7 +6,7 @@
 		<ContentsInnerLayout type="result">
 			<ResultWrapper :characterInfo="characterInfo" />
 		</ContentsInnerLayout>
-		<FootSection type="static" />
+		<FootSection />
 	</div>
 </template>
 

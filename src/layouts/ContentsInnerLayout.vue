@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-const pcStyle = 'flex flex-col min-w-[500px] max-w-[500px] mx-auto size-full bg-white';
+const pcStyle = 'flex flex-col min-w-[500px] max-w-[500px] mx-auto ';
 const mobile500Style = 'max-[500px]:max-w-none max-[500px]:min-w-auto ';
 
 const props = defineProps({
@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 function getStyle() {
-	if (props.type === 'result') return 'overflow-y-auto max-h-[calc(100vh_-_68px)] scrollbar-hide';
-	return '';
+	if (props.type === 'result') return 'w-full  overflow-y-auto overflow-x-hidden scrollbar-hide';
+	return 'size-full';
 }
 </script>

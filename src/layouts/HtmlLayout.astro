@@ -45,8 +45,10 @@ const { bodyClassName = '' } = Astro.props;
 		<title>카트라이더 캐릭터로 알아보는 성격 테스트</title>
 	</head>
 	<body class={bodyClassName}>
-		<div id="app" class="select-none">
-			<slot />
+		<div id="app" class="select-none size-full">
+			<div class="h-full flex flex-col justify-between">
+				<slot />
+			</div>
 		</div>
 		<div id="popup-root"></div>
 		<div class="hidden">

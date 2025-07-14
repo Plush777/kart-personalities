@@ -19,7 +19,7 @@ const props = defineProps({
 function getTypeClass() {
 	if (props.type === 'default') return 'max-md:p-7 max-[500px]:w-full';
 	if (props.type === 'answerNotFound')
-		return 'min-w-[500px] max-[500px]:min-w-auto flex flex-col justify-center h-screen max-md:p-7 max-[500px]:w-full';
+		return 'min-w-[500px] max-[500px]:min-w-auto flex flex-col justify-center h-screen max-md:px-7 max-[500px]:w-full';
 
 	return '';
 }

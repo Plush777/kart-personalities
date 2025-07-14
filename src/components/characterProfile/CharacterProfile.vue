@@ -31,7 +31,8 @@
 <script setup>
 import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
 
-const imageStyle = 'w-[150px] max-md:w-[128px] [&&]:max-[375px]:w-[100px] object-contain';
+const imageStyle =
+	'w-[150px] max-md:w-[128px] [&&]:max-[500px]:w-[112px] [&&]:max-[375px]:w-[100px] object-contain';
 
 const props = defineProps({
 	type: {

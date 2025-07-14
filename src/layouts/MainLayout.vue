@@ -1,12 +1,9 @@
 <template>
 	<main
-		class="relative z-0 flex flex-col items-center"
-		:class="[hscreen ? 'h-screen' : '', align === 'center' ? 'justify-center' : '']"
+		class="relative z-0 flex flex-col items-center h-full"
+		:class="[align === 'center' ? 'justify-center' : '', getStyle()]"
 	>
-		<div
-			class="flex flex-col size-full items-center justify-center z-20"
-			:class="isBackground ? 'bg-sky-50' : ''"
-		>
+		<div class="flex flex-col size-full items-center justify-center z-20">
 			<slot :loading="loading" :characterInfo="characterInfo" />
 		</div>
 	</main>
@@ -17,21 +14,17 @@ import { ref, onMounted, computed, watch, provide, nextTick } from 'vue';
 import { clearQuizData } from '@/util/sessionStorage.js';
 
 const props = defineProps({
+	type: {
+		type: String,
+		default: 'default'
+	},
 	align: {
 		type: String,
 		default: 'center'
 	},
-	hscreen: {
-		type: Boolean,
-		default: true
-	},
 	isMobilePadding: {
 		type: Boolean,
 		default: true
-	},
-	isBackground: {
-		type: Boolean,
-		default: false
 	}
 });
 
@@ -74,4 +67,11 @@ provide('mainLayoutCharacterInfo', characterInfo);
 watch(characterInfo, (newValue) => {
 	console.log('MainLayout - characterInfo 변경됨:', newValue);
 });
+
+function getStyle() {
+	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto shadow-lg';
+	if (props.type === 'main') return '';
+
+	return '';
+}
 </script>
