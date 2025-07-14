@@ -21,24 +21,43 @@ const { bodyClassName = '' } = Astro.props;
 			content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width"
 		/>
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="나는 어떤 캐릭터의 성격일까?" />
-		<meta name="keywords" content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트" />
+		<meta
+			name="description"
+			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
+		/>
+		<meta
+			name="keywords"
+			content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트, 성격 테스트, 카트라이더 성격"
+		/>
 
-		<meta name="twitter:url" content={Astro.url.href} />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
-		<meta name="twitter:description" content="나는 어떤 캐릭터의 성격일까?" />
-		<meta name="twitter:image" content="/images/og/og.png" />
-
-		<meta property="og:url" content={Astro.url.href} />
-		<meta property="og:description" content="나는 어떤 캐릭터의 성격일까?" />
-		<meta property="og:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
-		<meta property="og:image" content="/images/og/og.png" />
+		<!-- 카카오톡 Open Graph -->
 		<meta property="og:type" content="website" />
+		<meta property="og:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
+		<meta
+			property="og:description"
+			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
+		/>
+		<meta property="og:image" content={new URL('/images/og/og.png', Astro.url)} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content={Astro.url.href} />
 		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
 		<meta property="og:locale" content="ko_KR" />
-		<meta property="og:image:width" content="1920" />
-		<meta property="og:image:height" content="1080" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
+		<meta
+			name="twitter:description"
+			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
+		/>
+		<meta name="twitter:image" content={new URL('/images/og/og.png', Astro.url)} />
+		<meta name="twitter:url" content={Astro.url.href} />
+
+		<!-- 추가 메타 태그 -->
+		<meta name="author" content="카트라이더 성격 테스트" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#4F46E5" />
 
 		<link rel="shortcut icon" id="favi" href="/favicon/32x32/img-dao-face.png" />
 		<link rel="preload" href="/fonts/Recipekorea.woff2" as="font" type="font/woff2" crossorigin />
