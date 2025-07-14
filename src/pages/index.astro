@@ -10,14 +10,14 @@ import FootSection from '@/components/section/FootSection.vue';
 
 const titleStyle =
 	'text-5xl text-blue-300 text-center leading-[1.3] font-[Recipekorea] drop-shadow-[2px_2px_0px_rgb(22,135,245)] break-keep';
-const mobileTitleStyle = 'max-md:text-4xl [&&]:max-[500px]:text-3xl [&&]:max-[375px]:text-[28px]';
+const mobileTitleStyle = 'max-md:text-4xl [&&]:max-[500px]:text-2xl ';
 
 const descriptionStyle = 'text-2xl text-center leading-[1.2] mt-4 break-keep';
-const mobileDescriptionStyle = 'max-md:text-xl [&&]:max-[500px]:text-lg';
+const mobileDescriptionStyle = 'max-md:text-xl [&&]:max-[500px]:text-base';
 ---
 
 <HtmlLayout bodyClassName="bg-sky-50">
-	<MainLayout type="main" hscreen={false} client:load>
+	<MainLayout type="main" client:load>
 		<div>
 			<h1 class={`${titleStyle} ${mobileTitleStyle}`}>
 				카트라이더 캐릭터로 알아보는 <br /> 성격 테스트

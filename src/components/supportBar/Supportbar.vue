@@ -2,7 +2,7 @@
 	<section
 		class="flex items-center justify-center bg-gradient-to-r from-[#F0F9FF] to-[#0099FF] w-full p-2 flex-wrap gap-x-[24px] gap-y-2 max-[500px]:leading-[16px]"
 	>
-		<p class="text-[13px] text-center break-keep font-semibold text-gray-600">
+		<p class="text-xs text-center break-keep font-semibold text-gray-600">
 			해당 사이트는 다음과 같은 브라우저에 최적화 되어 있습니다.
 		</p>
 

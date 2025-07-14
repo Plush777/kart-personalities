@@ -10,5 +10,5 @@
 </template>
 
 <script setup>
-const copyStyle = 'text-center text-xs text-black underline max-md:text-xs max-md:mt-4';
+const copyStyle = 'text-center text-xs text-black underline ';
 </script>

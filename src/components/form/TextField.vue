@@ -8,6 +8,8 @@
 		:value="modelValue"
 		:maxlength="maxLength"
 		@input="$emit('update:modelValue', $event.target.value)"
+		@focus="handleFocus"
+		@blur="handleBlur"
 	/>
 </template>
 
@@ -77,5 +79,76 @@ function getAlign() {
 	}
 
 	return 'text-center';
+}
+
+// 모바일에서 input focus 시 스크롤 위치 조정
+function handleFocus(event) {
+	console.log('TextField - handleFocus 호출됨');
+
+	// 전역 이벤트 발생
+	const focusEvent = new CustomEvent('input-focus');
+	window.dispatchEvent(focusEvent);
+	console.log('TextField - input-focus 전역 이벤트 발생');
+
+	// 모바일 환경인지 확인
+	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+		navigator.userAgent
+	);
+
+	if (isMobile) {
+		const element = event.target;
+
+		// 즉시 스크롤 조정 (키보드가 올라오기 전)
+		setTimeout(() => {
+			element.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'center'
+			});
+		}, 100);
+
+		// Visual Viewport API를 사용한 키보드 감지 및 조정
+		if (window.visualViewport) {
+			const handleViewportChange = () => {
+				const rect = element.getBoundingClientRect();
+				const viewportHeight = window.visualViewport.height;
+				const viewportTop = window.visualViewport.offsetTop;
+
+				// input이 키보드 위에 보이도록 조정
+				const inputBottom = rect.bottom + viewportTop;
+				const viewportBottom = viewportTop + viewportHeight;
+
+				if (inputBottom > viewportBottom) {
+					const scrollAdjustment = inputBottom - viewportBottom + 20; // 20px 여백
+					window.scrollBy({
+						top: scrollAdjustment,
+						behavior: 'smooth'
+					});
+				}
+			};
+
+			// 키보드가 올라올 때 이벤트 리스너 추가
+			window.visualViewport.addEventListener('resize', handleViewportChange);
+
+			// blur 시 이벤트 리스너 제거
+			element.addEventListener(
+				'blur',
+				() => {
+					window.visualViewport.removeEventListener('resize', handleViewportChange);
+				},
+				{ once: true }
+			);
+		}
+	}
+}
+
+// blur 이벤트 핸들러 추가
+function handleBlur() {
+	console.log('TextField - handleBlur 호출됨');
+
+	// 전역 이벤트 발생
+	const blurEvent = new CustomEvent('input-blur');
+	window.dispatchEvent(blurEvent);
+	console.log('TextField - input-blur 전역 이벤트 발생');
 }
 </script>
