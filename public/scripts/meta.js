@@ -23,10 +23,17 @@
 			// 이미 업데이트 중이면 중단
 			if (isUpdating) return;
 
+			console.log('메타데이터 업데이트 시작...');
+
 			// 1. URL 파라미터에서 결과 정보 확인
 			const urlParams = new URLSearchParams(window.location.search);
 			const urlUsername = urlParams.get('username') || '사용자';
 			const resultParam = urlParams.get('result');
+
+			console.log('URL 파라미터 확인:', {
+				urlUsername,
+				resultParam: resultParam ? '있음' : '없음'
+			});
 
 			let username = urlUsername;
 			let characterInfo = null;
@@ -34,13 +41,24 @@
 			// 2. URL 파라미터에서 결과 데이터 파싱
 			if (resultParam) {
 				try {
+					// Base64 디코딩 (URL 안전 문자 처리)
 					const base64 = resultParam.replace(/-/g, '+').replace(/_/g, '/');
 					const paddedBase64 = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
 					const decoded = atob(paddedBase64);
 					const utf8String = decodeURIComponent(escape(decoded));
 					characterInfo = JSON.parse(utf8String);
+
+					console.log('URL 파라미터에서 캐릭터 정보 파싱 성공:', characterInfo);
 				} catch (error) {
 					console.log('URL 파라미터 파싱 실패:', error);
+
+					// 대안: 직접 파싱 시도
+					try {
+						characterInfo = JSON.parse(decodeURIComponent(resultParam));
+						console.log('대안 파싱 성공:', characterInfo);
+					} catch (altError) {
+						console.log('대안 파싱도 실패:', altError);
+					}
 				}
 			}
 
@@ -57,6 +75,7 @@
 
 					if (userResult && userResult.characterInfo) {
 						characterInfo = userResult.characterInfo;
+						console.log('sessionStorage에서 캐릭터 정보 가져옴:', characterInfo);
 					}
 				} catch (error) {
 					console.log('sessionStorage에서 결과 가져오기 실패:', error);
@@ -79,6 +98,8 @@
 					window.location.origin
 				).href;
 
+				console.log('메타데이터 설정:', { title, description, image });
+
 				// 메타데이터 업데이트
 				document.title = title;
 
@@ -93,19 +114,28 @@
 					{ selector: 'meta[name="twitter:image"]', content: image }
 				];
 
+				let updatedCount = 0;
 				metaTags.forEach(({ selector, content }) => {
 					const element = document.querySelector(selector);
 					if (element) {
 						element.setAttribute('content', content);
+						updatedCount++;
+					} else {
+						console.log('메타태그를 찾을 수 없음:', selector);
 					}
 				});
 
-				console.log('결과 페이지 메타데이터 업데이트 완료:', title);
+				console.log(
+					`결과 페이지 메타데이터 업데이트 완료: ${updatedCount}개 태그 업데이트됨`,
+					title
+				);
 
 				// 업데이트 완료 후 플래그 해제 (약간의 지연)
 				setTimeout(() => {
 					isUpdating = false;
 				}, 100);
+			} else {
+				console.log('캐릭터 정보를 찾을 수 없음:', { characterInfo, username });
 			}
 		}
 
@@ -131,9 +161,9 @@
 		}
 
 		// 여러 타이밍으로 시도 (메타태그가 늦게 생성되는 경우 대비)
-		// setTimeout(attemptUpdate, 100);
-		// setTimeout(attemptUpdate, 500);
-		// setTimeout(attemptUpdate, 1000);
+		setTimeout(attemptUpdate, 100);
+		setTimeout(attemptUpdate, 500);
+		setTimeout(attemptUpdate, 1000);
 
 		// MutationObserver로 DOM 변경 감지 (무한 루프 방지)
 		if (typeof MutationObserver !== 'undefined') {

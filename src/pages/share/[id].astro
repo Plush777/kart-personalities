@@ -1,5 +1,7 @@
 ---
 import HtmlLayout from '@/layouts/HtmlLayout.astro';
+import Loading from '@/components/loading/Loading.vue';
+
 import { createClient } from '@supabase/supabase-js';
 import { characters } from '@/data/characters.js';
 
@@ -66,50 +68,20 @@ if (characterInfo && characterInfo.title) {
 }
 ---
 
-import HtmlLayout from '@/layouts/HtmlLayout.astro'; ---
-
 <HtmlLayout title={title} description={description} image={image}>
 	<!-- 리다이렉트 -->
 	<meta http-equiv="refresh" content={`0;url=${originalUrl || '/'}`} />
 
 	<style>
+		html,
 		body {
-			font-family: 'Recipekorea', sans-serif;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			min-height: 100vh;
-			margin: 0;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			color: white;
-			text-align: center;
-		}
-		.loading {
-			font-size: 1.2rem;
-		}
-		.spinner {
-			border: 3px solid rgba(255, 255, 255, 0.3);
-			border-radius: 50%;
-			border-top: 3px solid white;
-			width: 40px;
-			height: 40px;
-			animation: spin 1s linear infinite;
-			margin: 20px auto;
-		}
-		@keyframes spin {
-			0% {
-				transform: rotate(0deg);
-			}
-			100% {
-				transform: rotate(360deg);
-			}
+			width: 100%;
+			height: 100%;
+			font-family: 'Pretendard Variable', sans-serif;
 		}
 	</style>
 
-	<div>
-		<div class="spinner"></div>
-		<div class="loading">페이지로 이동 중...</div>
-	</div>
+	<Loading client:load />
 
 	<script>
 		// JavaScript로도 리다이렉트 (백업)
