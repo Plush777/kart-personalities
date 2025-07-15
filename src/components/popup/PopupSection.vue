@@ -93,7 +93,7 @@ const characterObject = computed(() => {
 		if (characterName === '배찌')
 			return {
 				top: 'top-[70px]',
-				imgSize: 'w-[200px]'
+				imgSize: 'w-[200px] object-[0_7px]'
 			};
 		if (characterName === '크리스')
 			return {
@@ -103,7 +103,7 @@ const characterObject = computed(() => {
 		if (characterName === '에리니')
 			return {
 				top: 'top-[70px]',
-				imgSize: 'w-[200px]'
+				imgSize: 'w-[200px] object-[0_12px]'
 			};
 		if (characterName === '티이라')
 			return {
@@ -123,7 +123,7 @@ const characterObject = computed(() => {
 		if (characterName === '다오')
 			return {
 				top: 'top-[70px]',
-				imgSize: 'w-[200px]'
+				imgSize: 'w-[180px]'
 			};
 		if (characterName === '마리드')
 			return {
@@ -138,7 +138,7 @@ const characterObject = computed(() => {
 		if (characterName === '에띠')
 			return {
 				top: 'top-[70px]',
-				imgSize: 'w-[200px]'
+				imgSize: 'w-[200px] object-[0_10px]'
 			};
 	}
 
