@@ -17,6 +17,7 @@ import ResultWrapper from '@/components/result/ResultWrapper.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
 import FootSection from '@/components/section/FootSection.vue';
 import { questions, getCharacterInfo } from '@/data/questions.js';
+
 import {
 	getQuizAnswers,
 	getUserResult,
@@ -59,8 +60,15 @@ function calculateCharacterType(answers) {
 function loadResultData() {
 	console.log('=== ResultContent loadResultData 시작 ===');
 
-	// 로딩 상태를 true로 설정
-	mainLayoutLoading.value = true;
+	// 새로고침 여부 확인 (URL에 result 파라미터가 있으면 새로고침으로 간주)
+	const urlParams = new URLSearchParams(window.location.search);
+	const resultParam = urlParams.get('result');
+	const isRefresh = !!resultParam;
+
+	// 새로고침이 아닌 경우에만 로딩 상태를 true로 설정
+	if (!isRefresh) {
+		mainLayoutLoading.value = true;
+	}
 
 	try {
 		// 1. URL에서 결과 데이터 확인 (가장 우선순위)
@@ -68,10 +76,14 @@ function loadResultData() {
 		console.log('ResultContent - URL에서 읽은 결과:', urlResult ? '있음' : '없음');
 
 		if (urlResult) {
-			// URL에서 결과를 바로 읽어온 경우 로딩 상태 건너뛰기
+			// URL에서 결과를 바로 읽어온 경우
 			mainLayoutCharacterInfo.value = urlResult;
 			console.log('ResultContent - URL 결과 설정됨:', mainLayoutCharacterInfo.value.title);
-			mainLayoutLoading.value = false; // 즉시 로딩 완료
+
+			// 새로고침이 아닌 경우에만 로딩 완료 처리
+			if (!isRefresh) {
+				mainLayoutLoading.value = false;
+			}
 			return;
 		}
 
@@ -124,6 +136,7 @@ function loadResultData() {
 						'ResultContent - 완료된 퀴즈 결과 설정됨:',
 						mainLayoutCharacterInfo.value.title
 					);
+
 					// 저장된 결과로 URL 업데이트
 					updateResultUrl(currentUsername, mainLayoutCharacterInfo.value);
 				} else {
@@ -137,12 +150,23 @@ function loadResultData() {
 		console.error('답변 데이터를 불러오는 중 오류가 발생했습니다:', error);
 	}
 
-	// 2.5초 후 로딩 완료 (characterInfo가 설정되지 않았어도 로딩은 완료)
-	setTimeout(() => {
+	// 로딩 완료 처리
+	if (isRefresh) {
+		// 새로고침인 경우 로딩을 보여주지 않음
 		mainLayoutLoading.value = false;
-		console.log('ResultContent - 로딩 완료, characterInfo:', mainLayoutCharacterInfo.value);
-		console.log('=== ResultContent loadResultData 종료 ===');
-	}, 2500);
+		console.log('ResultContent - 새로고침: 로딩 숨김');
+	} else {
+		// 새로고침이 아닌 경우 2.5초 후 로딩 완료
+		setTimeout(() => {
+			mainLayoutLoading.value = false;
+			console.log(
+				'ResultContent - 2.5초 후 로딩 완료, characterInfo:',
+				mainLayoutCharacterInfo.value
+			);
+		}, 2500);
+	}
+
+	console.log('=== ResultContent loadResultData 종료 ===');
 }
 
 // 결과 URL 업데이트 함수
@@ -153,7 +177,7 @@ function updateResultUrl(username, characterInfo) {
 
 	try {
 		const encodedResult = encodeResultForUrl(characterInfo);
-		const newUrl = `${window.location.origin}/result?username=${encodeURIComponent(username)}#${encodedResult}`;
+		const newUrl = `${window.location.origin}/result?username=${encodeURIComponent(username)}&result=${encodedResult}`;
 
 		// 브라우저 히스토리에 추가 (뒤로가기 가능하도록)
 		window.history.pushState({}, '', newUrl);

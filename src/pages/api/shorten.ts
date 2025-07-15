@@ -12,7 +12,7 @@ const supabase = createClient(
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const body = await request.json();
-		const { originalUrl } = body;
+		const { originalUrl, username } = body;
 
 		if (!originalUrl) {
 			return new Response(JSON.stringify({ error: 'Original URL is required' }), {
@@ -21,20 +21,27 @@ export const POST: APIRoute = async ({ request }) => {
 			});
 		}
 
-		// 기존에 같은 URL이 있는지 확인
+		if (!username) {
+			return new Response(JSON.stringify({ error: 'Username is required' }), {
+				status: 400,
+				headers: { 'Content-Type': 'application/json' }
+			});
+		}
+
+		// 기존에 같은 username이 있는지 확인
 		const { data: existingUrl } = await supabase
 			.from('shortened_urls')
 			.select('id')
-			.eq('original_url', originalUrl)
+			.eq('id', username)
 			.single();
 
 		if (existingUrl) {
-			const shortUrl = `${new URL(request.url).origin}/api/shorten/${existingUrl.id}`;
-			console.log(`기존 단축 URL 재사용: ${existingUrl.id} -> ${originalUrl}`);
+			const shortUrl = `${new URL(request.url).origin}/share/${username}`;
+			console.log(`기존 단축 URL 재사용: ${username} -> ${originalUrl}`);
 			return new Response(
 				JSON.stringify({
 					shortUrl,
-					shortId: existingUrl.id,
+					shortId: username,
 					originalUrl
 				}),
 				{
@@ -44,12 +51,9 @@ export const POST: APIRoute = async ({ request }) => {
 			);
 		}
 
-		// 새로운 짧은 ID 생성 (8자리 랜덤 문자열)
-		const shortId = generateShortId();
-
 		// URL 저장
 		const { error } = await supabase.from('shortened_urls').insert({
-			id: shortId,
+			id: username,
 			original_url: originalUrl
 		});
 
@@ -58,14 +62,14 @@ export const POST: APIRoute = async ({ request }) => {
 			throw error;
 		}
 
-		const shortUrl = `${new URL(request.url).origin}/api/shorten/${shortId}`;
+		const shortUrl = `${new URL(request.url).origin}/share/${username}`;
 
-		console.log(`새 단축 URL 생성: ${shortId} -> ${originalUrl}`);
+		console.log(`새 단축 URL 생성: ${username} -> ${originalUrl}`);
 
 		return new Response(
 			JSON.stringify({
 				shortUrl,
-				shortId,
+				shortId: username,
 				originalUrl
 			}),
 			{
@@ -81,13 +85,3 @@ export const POST: APIRoute = async ({ request }) => {
 		});
 	}
 };
-
-// 짧은 ID 생성 함수
-function generateShortId(): string {
-	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	let result = '';
-	for (let i = 0; i < 8; i++) {
-		result += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
-	return result;
-}

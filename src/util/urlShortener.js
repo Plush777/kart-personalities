@@ -1,16 +1,25 @@
 // URL 단축 함수 (서버 API 사용)
-export async function shortenUrl(originalUrl) {
+export async function shortenUrl(originalUrl, username = null) {
 	if (typeof window === 'undefined') {
 		return originalUrl;
 	}
 
 	try {
+		// username이 제공되지 않으면 URL에서 추출하거나 기본값 사용
+		let finalUsername = username;
+		if (!finalUsername) {
+			finalUsername = getUsernameFromUrl() || 'user';
+		}
+
 		const response = await fetch('/api/shorten', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify({ originalUrl })
+			body: JSON.stringify({
+				originalUrl,
+				username: finalUsername
+			})
 		});
 
 		if (!response.ok) {
@@ -48,7 +57,7 @@ export function getUsernameFromUrl() {
 	}
 }
 
-// URL에서 결과 데이터 가져오기 (해시 프래그먼트 사용)
+// URL에서 결과 데이터 가져오기 (쿼리 파라미터 사용)
 export function getResultFromUrl() {
 	if (typeof window === 'undefined') {
 		return null;
@@ -78,20 +87,37 @@ export function getResultFromUrl() {
 			}
 		}
 
-		// 기존 해시 프래그먼트에서 결과 데이터 확인
-		const hash = window.location.hash.substring(1); // # 제거
+		// 쿼리 파라미터에서 결과 데이터 확인 (서버 사이드에서도 접근 가능)
+		const resultParam = urlParams.get('result');
 
-		console.log('=== URL 해시 디버깅 ===');
+		console.log('=== URL 결과 파라미터 디버깅 ===');
 		console.log('현재 URL:', window.location.href);
-		console.log('해시 프래그먼트:', window.location.hash);
-		console.log('해시 데이터:', hash ? '있음' : '없음');
+		console.log('결과 파라미터:', resultParam ? '있음' : '없음');
+
+		if (resultParam) {
+			// URL 안전한 Base64를 일반 Base64로 복원
+			const base64 = resultParam.replace(/-/g, '+').replace(/_/g, '/');
+
+			// 패딩 추가 (Base64는 4의 배수여야 함)
+			const paddedBase64 = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
+
+			// Base64 디코딩 후 UTF-8 디코딩, JSON 파싱
+			const decoded = atob(paddedBase64);
+			const utf8String = decodeURIComponent(escape(decoded));
+			const resultData = JSON.parse(utf8String);
+			console.log('파싱된 결과:', resultData.title);
+			return resultData;
+		}
+
+		// 기존 해시 프래그먼트에서 결과 데이터 확인 (하위 호환성)
+		const hash = window.location.hash.substring(1); // # 제거
 
 		if (hash) {
 			// Base64 디코딩 후 UTF-8 디코딩, JSON 파싱
 			const decoded = atob(hash);
 			const utf8String = decodeURIComponent(escape(decoded));
 			const resultData = JSON.parse(utf8String);
-			console.log('파싱된 결과:', resultData.title);
+			console.log('해시에서 파싱된 결과:', resultData.title);
 			return resultData;
 		}
 
@@ -102,7 +128,7 @@ export function getResultFromUrl() {
 	}
 }
 
-// 결과 데이터를 URL 파라미터로 인코딩
+// 결과 데이터를 URL 파라미터로 인코딩 (URL 안전한 Base64)
 export function encodeResultForUrl(characterInfo) {
 	if (typeof window === 'undefined') {
 		return '';
@@ -112,7 +138,10 @@ export function encodeResultForUrl(characterInfo) {
 		// JSON을 문자열로 변환 후 UTF-8 인코딩으로 Base64 변환
 		const jsonString = JSON.stringify(characterInfo);
 		const utf8String = unescape(encodeURIComponent(jsonString));
-		return btoa(utf8String);
+		const base64 = btoa(utf8String);
+
+		// URL 안전한 Base64로 변환 (+, /, = 문자를 URL 안전한 문자로 변경)
+		return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 	} catch (error) {
 		console.error('결과 데이터 인코딩 중 오류 발생:', error);
 		return '';

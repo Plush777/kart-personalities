@@ -1,7 +1,12 @@
 ---
 import '@/styles/global.css';
 
-const { bodyClassName = '' } = Astro.props;
+const {
+	bodyClassName = '',
+	title = '카트라이더 캐릭터로 알아보는 성격 테스트',
+	description = '나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!',
+	image = '/images/og/og.png'
+} = Astro.props;
 ---
 
 <!--
@@ -21,10 +26,7 @@ const { bodyClassName = '' } = Astro.props;
 			content="initial-scale=1.0, user-scalable=no, maximum-scale=1, width=device-width"
 		/>
 		<meta name="generator" content={Astro.generator} />
-		<meta
-			name="description"
-			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
-		/>
+		<meta name="description" content={description} />
 		<meta
 			name="keywords"
 			content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트, 성격 테스트, 카트라이더 성격"
@@ -32,12 +34,9 @@ const { bodyClassName = '' } = Astro.props;
 
 		<!-- 카카오톡 Open Graph -->
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
-		<meta
-			property="og:description"
-			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
-		/>
-		<meta property="og:image" content={new URL('/images/og/og.png', Astro.url)} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:url" content={Astro.url.href} />
@@ -46,12 +45,9 @@ const { bodyClassName = '' } = Astro.props;
 
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
-		<meta
-			name="twitter:description"
-			content="나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!"
-		/>
-		<meta name="twitter:image" content={new URL('/images/og/og.png', Astro.url)} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, Astro.url)} />
 		<meta name="twitter:url" content={Astro.url.href} />
 
 		<!-- 추가 메타 태그 -->
@@ -64,13 +60,14 @@ const { bodyClassName = '' } = Astro.props;
 		<link rel="preload" href="/fonts/Recipekorea.woff" as="font" type="font/woff" crossorigin />
 		<script src="/scripts/console.js" is:inline></script>
 		<script src="/scripts/favi.js" is:inline></script>
+		<script src="/scripts/meta.js" is:inline></script>
 		<link
 			rel="stylesheet"
 			as="style"
 			crossorigin
 			href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
 		/>
-		<title>카트라이더 캐릭터로 알아보는 성격 테스트</title>
+		<title>{title}</title>
 	</head>
 	<body class={bodyClassName}>
 		<div id="app" class="select-none size-full">

@@ -50,18 +50,18 @@ async function copyToClipboard() {
 		const currentUsername = getUserName();
 		const currentCharacterInfo = props.characterInfo;
 
+		// shareUsername을 함수 시작 부분에서 정의
+		const shareUsername = urlUsername || currentUsername || 'user';
 		let shareUrl;
 
 		if (currentCharacterInfo) {
-			// 결과 데이터를 해시 프래그먼트에 포함
+			// 결과 데이터를 쿼리 파라미터에 포함
 			const encodedResult = encodeResultForUrl(currentCharacterInfo);
-			const shareUsername = urlUsername || currentUsername || 'user';
 
-			shareUrl = `${window.location.origin}/result?username=${encodeURIComponent(shareUsername)}#${encodedResult}`;
+			shareUrl = `${window.location.origin}/result?username=${encodeURIComponent(shareUsername)}&result=${encodedResult}`;
 		} else {
 			// 결과가 없으면 기존 방식 사용
-			const shareUsername = urlUsername || currentUsername;
-			if (shareUsername) {
+			if (shareUsername && shareUsername !== 'user') {
 				shareUrl = `${window.location.origin}/result?username=${encodeURIComponent(shareUsername)}`;
 			} else {
 				shareUrl = window.location.href;
@@ -69,7 +69,7 @@ async function copyToClipboard() {
 		}
 
 		// URL 단축
-		const shortUrl = await shortenUrl(shareUrl);
+		const shortUrl = await shortenUrl(shareUrl, shareUsername);
 
 		// 단축된 URL을 클립보드에 복사
 		await navigator.clipboard.writeText(shortUrl);

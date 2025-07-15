@@ -5,9 +5,16 @@ import HtmlLayout from '@/layouts/HtmlLayout.astro';
 import MainLayout from '@/layouts/MainLayout.vue';
 import ResultContent from '@/components/result/ResultContent.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
+import { characters } from '@/data/characters.js';
+
+// 기본 메타데이터 설정 (클라이언트에서 동적으로 변경)
+const title = '카트라이더 캐릭터로 알아보는 성격 테스트';
+const description =
+	'나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!';
+const image = '/images/og/og.png';
 ---
 
-<HtmlLayout bodyClassName="bg-sky-50">
+<HtmlLayout bodyClassName="bg-sky-50" title={title} description={description} image={image}>
 	<MainLayout client:load>
 		<ContentsInnerLayout type="result">
 			<ResultContent client:load />
