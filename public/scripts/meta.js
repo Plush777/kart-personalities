@@ -2,7 +2,6 @@
 (function () {
 	// 결과 페이지에서만 메타데이터 동적 업데이트
 	if (window.location.pathname === '/result') {
-		// 캐릭터별 메타 설명 매핑 (characters.js와 동일한 내용)
 		const characterMetaDescriptions = {
 			다오: '원칙과 정의를 중시하는 정석파예요.',
 			배찌: '낙천적이고 걱정이 없는 자유로운 영혼이에요.',
@@ -17,7 +16,13 @@
 			에리니: '장난기 많고 생기발랄한 활동가 타입이에요.'
 		};
 
+		let isUpdating = false; // 업데이트 중인지 확인하는 플래그
+		let updateTimeout = null; // 디바운싱을 위한 타임아웃
+
 		function updateResultMetaTags() {
+			// 이미 업데이트 중이면 중단
+			if (isUpdating) return;
+
 			// 1. URL 파라미터에서 결과 정보 확인
 			const urlParams = new URLSearchParams(window.location.search);
 			const urlUsername = urlParams.get('username') || '사용자';
@@ -60,6 +65,8 @@
 
 			// 4. 결과 정보가 있으면 메타데이터 업데이트
 			if (characterInfo && characterInfo.title) {
+				isUpdating = true; // 업데이트 시작
+
 				const metaDescription =
 					characterMetaDescriptions[characterInfo.title] ||
 					'카트라이더 캐릭터와 가장 비슷한 성격이에요.';
@@ -94,15 +101,78 @@
 				});
 
 				console.log('결과 페이지 메타데이터 업데이트 완료:', title);
+
+				// 업데이트 완료 후 플래그 해제 (약간의 지연)
+				setTimeout(() => {
+					isUpdating = false;
+				}, 100);
 			}
 		}
 
-		// 페이지 로드 시 즉시 실행
-		updateResultMetaTags();
+		// 디바운싱된 업데이트 함수
+		function debouncedUpdate() {
+			if (updateTimeout) {
+				clearTimeout(updateTimeout);
+			}
+			updateTimeout = setTimeout(updateResultMetaTags, 50);
+		}
 
-		// DOM 로드 완료 후 다시 실행 (메타태그가 늦게 생성되는 경우 대비)
+		// 여러 타이밍으로 메타데이터 업데이트 시도
+		function attemptUpdate() {
+			updateResultMetaTags();
+		}
+
+		// 즉시 실행
+		attemptUpdate();
+
+		// DOM 로드 완료 후 실행
 		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', updateResultMetaTags);
+			document.addEventListener('DOMContentLoaded', attemptUpdate);
+		}
+
+		// 여러 타이밍으로 시도 (메타태그가 늦게 생성되는 경우 대비)
+		// setTimeout(attemptUpdate, 100);
+		// setTimeout(attemptUpdate, 500);
+		// setTimeout(attemptUpdate, 1000);
+
+		// MutationObserver로 DOM 변경 감지 (무한 루프 방지)
+		if (typeof MutationObserver !== 'undefined') {
+			const observer = new MutationObserver(function (mutations) {
+				// 메타데이터 업데이트로 인한 변경인지 확인
+				let shouldUpdate = false;
+				mutations.forEach(function (mutation) {
+					if (mutation.type === 'childList') {
+						// head 태그에 새로운 요소가 추가되면 메타데이터 업데이트 시도
+						if (mutation.target.tagName === 'HEAD' || mutation.target.closest('head')) {
+							// 메타태그 변경이 아닌 다른 요소 추가인 경우에만 업데이트
+							const addedNodes = Array.from(mutation.addedNodes);
+							const hasNonMetaChanges = addedNodes.some(
+								(node) =>
+									node.nodeType === Node.ELEMENT_NODE &&
+									node.tagName !== 'META' &&
+									!node.hasAttribute('content')
+							);
+
+							if (hasNonMetaChanges) {
+								shouldUpdate = true;
+							}
+						}
+					}
+				});
+
+				if (shouldUpdate && !isUpdating) {
+					debouncedUpdate();
+				}
+			});
+
+			// head 태그 감시
+			const head = document.querySelector('head');
+			if (head) {
+				observer.observe(head, {
+					childList: true,
+					subtree: true
+				});
+			}
 		}
 
 		// URL 변경 감지 (브라우저 뒤로가기/앞으로가기 대응)
@@ -110,7 +180,14 @@
 		window.addEventListener('popstate', function () {
 			if (window.location.href !== currentUrl) {
 				currentUrl = window.location.href;
-				setTimeout(updateResultMetaTags, 100);
+				setTimeout(attemptUpdate, 100);
+			}
+		});
+
+		// 페이지 가시성 변경 시에도 업데이트 (탭 전환 등)
+		document.addEventListener('visibilitychange', function () {
+			if (!document.hidden) {
+				setTimeout(attemptUpdate, 100);
 			}
 		});
 	}
