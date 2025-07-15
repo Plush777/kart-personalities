@@ -39,7 +39,7 @@ onMounted(() => {
 	const currentUsername = getUserName();
 
 	// URL 파라미터의 username을 우선적으로 사용
-	userName.value = urlUsername || currentUsername || 'undefined';
+	userName.value = urlUsername || currentUsername || '사용자';
 });
 </script>
 
