@@ -83,10 +83,10 @@ if (characterInfo && characterInfo.title) {
 
 	<Loading client:load />
 
-	<script>
+	<script define:vars={{ originalUrl }}>
 		// JavaScript로도 리다이렉트 (백업)
 		setTimeout(() => {
-			window.location.href = '{originalUrl || "/"}';
+			window.location.href = originalUrl || '/';
 		}, 100);
 	</script>
 </HtmlLayout>
