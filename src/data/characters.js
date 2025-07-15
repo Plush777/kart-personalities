@@ -3,6 +3,7 @@ export const characters = {
 		title: '다오',
 		image: '/images/characters/img-dao.webp',
 		popupImage: '/images/profile/img-dao-profile.webp',
+		metaDescription: '원칙과 정의를 중시하는 정석파예요.',
 		info: {
 			summary:
 				'원칙과 정의를 중시하는 "정석파". 무슨 일이든 바르게 해내야 직성이 풀리는 사람입니다.',
@@ -30,6 +31,7 @@ export const characters = {
 	배찌: {
 		title: '배찌',
 		popupImage: '/images/profile/img-bazzi-profile.webp',
+		metaDescription: '낙천적이고 걱정이 없는 자유로운 영혼이에요.',
 		info: {
 			summary:
 				'낙천적이고 걱정이 없는 자유로운 영혼. 게으르고 둔해 보이지만, 누구보다 타고난 재능을 지닌 ‘천재 게으름뱅이’입니다.',
@@ -58,6 +60,7 @@ export const characters = {
 	디지니: {
 		title: '디지니',
 		popupImage: '/images/profile/img-diz-profile.webp',
+		metaDescription: '조용하지만 깊은 내면을 가진 따뜻한 감성형이에요.',
 		info: {
 			summary:
 				'조용하지만 깊은 내면을 가진 따뜻한 감성형. 혼자서도 잘하지만 누군가 옆에 있으면 더 힘이 나는 타입입니다.',
@@ -82,6 +85,7 @@ export const characters = {
 	우니: {
 		title: '우니',
 		popupImage: '/images/profile/img-uni-profile.webp',
+		metaDescription: '밝고 순수한 꿈꾸는 이상주의자예요.',
 		info: {
 			summary: '밝고 순수한 꿈꾸는 이상주의자. 겉은 귀엽지만 내면은 부지런한 성장러입니다.',
 			meritArray: ['밝은 에너지를 보여줌', '노력파, 꾸준히 성장하려는 태도', '긍정적이고 친절함'],
@@ -105,6 +109,7 @@ export const characters = {
 	마리드: {
 		title: '마리드',
 		popupImage: '/images/profile/img-marid-profile.webp',
+		metaDescription: '사랑과 감정에 솔직한 낭만주의자예요.',
 		info: {
 			summary:
 				'사랑과 감정에 솔직한 낭만주의자. 감성에 따라 움직이고, 그 속에서 열정을 불태우는 스타일입니다.',
@@ -129,6 +134,7 @@ export const characters = {
 	티이라: {
 		title: '티이라',
 		popupImage: '/images/profile/img-tiera-profile.webp',
+		metaDescription: '조용하고 신비로운 분위기를 지닌 내향형이에요.',
 		info: {
 			summary:
 				'조용하고 신비로운 분위기를 지닌 내향형. 말은 적지만 깊은 감정을 지닌 조용한 도우미 타입입니다.',
@@ -157,6 +163,7 @@ export const characters = {
 	케피: {
 		title: '케피',
 		popupImage: '/images/profile/img-keffy-profile.webp',
+		metaDescription: '늘 조용히, 하지만 꾸준히 자신의 길을 가는 성실한 완성형이에요.',
 		info: {
 			summary:
 				'늘 조용히, 하지만 꾸준히 자신의 길을 가는 성실한 완성형 타입. 남들보다 속도는 느릴 수 있지만, 포기하지 않고 끝까지 간다.',
@@ -184,6 +191,7 @@ export const characters = {
 	에띠: {
 		title: '에띠',
 		popupImage: '/images/profile/img-ethen-profile.webp',
+		metaDescription: '논리와 분석 중심의 기술형 인물이에요.',
 		info: {
 			summary:
 				'논리와 분석 중심의 기술형 인물. 감정보다 이성과 구조를 우선시하며, 문제 해결 능력이 탁월합니다.',
@@ -212,6 +220,7 @@ export const characters = {
 	모스: {
 		title: '모스',
 		popupImage: '/images/profile/img-mos-profile.webp',
+		metaDescription: '차분하고 실용적인 현실주의자예요.',
 		info: {
 			summary:
 				'차분하고 실용적인 현실주의자. 기술, 기계, 분석에 강하고 꾸준히 최선을 다하는 타입입니다.',
@@ -240,6 +249,7 @@ export const characters = {
 	크리스: {
 		title: '크리스',
 		popupImage: '/images/profile/img-kris-profile.webp',
+		metaDescription: '충동적이고 자유로운 천재예요.',
 		info: {
 			summary:
 				'충동적이고 자유로운 천재. 감정도 표현도 거침없으며, 무엇이든 흥미롭고 도전적이면 뛰어드는 타입입니다.',
@@ -260,6 +270,7 @@ export const characters = {
 	에리니: {
 		title: '에리니',
 		popupImage: '/images/profile/img-erini-profile.webp',
+		metaDescription: '장난기 많고 생기발랄한 활동가예요.',
 		info: {
 			summary:
 				'장난기 많고 생기발랄한 활동가 타입. 가벼운 에너지를 주지만, 깊은 애정도 가지고 있습니다.',
