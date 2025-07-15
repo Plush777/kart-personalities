@@ -6,8 +6,12 @@ const {
 	bodyClassName = '',
 	title = '카트라이더 캐릭터로 알아보는 성격 테스트',
 	description = '나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!',
-	image = '/images/og/og.png'
+	image = '/images/og/og.png',
+	customUrl = null
 } = Astro.props;
+
+// URL 설정 (customUrl이 있으면 사용, 없으면 현재 URL 사용)
+const url = customUrl || Astro.url.href;
 ---
 
 <!--
@@ -40,7 +44,7 @@ const {
 		<meta property="og:image" content={new URL(image, Astro.url)} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:url" content={url} />
 		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
 		<meta property="og:locale" content="ko_KR" />
 
@@ -49,7 +53,7 @@ const {
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(image, Astro.url)} />
-		<meta name="twitter:url" content={Astro.url.href} />
+		<meta name="twitter:url" content={url} />
 
 		<!-- 추가 메타 태그 -->
 		<meta name="author" content="카트라이더 성격 테스트" />

@@ -8,6 +8,7 @@
 				align="center"
 				placeholder="이름을 입력해주세요."
 				v-model="userName"
+				@keyup.enter="handleStartTest"
 			/>
 			<p class="text-xs text-center text-gray-500">*이름은 최대 10글자까지만 설정 가능해요.</p>
 		</div>
