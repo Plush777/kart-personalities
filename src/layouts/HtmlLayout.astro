@@ -7,7 +7,8 @@ const {
 	title = '카트라이더 캐릭터로 알아보는 성격 테스트',
 	description = '나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!',
 	image = '/images/og/og.png',
-	customUrl = null
+	customUrl = null,
+	robots = 'index, follow'
 } = Astro.props;
 
 // URL 설정 (customUrl이 있으면 사용, 없으면 현재 URL 사용)
@@ -37,7 +38,6 @@ const url = customUrl || Astro.url.href;
 			content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트, 성격 테스트, 카트라이더 성격"
 		/>
 
-		<!-- 카카오톡 Open Graph -->
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -48,16 +48,14 @@ const url = customUrl || Astro.url.href;
 		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
 		<meta property="og:locale" content="ko_KR" />
 
-		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={new URL(image, Astro.url)} />
 		<meta name="twitter:url" content={url} />
 
-		<!-- 추가 메타 태그 -->
 		<meta name="author" content="카트라이더 성격 테스트" />
-		<meta name="robots" content="index, follow" />
+		<meta name="robots" content={robots} />
 		<meta name="theme-color" content="#4F46E5" />
 
 		<link rel="shortcut icon" id="favi" href="/favicon/32x32/img-dao-face.png" />
@@ -73,6 +71,18 @@ const url = customUrl || Astro.url.href;
 			href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
 		/>
 		<title>{title}</title>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-98CSMSW7J4"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-98CSMSW7J4');
+		</script>
 	</head>
 	<body class={bodyClassName}>
 		<div id="app" class="select-none size-full">

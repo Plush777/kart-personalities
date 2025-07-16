@@ -27,6 +27,9 @@ const props = defineProps({
 		type: Function,
 		default: null
 	},
+	clickType: {
+		type: String
+	},
 	clickClass: {
 		type: String,
 		default: ''
@@ -34,7 +37,9 @@ const props = defineProps({
 });
 
 function handleClick() {
-	if (props.click) {
+	if (props.clickType === 'homeRedirect') {
+		window.location.href = '/';
+	} else if (props.click) {
 		props.click();
 	}
 }

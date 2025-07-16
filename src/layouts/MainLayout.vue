@@ -113,6 +113,7 @@ watch(isInputFocused, (newValue) => {
 function getStyle() {
 	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto shadow-lg';
 	if (props.type === 'main') return '';
+	if (props.type === '404') return 'px-4';
 
 	return '';
 }

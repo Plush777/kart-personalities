@@ -14,7 +14,10 @@
 					<Close />
 				</button>
 			</header>
-			<article class="h-[calc(100vh_-_200px)] scrollbar-hide overflow-y-auto p-4">
+			<article
+				ref="popupArticle"
+				class="h-[calc(100vh_-_200px)] scrollbar-hide overflow-y-auto p-4"
+			>
 				<slot name="content" />
 			</article>
 		</div>
@@ -28,6 +31,7 @@
 </template>
 
 <script setup>
+import { ref, watch, nextTick } from 'vue';
 import Close from '@/components/icons/Close.vue';
 
 const emit = defineEmits(['close']);
@@ -54,6 +58,27 @@ const props = defineProps({
 		default: '500px'
 	}
 });
+
+const popupArticle = ref(null);
+
+// 팝업 상태 변화 감지
+watch(
+	() => props.isOpen,
+	(newValue, oldValue) => {
+		if (newValue && !oldValue) {
+			// 팝업이 열릴 때 DOM이 업데이트된 후 스크롤 위치 확인 및 조정
+			nextTick(() => {
+				if (popupArticle.value) {
+					const { scrollTop, scrollHeight, clientHeight } = popupArticle.value;
+					// 스크롤이 맨 밑에 있는지 확인 (약간의 여유를 두어 정확히 맨 밑이 아니어도 감지)
+					if (scrollTop + clientHeight >= scrollHeight - 10) {
+						popupArticle.value.scrollTop = 0;
+					}
+				}
+			});
+		}
+	}
+);
 
 function minWidthStyle() {
 	return `min-w-[${props.minWidth}]`;

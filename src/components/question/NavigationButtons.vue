@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="navigation-buttons mt-8 flex justify-between items-center max-md:flex-col max-md:gap-y-2"
-	>
+	<div class="navigation-buttons mt-8 flex items-center flex-col gap-y-2">
 		<Button styleType="fill-gray1-md" :bindClass="questionNavigationButtonStyle" @click="goBack">
 			{{ backButtonText }}
 		</Button>
@@ -40,7 +38,7 @@ const props = defineProps({
 	}
 });
 
-const questionNavigationButtonStyle = 'min-w-[80px] max-md:h-9';
+const questionNavigationButtonStyle = 'w-full max-md:h-11';
 
 const emit = defineEmits(['prev', 'next', 'goHome']);
 
