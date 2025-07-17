@@ -16,6 +16,7 @@
 		<Button
 			bindClass="start-button max-md:h-10"
 			styleType="fill-blue1-md"
+			effectType="3d-blue"
 			:disabled="isLoading"
 			@click="handleStartTest"
 		>

@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="`${commonStyle} ${getStyleType()} ${getSizeType()} ${bindClass} max-md:w-full gap-x-2`"
+		:class="`${commonStyle} ${getStyleType()} ${getSizeType()} ${getEffectType()} ${bindClass} max-md:w-full gap-x-2`"
 		:type="type"
 		@click="handleClick"
 	>
@@ -18,6 +18,10 @@ const props = defineProps({
 		type: String,
 		required: true,
 		default: 'outline-white1'
+	},
+	effectType: {
+		type: String,
+		default: ''
 	},
 	bindClass: {
 		type: String,
@@ -71,12 +75,11 @@ const defaultBlue1Style = 'bg-blue-500 text-white hover:bg-blue-600 disabled:hov
 const focusBlueStyle = 'focus:border-blue-300 focus:ring-2 focus:ring-blue-300';
 
 /* white */
-const outlineWhite1Style =
-	'w-full p-[16px_24px] border-2 rounded-full hover:border-blue-400 hover:text-gray-900 hover:bg-blue-50';
-const focusWhiteStyle =
-	'focus:outline-blue-200 focus:ring-2 focus:ring-blue-200 focus:text-gray-900 ';
-const outlineWhiteActiveClickClass = 'border-blue-400 bg-blue-50 text-gray-900';
-const outlineWhiteInactiveClickClass = 'bg-white border-gray-200 text-gray-500';
+const outlineWhite1Style = 'w-full p-[16px_24px] border-2 rounded-full ';
+const focusWhiteStyle = 'focus:text-white focus:bg-blue-400 focus:border-blue-600';
+const outlineWhiteActiveClickClass =
+	'border-blue-600 bg-blue-400 text-white button-3d-outline-white-active-shadow before:bg-blue-300';
+const outlineWhiteInactiveClickClass = 'bg-white border-gray-600 text-black before:bg-gray-400 ';
 
 /* gray */
 const defaultGray1Style = 'text-white bg-zinc-600 hover:bg-zinc-700 disabled:hover:bg-zinc-700';
@@ -90,8 +93,30 @@ const focusGreenStyle = 'focus:bg-green-600 focus:ring-2 focus:ring-green-400';
 
 /* ============ color style ============ */
 
+function getEffectType() {
+	if (props.effectType.includes('3d') && props.styleType.includes('fill-blue1')) {
+		return `button-3d-blue button-3d bg-blue-400 border-blue-600 text-white before:bg-blue-300 button-3d-blue-shadow`;
+	}
+
+	if (props.effectType.includes('3d') && props.styleType.includes('fill-gray1')) {
+		return `button-3d-gray button-3d bg-zinc-600 border-zinc-700 text-white before:bg-zinc-500 button-3d-gray-shadow`;
+	}
+
+	if (props.effectType.includes('3d') && props.styleType.includes('fill-gray2')) {
+		return `button-3d-gray button-3d bg-zinc-800 border-zinc-900 text-gray-50 before:bg-zinc-700 button-3d-gray2-shadow`;
+	}
+
+	if (props.effectType.includes('3d') && props.styleType.includes('outline-white1')) {
+		return `button-3d-white button-3d button-3d-white-shadow ${props.clickClass ? outlineWhiteActiveClickClass : outlineWhiteInactiveClickClass}`;
+	}
+
+	if (props.effectType.includes('3d') && props.styleType.includes('fill-green1')) {
+		return `button-3d-green button-3d bg-green-500 border-green-700 text-gray-50 before:bg-green-400 button-3d-green-shadow`;
+	}
+}
+
 function getStyleType() {
-	if (props.styleType.includes('fill-blue1')) {
+	if (props.styleType.includes('fill-blue1') && !props.effectType.includes('3d')) {
 		return `${defaultBlue1Style} ${disabledStyle} ${focusBlueStyle}`;
 	}
 
@@ -99,15 +124,15 @@ function getStyleType() {
 		return `${outlineWhite1Style} ${props.clickClass ? outlineWhiteActiveClickClass : outlineWhiteInactiveClickClass} ${focusWhiteStyle}	`;
 	}
 
-	if (props.styleType.includes('fill-gray1')) {
+	if (props.styleType.includes('fill-gray1') && !props.effectType.includes('3d')) {
 		return `${defaultGray1Style} ${disabledStyle} ${focusGrayStyle}`;
 	}
 
-	if (props.styleType.includes('fill-gray2')) {
+	if (props.styleType.includes('fill-gray2') && !props.effectType.includes('3d')) {
 		return `${defaultGray2Style} ${disabledStyle} ${focusGray2Style}`;
 	}
 
-	if (props.styleType.includes('fill-green1')) {
+	if (props.styleType.includes('fill-green1') && !props.effectType.includes('3d')) {
 		return `${fillGreen1Style} ${disabledStyle} ${focusGreenStyle}`;
 	}
 

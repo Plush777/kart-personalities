@@ -1,7 +1,8 @@
 <template>
-	<div class="flex flex-col justify-center gap-2 items-center">
+	<div class="flex flex-col justify-center gap-5 items-center">
 		<Button
-			styleType="fill-blue1-sm"
+			effectType="3d-blue"
+			styleType="fill-blue1-md"
 			@click="bluePropObject.function"
 			v-if="bluePropObject?.show == true"
 		>
@@ -10,7 +11,8 @@
 		</Button>
 
 		<Button
-			styleType="fill-gray1-sm"
+			effectType="3d-gray"
+			styleType="fill-gray1-md"
 			@click="grayPropObject.function"
 			v-if="grayPropObject?.show == true"
 		>
@@ -19,7 +21,8 @@
 		</Button>
 
 		<Button
-			styleType="fill-gray2-sm"
+			effectType="3d-gray"
+			styleType="fill-gray2-md"
 			@click="gray2PropObject.function"
 			v-if="gray2PropObject?.show == true"
 		>

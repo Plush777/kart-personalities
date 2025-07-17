@@ -1,11 +1,17 @@
 <template>
-	<div class="navigation-buttons mt-8 flex items-center flex-col gap-y-2">
-		<Button styleType="fill-gray1-md" :bindClass="questionNavigationButtonStyle" @click="goBack">
+	<div class="navigation-buttons mt-10 flex items-center flex-col gap-y-4">
+		<Button
+			effectType="3d-gray"
+			styleType="fill-gray1-md"
+			:bindClass="questionNavigationButtonStyle"
+			@click="goBack"
+		>
 			{{ backButtonText }}
 		</Button>
 
 		<Button
 			:styleType="nextButtonStyleType"
+			effectType="3d-blue"
 			:bindClass="questionNavigationButtonStyle"
 			:disabled="!canGoNext"
 			@click="goNext"

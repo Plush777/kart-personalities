@@ -40,11 +40,18 @@
 					:alt="item"
 					:class="`w-[120px] h-[100px] max-[375px]:h-auto max-[375px]:w-[100px] object-cover ${imagePosition(item)}`"
 				/>
-				<figcaption class="text-center text-sm leading-[1.5] break-keep font-bold text-gray-700">
-					{{ item.name }}
+				<figcaption class="text-center text-sm leading-[1.5] break-keep font-medium text-gray-700">
+					{{ item }}
 				</figcaption>
 
-				<Button styleType="fill-gray1-xs" @click="() => openPopup(item)"> 캐릭터 설명 보기 </Button>
+				<Button
+					bindClass="mb-3"
+					effectType="3d"
+					styleType="fill-gray1-xs"
+					@click="() => openPopup(item)"
+				>
+					캐릭터 설명 보기
+				</Button>
 			</figure>
 		</div>
 	</section>

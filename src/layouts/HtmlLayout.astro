@@ -4,8 +4,8 @@ import { characters } from '@/data/characters.js';
 
 const {
 	bodyClassName = '',
-	title = '카트라이더 캐릭터로 알아보는 성격 테스트',
-	description = '나는 어떤 캐릭터의 성격일까? 카트라이더 캐릭터로 알아보는 성격 테스트를 해보세요!',
+	title = '카트라이더 성격 테스트',
+	description = '나는 어떤 캐릭터의 성격일까? ',
 	image = '/images/og/og.png',
 	customUrl = null,
 	robots = 'index, follow'
@@ -35,7 +35,7 @@ const url = customUrl || Astro.url.href;
 		<meta name="description" content={description} />
 		<meta
 			name="keywords"
-			content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트, 성격 테스트, 카트라이더 성격"
+			content="카트라이더, 카트라이더 캐릭터, 카트라이더 성격 테스트, 성격 테스트, 성격 유형 검사"
 		/>
 
 		<meta property="og:type" content="website" />
@@ -45,7 +45,7 @@ const url = customUrl || Astro.url.href;
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:url" content={url} />
-		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 성격 테스트" />
+		<meta property="og:site_name" content="카트라이더 성격 테스트" />
 		<meta property="og:locale" content="ko_KR" />
 
 		<meta name="twitter:card" content="summary_large_image" />

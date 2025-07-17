@@ -1,8 +1,15 @@
-# 카트라이더 캐릭터로 알아보는 성격 테스트
+# 카트라이더 성격 테스트
 
 <img src="./docs/images/readme-banner.jpg"/>
 
-기존 성격 유형 테스트를 카트라이더라는 주제에 맞게 재구성해보았습니다.
+<div style="text-align: center">
+재미로 하는 카트라이더 성격 유형 테스트 프로젝트입니다.
+
+총 15개의 질문으로 구성되어 있으며, 4개의 답변 중 하나를 선택하고 나는 어떤 캐릭터와 가장 비슷한지 알아보세요.
+
+</div>
+
+<br/>
 
 ## ✅ 사용 기술
 
@@ -13,9 +20,70 @@
 
 ### ✨ Astro + Vue
 
-Astro js의 가장 큰 장점이라고 한다면,
+<img src="docs/images/astro_architecture.png"/>
 
-<img src="images/docs/astro_architecture.png"/>
+Astro js의 가장 큰 장점이라고 한다면, Astro 프레임워크 안에 React나 Vue, Svelte 같은 프론트엔드 프레임워크들과 같이 쓸 수 있다는 점입니다.
+(원하지 않는다면 Astro js만 단독으로 사용도 가능)
+
+위 이미지처럼 겉에는 Astro (SSG 형태) 로 감싸고, 동적인 조작이 필요한 내부 콘텐츠들은 리액트나 뷰로 개발할 수 있습니다.
+
+하나의 Astro 프로젝트 안에 리액트, 뷰, 스벨트같은 프론트 프레임워크들을 한번에 다 넣어서 사용하는 것도 가능은 하지만 개인적으론 여러 개의 프레임워크가 들어가게 되면 구조가 복잡해지기 때문에, 실제 프로젝트용으로 쓴다고 한다면 **Astro + 주로 사용하는 프레임워크** 조합이 제일 실용적일 것으로 생각 됩니다.
+
+그 중에서 저는 비교적 문법이 HTML과 익숙한 **Vue**를 선택하였습니다.
+
+#### 장점
+
+- Astro는 Javascript없이 HTML만으로 정적 사이트 생성하는 **SSG** 환경이기 때문에 사이트가 가벼워집니다.
+
+- 안에 들어가는 동적인 콘텐츠들은 기존 프론트 개발하듯이 원하는 프레임워크로 컴포넌트를 개발할 수 있습니다.
+
+- Partial Hydration (부분적 하이드레이션)
+
+  먼저, **Hydration** 이라는 용어에 대해 알아야 합니다. 클라이언트에 정적 페이지 (서버에서 렌더링 된 HTML) 를 먼저 보내고 이후에 JS 파일을 가져와서 인터렉션이 가능하게 하는 작업을 말합니다.
+
+  예를 들자면 다음과 같습니다.
+  1. 서버가 `<button>클릭</button>`을 HTML로 보냄
+  2. 이후 JS로 이 버튼에 "눌렀을 때 팝업을 띄운다" 같은 기능을 붙임
+
+  일반적인 SPA 프레임워크는 이러한 과정을 **페이지 전체에 실행**시켜서 전체 페이지에 자바스크립트가 붙고, 이로 인해 **초기 로딩이 길어지는 현상**이 생기게 되는데요,
+
+  이러한 문제를 해결하기 위해 나온 것이 **Partial Hydration (부분적 하이드레이션)** 입니다.
+
+  전체를 하이드레이션하지 않고, **필요한 컴포넌트만 선택적으로 하이드레이션**을 하여 앱 번들의 크기를 크게 감소시킬 수 있다는 것입니다.
+
+  <br/>
+
+  ```JS
+  ---
+  import MyChart from '../components/MyChart.vue'
+  import CommentForm from '../components/CommentForm.vue'
+  ---
+
+  <!-- 정적인 콘텐츠 -->
+  <h1>블로그 글</h1>
+  <p>이 글은 Astro로 렌더링됩니다.</p>
+
+  <!-- 동적인 부분만 Vue로 하이드레이션 -->
+  <MyChart client:visible />
+  <CommentForm client:idle />
+  ```
+
+  위 코드처럼 다른 콘텐츠는 냅두고, 동적인 콘텐츠만 하이드레이션합니다. Astro에선 이러한 기법을 **아일랜드 아키텍처 (Islands Architecture)** 라고 소개하고 있고, 리액트에는 **서버 컴포넌트 (Server Components)** 가 있습니다.
+
+  **client:visible**, **client:idle**과 같은 클라이언트 지시어로 컴포넌트 로드의 우선순위를 정할 수 있습니다.
+
+##### 참고문헌
+
+- https://docs.astro.build/en/reference/directives-reference/#client-directives
+- https://velog.io/@xiniha/Partial-Hydration-%EB%91%98%EB%9F%AC%EB%B3%B4%EA%B8%B0
+
+#### 단점
+
+- Astro js를 접하지 않았다면 아일랜드 아키텍처에 대한 숙지가 필요하며, 개념이 생소할 수 있습니다.
+- 국내에서는 많이 알려지지 않았고, 점유율이 높은 편이 아니기 때문에 프로젝트의 규모가 커지거나 특정 이슈가 발생했을 시 대응이 힘들 수도 있습니다.
+- SPA 프레임워크와 혼합하여 사용하는 경우, 한 폴더 안에 `.vue`로 작성된 파일과 `.astro`로 작성된 파일이 같이 있는 경우도 있어 폴더 구조를 어떻게 설계 해야할지에 대한 어려움도 있습니다.
+
+<br/>
 
 ## 🛠️ 개발 서버 명령어
 
@@ -225,3 +293,23 @@ B라는 사용자가 "마리드" 라는 결과를 받고 해당 URL을 공유하
   }
   ```
   - `[id].astro` 에서 위 값들이 `<HtmlLayout>` 컴포넌트에 전달되어 SSR에서 동적인 메타태그를 구현할 수 있게 되었음.
+
+<br/>
+
+## 레퍼런스
+
+### 페이지 참고 및 기능 구현
+
+- https://codedna.info/
+- https://test-it.co.kr/
+- https://www.banggooso.com/gl/1034/
+- https://smore.im/quiz/5xjJqtXtZ1
+
+### css 3d button
+
+- https://csspro.com/css-3d-buttons/
+
+### 이미지
+
+- https://popkart.tiancity.com/homepage/v3/wallpaper/index.html
+- https://popkart.tiancity.com/homepage/v2/community/wallpaper.html
