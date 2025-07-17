@@ -2,12 +2,12 @@
 
 <img src="./docs/images/readme-banner.jpg"/>
 
-<center>
+<div align="center">
 재미로 하는 카트라이더 성격 유형 테스트 프로젝트입니다.
 
 총 15개의 질문으로 구성되어 있으며, 4개의 답변 중 하나를 선택하고 나는 어떤 캐릭터와 가장 비슷한지 알아보세요.
 
-</center>
+</div>
 
 <br/>
 
