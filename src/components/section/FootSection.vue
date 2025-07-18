@@ -21,7 +21,7 @@ const props = defineProps({
 });
 
 function getStyle() {
-	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto';
+	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto mt-auto';
 	if (props.type === 'main') return '';
 
 	return '';
