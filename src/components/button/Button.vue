@@ -76,7 +76,8 @@ const focusBlueStyle = 'focus:border-blue-300 focus:ring-2 focus:ring-blue-300';
 
 /* white */
 const outlineWhite1Style = 'w-full p-[16px_24px] border-2 rounded-full ';
-const focusWhiteStyle = 'focus:text-white focus:bg-blue-400 focus:border-blue-600';
+const focusWhiteStyle =
+	'focus:text-white focus:border-blue-600 focus:bg-blue-400 focus:border-blue-600 focus:before:bg-blue-300';
 const outlineWhiteActiveClickClass =
 	'border-blue-600 bg-blue-400 text-white button-3d-outline-white-active-shadow before:bg-blue-300';
 const outlineWhiteInactiveClickClass = 'bg-white border-gray-600 text-black before:bg-gray-400 ';

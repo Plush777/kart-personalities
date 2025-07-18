@@ -12,7 +12,7 @@
 				:key="browser.alt"
 				class="flex items-center justify-center p-1 bg-white rounded-lg"
 			>
-				<img :src="browser.img" :alt="browser.alt" class="size-5" />
+				<img :src="browser.img" :alt="browser.alt" class="size-4" />
 			</div>
 		</div>
 	</section>

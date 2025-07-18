@@ -1,7 +1,7 @@
 <template>
 	<footer :class="`${getStyle()} w-full`">
 		<Copyright />
-		<Supportbar />
+		<Supportbar v-if="isSupportbar" />
 	</footer>
 </template>
 
@@ -13,11 +13,15 @@ const props = defineProps({
 	type: {
 		type: String,
 		default: 'default'
+	},
+	isSupportbar: {
+		type: Boolean,
+		default: true
 	}
 });
 
 function getStyle() {
-	if (props.type === 'defailt') return 'bg-white max-w-[500px] mx-auto';
+	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto';
 	if (props.type === 'main') return '';
 
 	return '';

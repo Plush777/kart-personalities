@@ -1,6 +1,6 @@
 <template>
-	<main class="relative z-0 flex flex-col items-center h-full" :class="mainClasses">
-		<div class="flex flex-col size-full items-center justify-center z-20">
+	<main class="relative z-0 flex flex-col items-center" :class="mainClasses">
+		<div :class="`flex flex-col size-full items-center justify-center z-20 ${questionBgCondition}`">
 			<slot :loading="loading" :characterInfo="characterInfo" />
 		</div>
 	</main>
@@ -28,6 +28,8 @@ const props = defineProps({
 const loading = ref(true);
 const characterInfo = ref(null);
 const isInputFocused = ref(false);
+
+const questionBgCondition = props.type === 'question' ? 'bg-white' : '';
 
 // computed로 클래스 계산
 const mainClasses = computed(() => {
@@ -111,8 +113,9 @@ watch(isInputFocused, (newValue) => {
 });
 
 function getStyle() {
-	if (props.type === 'default') return 'bg-white max-w-[500px] mx-auto shadow-lg';
-	if (props.type === 'main') return '';
+	if (props.type === 'main') return 'my-auto h-[calc(100vh_-_64px)]';
+	if (props.type === 'question' || props.type === 'result')
+		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full';
 	if (props.type === '404') return 'px-4';
 
 	return '';

@@ -4,7 +4,7 @@ import { characters } from '@/data/characters.js';
 
 const {
 	bodyClassName = '',
-	title = '카트라이더 성격 테스트',
+	title = '카트라이더 캐릭터로 알아보는 나의 성격',
 	description = '나는 어떤 캐릭터의 성격일까? ',
 	image = '/images/og/og.png',
 	customUrl = null,
@@ -45,7 +45,7 @@ const url = customUrl || Astro.url.href;
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:url" content={url} />
-		<meta property="og:site_name" content="카트라이더 성격 테스트" />
+		<meta property="og:site_name" content="카트라이더 캐릭터로 알아보는 나의 성격" />
 		<meta property="og:locale" content="ko_KR" />
 
 		<meta name="twitter:card" content="summary_large_image" />
@@ -54,7 +54,7 @@ const url = customUrl || Astro.url.href;
 		<meta name="twitter:image" content={new URL(image, Astro.url)} />
 		<meta name="twitter:url" content={url} />
 
-		<meta name="author" content="카트라이더 성격 테스트" />
+		<meta name="author" content="카트라이더 캐릭터로 알아보는 나의 성격" />
 		<meta name="robots" content={robots} />
 		<meta name="theme-color" content="#4F46E5" />
 
@@ -85,8 +85,8 @@ const url = customUrl || Astro.url.href;
 		</script>
 	</head>
 	<body class={bodyClassName}>
-		<div id="app" class="select-none size-full">
-			<div class="h-full flex flex-col justify-between">
+		<div id="app" class="select-none">
+			<div class="flex flex-col justify-between">
 				<slot />
 			</div>
 		</div>

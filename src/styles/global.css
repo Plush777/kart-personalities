@@ -58,6 +58,7 @@ i {
 .button-3d {
 	touch-action: manipulation;
 	position: relative;
+	outline: none;
 	text-decoration: none;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -130,6 +131,10 @@ i {
 }
 
 /* white */
+.button-3d-white:focus::before {
+	box-shadow: 0 0 0 2px oklch(62.3% 0.214 259.815);
+}
+
 .button-3d-white-shadow::before {
 	box-shadow: 0 0 0 2px oklch(44.6% 0.03 256.802);
 }

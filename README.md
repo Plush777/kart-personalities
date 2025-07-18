@@ -1,4 +1,4 @@
-# 카트라이더 성격 테스트
+# 카트라이더 캐릭터로 알아보는 나의 성격
 
 <img src="./docs/images/readme-banner.jpg"/>
 

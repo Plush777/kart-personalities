@@ -23,6 +23,7 @@ const props = defineProps({
 
 function getStyle() {
 	if (props.type === 'result') return 'w-full overflow-y-auto overflow-x-hidden scrollbar-hide';
+	if (props.type === 'question') return 'min-h-[calc(100vh_-_64px)]';
 	if (props.type === '404') return 'w-full';
 
 	return 'size-full';
