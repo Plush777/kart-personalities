@@ -1,13 +1,19 @@
 <template>
-	<CharacterProfileWrapper>
-		<figure v-if="!props.imageError && props.type === 'result'">
+	<CharacterProfileWrapper :type="props.type">
+		<div class="relative mt-5 mb-10" v-if="!props.imageError && props.type === 'result'">
+			<img src="/images/rider/img-rider-snapshot-frame.png" alt="" class="aspect-[16/9]" />
+			<span
+				class="profile-name absolute top-[5%] left-1/2 -translate-x-1/2 text-white font-light whitespace-nowrap"
+				><strong class="text-[#20D5FF] font-normal">{{ getUserName() }}</strong
+				>의 카트라이더 스냅샷</span
+			>
 			<img
 				:src="props.characterInfo.image"
 				:alt="props.characterInfo.title"
-				:class="imageStyle"
+				:class="resultImageStyle"
 				@error="props.handleImageError"
 			/>
-		</figure>
+		</div>
 
 		<figure
 			v-else-if="props.type === 'intro'"
@@ -29,10 +35,12 @@
 </template>
 
 <script setup>
+import { getUserName } from '@/util/sessionStorage';
 import CharacterProfileWrapper from '@/components/characterProfile/CharacterProfileWrapper.vue';
 
 const imageStyle =
 	'w-[150px] max-md:w-[128px] [&&]:max-[500px]:w-[112px] [&&]:max-[375px]:w-[100px] object-contain';
+const resultImageStyle = 'absolute w-[95px] top-[41%] left-[9%] object-contain ';
 
 const props = defineProps({
 	type: {
@@ -73,5 +81,9 @@ const props = defineProps({
 .character-item.fade-out {
 	opacity: 0;
 	transform: scale(0.8);
+}
+
+.profile-name {
+	font-size: clamp(14px, 4vw, 20px);
 }
 </style>
