@@ -1,8 +1,9 @@
 <template>
 	<div
 		:class="`fixed left-1/2 -translate-x-1/2 bottom-0 ${transitionStyle} w-full 
-        ${props.isOpen ? `${openStyle} z-[100] translate-y-0` : `${closeStyle} z-[-1] translate-y-full`} 
+        ${isOpenStyle(props.type, props.isOpen)} 
         ${minWidthStyle()} ${maxWidthStyle()} ${mobileWidthStyle()}`"
+		v-if="props.type === 'bottom'"
 	>
 		<div class="bg-white rounded-[8px_8px_0_0] w-full">
 			<header class="p-4 h-12 flex justify-between items-center">
@@ -21,6 +22,14 @@
 				<slot name="content" />
 			</article>
 		</div>
+	</div>
+
+	<div
+		:class="`fixed top-1/2 left-1/2 -translate-1/2  ${transitionStyle}
+		${isOpenStyle(props.type, props.isOpen)}`"
+		v-else-if="props.type === 'center'"
+	>
+		<slot name="centerContent" />
 	</div>
 
 	<div
@@ -45,6 +54,11 @@ const closeStyle = 'invisible pointer-events-none';
 const transitionStyle = 'duration-700 ease-[cubic-bezier(0.25, 0.46, 0.45, 0.94)] transition-all';
 
 const props = defineProps({
+	type: {
+		type: String,
+		required: true,
+		default: 'bottom'
+	},
 	isOpen: {
 		type: Boolean,
 		default: false
@@ -58,6 +72,18 @@ const props = defineProps({
 		default: '500px'
 	}
 });
+
+function isOpenStyle(type, state) {
+	if (type === 'center') {
+		return state ? `${openStyle} z-[100] opacity-100` : `${closeStyle} z-[-1] opacity-0`;
+	}
+
+	if (type === 'bottom') {
+		return state ? `${openStyle} z-[100] translate-y-0` : `${closeStyle} z-[-1] translate-y-full`;
+	}
+
+	return state ? `${openStyle} z-[100]` : `${closeStyle} z-[-1]`;
+}
 
 const popupArticle = ref(null);
 

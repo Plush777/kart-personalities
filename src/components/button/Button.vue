@@ -1,6 +1,6 @@
 <template>
 	<button
-		:class="`${commonStyle} ${getStyleType()} ${getSizeType()} ${getEffectType()} ${bindClass} max-md:w-full gap-x-2`"
+		:class="`${commonStyle} ${getStyleType()} ${getSizeType()} ${getEffectType()} ${bindClass} max-md:w-full ${props.gapX}`"
 		:type="type"
 		@click="handleClick"
 	>
@@ -37,6 +37,10 @@ const props = defineProps({
 	clickClass: {
 		type: String,
 		default: ''
+	},
+	gapX: {
+		type: String,
+		default: 'gap-x-2'
 	}
 });
 

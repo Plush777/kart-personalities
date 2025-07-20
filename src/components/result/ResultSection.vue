@@ -44,7 +44,7 @@
 	</SectionWrapper>
 
 	<teleport to="#popup-root">
-		<Popup :isOpen="isPopupOpen" @close="closePopup">
+		<Popup type="bottom" :isOpen="isPopupOpen" @close="closePopup">
 			<template #content>
 				<PopupSection
 					:isPopupOpen="isPopupOpen"
