@@ -4,8 +4,6 @@
 		:characterInfo="characterInfo"
 		:restartTest="restartTest"
 		:goToQuestion="goToQuestion"
-		:imageError="imageError"
-		:handleImageError="handleImageError"
 		:copyToClipboard="copyToClipboard"
 	/>
 
@@ -13,7 +11,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import AnswerNotFound from '@/components/question/AnswerNotFound.vue';
 import ResultSection from '@/components/result/ResultSection.vue';
 import { getUserName } from '@/util/sessionStorage.js';
@@ -25,15 +22,6 @@ const props = defineProps({
 		default: null
 	}
 });
-
-const imageError = ref(false);
-
-function handleImageError(event) {
-	// 이미지 로드 실패 시 에러 상태로 변경
-	imageError.value = true;
-	// 이미지 요소를 숨김
-	event.target.style.display = 'none';
-}
 
 function restartTest() {
 	window.location.href = '/';

@@ -16,9 +16,9 @@
 				}}
 			</p>
 
-			<div class="flex flex-col gap-y-4">
+			<div class="flex flex-col">
 				<ButtonGroup :bluePropObject="bluePropObject" />
-				<span class="text-gray-500 break-keep text-[13px] font-medium text-center"
+				<span class="mt-7 mb-4 text-gray-500 break-keep text-[13px] font-medium text-center"
 					>또는 해당 에러가 계속 지속된다면</span
 				>
 				<ButtonGroup :grayPropObject="grayPropObject" />

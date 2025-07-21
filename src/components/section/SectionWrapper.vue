@@ -1,6 +1,6 @@
 <template>
 	<div :class="`flex flex-col relative z-10 text-center size-full ${getTypeClass()}`">
-		<article>
+		<article class="flex flex-col h-full">
 			<slot />
 		</article>
 	</div>

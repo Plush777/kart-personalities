@@ -2,10 +2,8 @@
 	<CharacterProfileWrapper :type="props.type">
 		<!-- result -->
 		<ResultCharacterProfileCard
-			v-if="!props.imageError && props.type === 'result'"
+			v-if="props.type === 'result'"
 			:characterInfo="props.characterInfo"
-			:imageError="props.imageError"
-			:handleImageError="props.handleImageError"
 		/>
 
 		<!-- intro -->
@@ -34,12 +32,7 @@ const props = defineProps({
 	characterInfo: {
 		type: Object
 	},
-	imageError: {
-		type: Boolean
-	},
-	handleImageError: {
-		type: Function
-	},
+
 	characterData: {
 		type: Array
 	},

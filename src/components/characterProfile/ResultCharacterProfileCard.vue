@@ -1,6 +1,6 @@
 <template>
 	<div class="relative mt-5 mb-10 flex flex-col items-center gap-y-4">
-		<SnapshotCard :characterInfo="props.characterInfo" :handleImageError="props.handleImageError" />
+		<SnapshotCard :isAnimation="false" sizeType="sm" :characterInfo="props.characterInfo" />
 		<Button
 			gapX="gap-x-1.5"
 			effectType="3d-blue"
@@ -19,7 +19,6 @@
 					<SnapshotCard
 						sizeType="default"
 						:characterInfo="props.characterInfo"
-						:handleImageError="props.handleImageError"
 						:isAnimation="true"
 					/>
 					<Button
@@ -47,19 +46,12 @@ import SnapshotCard from '@/components/card/SnapshotCard.vue';
 import Button from '@/components/button/Button.vue';
 import ButtonIconGroup from '@/components/icons/ButtonIconGroup.vue';
 import Popup from '@/components/popup/Popup.vue';
-import PopupSection from '@/components/popup/PopupSection.vue';
 
 const isPopupOpen = ref(false);
 
 const props = defineProps({
 	characterInfo: {
 		type: Object
-	},
-	imageError: {
-		type: Boolean
-	},
-	handleImageError: {
-		type: Function
 	}
 });
 
@@ -92,8 +84,8 @@ function downloadImage() {
 	// 사용자 이름 가져오기
 	const userName = getUserName();
 
-	// 파일명 생성 (사용자명_캐릭터명_카트라이더스냅샷.png)
-	const fileName = `${userName}_${props.characterInfo.title}_카트라이더스냅샷.png`;
+	// 파일명 생성 (사용자명_캐릭터명_카트운전면허증_날짜_시간.png)
+	const fileName = `${userName}_${props.characterInfo.title}_카트운전면허증_${new Date().toLocaleDateString()}_${new Date().toLocaleTimeString()}.png`;
 
 	// 이미지 다운로드
 	fetch(imageUrl)

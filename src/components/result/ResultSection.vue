@@ -5,12 +5,7 @@
 			>" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col mb-10">
-			<CharacterProfile
-				type="result"
-				:characterInfo="characterInfo"
-				:imageError="props.imageError"
-				:handleImageError="props.handleImageError"
-			/>
+			<CharacterProfile type="result" :characterInfo="characterInfo" />
 
 			<ResultBoxContainer type="default">
 				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
@@ -96,14 +91,6 @@ const props = defineProps({
 		required: true
 	},
 	goToQuestion: {
-		type: Function,
-		required: true
-	},
-	imageError: {
-		type: Boolean,
-		required: true
-	},
-	handleImageError: {
 		type: Function,
 		required: true
 	},
