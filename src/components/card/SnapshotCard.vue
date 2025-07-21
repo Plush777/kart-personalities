@@ -52,14 +52,11 @@ const props = defineProps({
 const cardRef = ref(null);
 const rotationX = ref(0);
 const rotationY = ref(0);
-const isHovered = ref(false);
 const flipRotation = ref(0);
 
 // 마우스 이동 처리
 function handleMouseMove(event) {
 	if (!props.isAnimation || !cardRef.value) return;
-
-	isHovered.value = true;
 
 	const rect = cardRef.value.getBoundingClientRect();
 	const centerX = rect.left + rect.width / 2;
@@ -78,7 +75,6 @@ function handleMouseMove(event) {
 function handleMouseLeave() {
 	if (!props.isAnimation) return;
 
-	isHovered.value = false;
 	rotationX.value = 0;
 	rotationY.value = 0;
 }
@@ -95,7 +91,7 @@ function handleCardClick() {
 const cardStyle = computed(() => {
 	if (!props.isAnimation) return {};
 
-	const transform = `perspective(1000px) rotateX(${rotationX.value}deg) rotateY(${rotationY.value}deg) scale(${isHovered.value ? 1.05 : 1})`;
+	const transform = `perspective(1000px) rotateX(${rotationX.value}deg) rotateY(${rotationY.value}deg)`;
 
 	return {
 		transform
