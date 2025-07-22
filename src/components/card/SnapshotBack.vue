@@ -11,10 +11,11 @@
 					https://kart-personalities.netlify.app
 				</p>
 			</div>
-			<span class="absolute top-[32px] left-0 bg-black w-full h-8" aria-hidden="true"></span>
+			<span class="bg-black w-full h-8" aria-hidden="true"></span>
 
-			<article class="absolute right-[-25px] top-[130px] rotate-90">
-				<ul class="flex flex-col mb-[200px]">
+			<!-- 원래 rotate-90 -->
+			<article>
+				<ul class="flex flex-col">
 					<li :class="[cardTopListStyle, commonTextStyle]">
 						<p :class="cardTopHeadTextStyle">카트운전면허증 전용상담</p>
 						<p>1544-0000</p>
