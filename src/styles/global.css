@@ -193,8 +193,8 @@ i {
 	background: transparent;
 	transition: transform 0.1s ease-out;
 	transform-style: preserve-3d;
-	width: 648px;
-	height: 364px;
+	width: 500px;
+	height: 281px;
 }
 
 .card-3d img {
@@ -203,7 +203,7 @@ i {
 }
 
 /* 3D 효과를 위한 반사광 */
-/* .card-3d::before {
+.card-3d::before {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -226,7 +226,7 @@ i {
 
 .card-3d:hover::before {
 	opacity: 1;
-} */
+}
 
 .card-front,
 .card-back {
@@ -244,8 +244,26 @@ i {
 
 @media (max-width: 768px) {
 	.card-3d {
-		/* 732x421 */
-		width: 95.5vw;
-		height: 53.61vw;
+		/* 648x364 */
+		width: 84.5vw;
+		height: 47.458vw;
+	}
+
+	.card-list-item-text,
+	.card-common-text {
+		font-size: clamp(10px, 1.5vw, 14px);
+	}
+
+	.card-number-text,
+	.card-username-text {
+		font-size: clamp(16px, 2.5vw, 22px);
+	}
+}
+
+@media (max-width: 620px) {
+	.card-list {
+		left: calc(40vw - 220px);
+		bottom: calc(45vw - 160px);
+		top: auto;
 	}
 }
