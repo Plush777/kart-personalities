@@ -33,9 +33,8 @@
 	</div>
 
 	<div
-		id="dimmed"
 		@click="closePopup"
-		:class="`fixed left-0 top-0 size-full inset-0 bg-black/50  ${transitionStyle} ${props.isOpen ? `${openStyle} z-[30] opacity-100` : `${closeStyle} opacity-0`}`"
+		:class="`dimmed fixed left-0 top-0 size-full inset-0 bg-black/50  ${transitionStyle} ${props.isOpen ? `${openStyle} z-[30] opacity-100` : `${closeStyle} opacity-0`}`"
 	></div>
 </template>
 
@@ -92,14 +91,10 @@ watch(
 	() => props.isOpen,
 	(newValue, oldValue) => {
 		if (newValue && !oldValue) {
-			// 팝업이 열릴 때 DOM이 업데이트된 후 스크롤 위치 확인 및 조정
+			// 팝업이 열리면 팝업 내부 스크롤을 맨위로 초기화
 			nextTick(() => {
 				if (popupArticle.value) {
-					const { scrollTop, scrollHeight, clientHeight } = popupArticle.value;
-					// 스크롤이 맨 밑에 있는지 확인 (약간의 여유를 두어 정확히 맨 밑이 아니어도 감지)
-					if (scrollTop + clientHeight >= scrollHeight - 10) {
-						popupArticle.value.scrollTop = 0;
-					}
+					popupArticle.value.scrollTop = 0;
 				}
 			});
 		}

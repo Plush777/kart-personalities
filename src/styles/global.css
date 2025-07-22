@@ -152,10 +152,6 @@ i {
 
 /* character profile (intro, result) */
 
-.profile-name {
-	font-size: clamp(14px, 4vw, 20px);
-}
-
 .character-item {
 	position: absolute;
 	opacity: 0;
@@ -242,6 +238,22 @@ i {
 	transform: rotateY(180deg);
 }
 
+.profile-name {
+	font-size: clamp(12px, 4vw, 20px);
+}
+
+.profile-description {
+	font-size: clamp(10px, 3.5vw, 16px);
+}
+
+.card-3d .profile-description {
+	font-size: clamp(14px, 2.35vw, 18px);
+}
+
+.card-3d .profile-name {
+	font-size: clamp(16px, 3.2vw, 24px);
+}
+
 @media (max-width: 768px) {
 	.card-3d {
 		/* 648x364 */
@@ -258,12 +270,71 @@ i {
 	.card-username-text {
 		font-size: clamp(16px, 2.5vw, 22px);
 	}
+
+	.card-list-item-text,
+	.card-number-text,
+	.card-username-text,
+	.card-en-text {
+		white-space: nowrap;
+	}
 }
 
 @media (max-width: 620px) {
 	.card-list {
-		left: calc(40vw - 220px);
-		bottom: calc(45vw - 160px);
+		left: calc(70vw - 360px);
+		bottom: calc(45vw - 80px);
 		top: auto;
+	}
+
+	.m-scale-down {
+		transform: scale(0.8);
+		position: relative;
+		left: -16px;
+	}
+
+	.card-bottom {
+		left: calc(10vw - 90px);
+		right: auto;
+	}
+}
+
+@media (max-width: 500px) {
+	.card-list {
+		left: calc(70vw - 345px);
+		bottom: calc(70vw - 130px);
+	}
+
+	.card-bottom {
+		left: calc(8vw - 120px);
+	}
+
+	.m-scale-down {
+		transform: scale(0.6);
+	}
+
+	.card-content-wrapper {
+		max-width: 200px;
+	}
+}
+
+@media (max-width: 375px) {
+	.m-scale-down {
+		transform: scale(0.52);
+	}
+
+	.card-bottom {
+		left: -110px;
+	}
+
+	.card-list {
+		left: -70px;
+		bottom: 180px;
+	}
+
+	.card-3d {
+		width: 317px;
+		height: 178px;
+		min-width: 317px;
+		min-height: 178px;
 	}
 }

@@ -5,7 +5,7 @@ import HtmlLayout from '@/layouts/HtmlLayout.astro';
 import MainLayout from '@/layouts/MainLayout.vue';
 import ResultContent from '@/components/result/ResultContent.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
-import { characters } from '@/data/characters.js';
+import FootSection from '@/components/section/FootSection.vue';
 
 // 기본 메타데이터 설정 (클라이언트에서 동적으로 변경)
 const title = '카트라이더 캐릭터로 알아보는 나의 성격';
@@ -19,4 +19,5 @@ const image = '/images/og/og.png';
 			<ResultContent client:load />
 		</ContentsInnerLayout>
 	</MainLayout>
+	<FootSection client:idle />
 </HtmlLayout>

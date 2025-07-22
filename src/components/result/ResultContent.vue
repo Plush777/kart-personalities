@@ -6,7 +6,6 @@
 		<ContentsInnerLayout type="result">
 			<ResultWrapper :characterInfo="characterInfo" />
 		</ContentsInnerLayout>
-		<FootSection />
 	</div>
 </template>
 
@@ -15,7 +14,6 @@ import { onMounted, inject, computed, ref, watch } from 'vue';
 import Loading from '@/components/loading/Loading.vue';
 import ResultWrapper from '@/components/result/ResultWrapper.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
-import FootSection from '@/components/section/FootSection.vue';
 import { questions, getCharacterInfo } from '@/data/questions.js';
 
 import {

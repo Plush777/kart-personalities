@@ -1,7 +1,11 @@
 <template>
-	<main class="relative z-0 flex flex-col items-center" :class="getStyle()">
-		<div :class="`flex flex-col size-full items-center justify-center z-20 ${questionBgCondition}`">
-			<slot :loading="loading" :characterInfo="characterInfo" />
+	<main class="overflow-y-auto overflow-x-hidden scrollbar-hide" :class="getStyle()">
+		<div class="relative z-0 flex flex-col items-center">
+			<div
+				:class="`flex flex-col size-full items-center justify-center z-20 ${questionBgCondition}`"
+			>
+				<slot :loading="loading" :characterInfo="characterInfo" />
+			</div>
 		</div>
 	</main>
 </template>
@@ -65,7 +69,7 @@ provide('mainLayoutCharacterInfo', characterInfo);
 function getStyle() {
 	if (props.type === 'main') return 'my-auto h-[calc(100vh_-_64px)] min-h-[600px]';
 	if (props.type === 'question' || props.type === 'result')
-		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[911px]';
+		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[calc(911px_-_64px)]';
 	if (props.type === '404') return 'px-4';
 
 	return '';

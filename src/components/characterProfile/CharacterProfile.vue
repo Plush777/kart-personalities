@@ -4,6 +4,7 @@
 		<ResultCharacterProfileCard
 			v-if="props.type === 'result'"
 			:characterInfo="props.characterInfo"
+			:ssrUserName="props.ssrUserName"
 		/>
 
 		<!-- intro -->
@@ -38,6 +39,9 @@ const props = defineProps({
 	},
 	currentIndex: {
 		type: Number
+	},
+	ssrUserName: {
+		type: String
 	}
 });
 

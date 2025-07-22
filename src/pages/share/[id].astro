@@ -1,8 +1,11 @@
 ---
 import HtmlLayout from '@/layouts/HtmlLayout.astro';
-
+import MainLayout from '@/layouts/MainLayout.vue';
+import ResultWrapper from '@/components/result/ResultWrapper.vue';
+import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
 import { createClient } from '@supabase/supabase-js';
 import { characters } from '@/data/characters.js';
+import FootSection from '@/components/section/FootSection.vue';
 
 export const prerender = false;
 
@@ -11,17 +14,15 @@ const supabase = createClient(
 	import.meta.env.PUBLIC_SUPABASE_ANON_KEY
 );
 
-// 페이지 데이터 가져오기
 const { id } = Astro.params;
 
 let originalUrl = '';
 let username = '';
 let characterInfo = null;
-let shortUrl = ''; // 단축 URL 저장 변수
+let shortUrl = '';
 
 if (id) {
 	try {
-		// Supabase에서 URL 조회
 		const { data: urlData, error } = await supabase
 			.from('shortened_urls')
 			.select('original_url')
@@ -32,133 +33,62 @@ if (id) {
 			originalUrl = urlData.original_url;
 			username = id;
 
-			// 단축 URL 생성 (현재 페이지 URL)
 			const currentUrl = new URL(Astro.url);
 			shortUrl = currentUrl.href;
 
-			console.log('Supabase 조회 성공:', { id, originalUrl, shortUrl });
-
-			// 원본 URL에서 캐릭터 정보 추출 시도
 			try {
 				const url = new URL(originalUrl);
-				const hash = url.hash.substring(1); // # 제거
+				const hash = url.hash.substring(1);
 				const resultParam = url.searchParams.get('result');
 
-				console.log('URL 파싱 결과:', {
-					hash: hash ? '있음' : '없음',
-					resultParam: resultParam ? '있음' : '없음'
-				});
-
-				// 1. hash에서 캐릭터 정보 추출 시도
 				if (hash) {
 					try {
-						// Base64 디코딩 후 UTF-8 디코딩, JSON 파싱
 						const decoded = atob(hash);
 						const utf8String = decodeURIComponent(escape(decoded));
 						characterInfo = JSON.parse(utf8String);
-
-						console.log('hash에서 캐릭터 정보 파싱 성공:', characterInfo);
-					} catch (hashError) {
-						console.log('hash 파싱 실패:', hashError);
-					}
+					} catch {}
 				}
 
-				// 2. hash가 없거나 실패한 경우 URL 파라미터에서 시도
 				if (!characterInfo && resultParam) {
-					console.log('URL 파라미터에서 result 찾음:', resultParam);
-
 					try {
-						// Base64 디코딩 시도
 						const base64 = resultParam.replace(/-/g, '+').replace(/_/g, '/');
 						const paddedBase64 = base64 + '='.repeat((4 - (base64.length % 4)) % 4);
 						const decoded = atob(paddedBase64);
 						const utf8String = decodeURIComponent(escape(decoded));
 						characterInfo = JSON.parse(utf8String);
-
-						console.log('URL 파라미터에서 캐릭터 정보 파싱 성공:', characterInfo);
-					} catch (base64Error) {
-						console.log('Base64 디코딩 실패, 직접 파싱 시도');
-
-						// 직접 JSON 파싱 시도
+					} catch {
 						try {
 							characterInfo = JSON.parse(decodeURIComponent(resultParam));
-							console.log('직접 파싱 성공:', characterInfo);
-						} catch (directError) {
-							console.log('직접 파싱도 실패:', directError);
-						}
+						} catch {}
 					}
 				}
-			} catch (error) {
-				console.log('URL 파싱 실패:', error);
-			}
-		} else {
-			console.log('Supabase 조회 실패:', { error, id });
+			} catch {}
 		}
-	} catch (error) {
-		console.error('URL 조회 중 오류:', error);
-	}
+	} catch {}
 }
 
-console.log('최종 설정된 값들:', {
-	id,
-	username,
-	originalUrl,
-	shortUrl,
-	characterInfo,
-	hasCharacterInfo: !!characterInfo,
-	characterTitle: characterInfo?.title
-});
-
-// 동적 메타태그 설정
 let title = '카트라이더 캐릭터로 알아보는 나의 성격';
 let description = '나는 어떤 캐릭터의 성격일까?';
 let image = '/images/og/og.png';
 
-console.log('메타데이터 설정 시작:', {
-	characterInfo: !!characterInfo,
-	characterTitle: characterInfo?.title,
-	username
-});
+console.log('공유 결과 페이지 - characterInfo:', characterInfo);
+console.log('공유 결과 페이지 - originalUrl:', originalUrl);
 
 if (characterInfo && characterInfo.title) {
 	const character = characters[characterInfo.title];
-	console.log('캐릭터 정보 찾음:', {
-		characterTitle: characterInfo.title,
-		character: !!character,
-		characterMetaDescription: character?.metaDescription
-	});
-
 	if (character) {
 		title = `${username}님은 ${characterInfo.title}와 가장 비슷한 성격을 가지고있어요.`;
 		description = `${username}님은 ${characterInfo.title}와 가장 비슷합니다. ${character.metaDescription}`;
 		image = character.popupImage;
-
-		console.log('메타데이터 설정 완료:', { title, description, image });
-	} else {
-		console.log('캐릭터 정보를 찾을 수 없음:', characterInfo.title);
 	}
-} else {
-	console.log('캐릭터 정보가 없어서 기본 메타데이터 사용');
 }
 ---
 
-<HtmlLayout title={title} description={description} image={image} customUrl={shortUrl}>
-	<!-- 리다이렉트 -->
-	<meta http-equiv="refresh" content={`0;url=${originalUrl || '/'}`} />
-
-	<style>
-		html,
-		body {
-			width: 100%;
-			height: 100%;
-			font-family: 'Pretendard Variable', sans-serif;
-		}
-	</style>
-
-	<script define:vars={{ originalUrl }}>
-		// JavaScript로도 리다이렉트 (백업)
-		setTimeout(() => {
-			window.location.href = originalUrl || '/';
-		}, 100);
-	</script>
+<HtmlLayout bodyClassName="bg-sky-50" title={title} description={description} image={image}>
+	<MainLayout client:load type="result">
+		<ContentsInnerLayout client:load type="result">
+			<ResultWrapper client:load ssrUserName={username} characterInfo={characterInfo} />
+		</ContentsInnerLayout>
+	</MainLayout>
+	<FootSection client:idle />
 </HtmlLayout>

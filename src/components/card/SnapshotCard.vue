@@ -1,7 +1,8 @@
 <template>
 	<div
 		ref="cardRef"
-		:class="`card-container rounded-2xl ${imageSize} ${isAnimation ? 'card-3d cursor-pointer' : ''}`"
+		:class="`card-container rounded-2xl ${imageSize} ${isAnimation ? 'card-3d cursor-pointer' : ''} 
+		max-[500px]:w-full max-[500px]:h-[48vw]`"
 		:style="cardStyle"
 		@mousemove="handleMouseMove"
 		@mouseleave="handleMouseLeave"
@@ -13,6 +14,8 @@
 			:sizeType="props.sizeType"
 			:rotateValue="flipRotation"
 			:isAnimation="props.isAnimation"
+			:userName="displayUserName"
+			:ssrUserName="props.ssrUserName"
 		/>
 
 		<div v-else class="card-inner">
@@ -21,9 +24,11 @@
 				:sizeType="props.sizeType"
 				:rotateValue="flipRotation"
 				:isAnimation="props.isAnimation"
+				:userName="displayUserName"
+				:ssrUserName="props.ssrUserName"
 			/>
 
-			<SnapshotBack :flipRotation="flipRotation" />
+			<SnapshotBack :ssrUserName="props.ssrUserName" :flipRotation="flipRotation" />
 		</div>
 	</div>
 </template>
@@ -45,6 +50,13 @@ const props = defineProps({
 		type: Object
 	},
 	sizeType: {
+		type: String
+	},
+	userName: {
+		type: String,
+		default: ''
+	},
+	ssrUserName: {
 		type: String
 	}
 });
@@ -111,4 +123,6 @@ function getImageSize() {
 }
 
 const imageSize = getImageSize();
+
+const displayUserName = computed(() => props.userName || getUserName());
 </script>

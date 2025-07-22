@@ -5,6 +5,7 @@
 		:restartTest="restartTest"
 		:goToQuestion="goToQuestion"
 		:copyToClipboard="copyToClipboard"
+		:ssrUserName="ssrUserName"
 	/>
 
 	<AnswerNotFound v-else :restart="restartTest" />
@@ -15,13 +16,18 @@ import AnswerNotFound from '@/components/question/AnswerNotFound.vue';
 import ResultSection from '@/components/result/ResultSection.vue';
 import { getUserName } from '@/util/sessionStorage.js';
 import { shortenUrl, getUsernameFromUrl, encodeResultForUrl } from '@/util/urlShortener.js';
+import { computed } from 'vue';
 
 const props = defineProps({
 	characterInfo: {
-		type: Object,
-		default: null
+		type: Object
+	},
+	ssrUserName: {
+		type: String
 	}
 });
+
+console.log('characterInfo:', props.characterInfo);
 
 function restartTest() {
 	window.location.href = '/';

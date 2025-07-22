@@ -1,6 +1,11 @@
 <template>
 	<div class="relative mt-5 mb-10 flex flex-col items-center gap-y-4">
-		<SnapshotCard :isAnimation="false" sizeType="sm" :characterInfo="props.characterInfo" />
+		<SnapshotCard
+			:isAnimation="false"
+			sizeType="sm"
+			:characterInfo="props.characterInfo"
+			:ssrUserName="props.ssrUserName"
+		/>
 		<Button
 			gapX="gap-x-1.5"
 			effectType="3d-blue"
@@ -20,6 +25,7 @@
 						sizeType="default"
 						:characterInfo="props.characterInfo"
 						:isAnimation="true"
+						:ssrUserName="props.ssrUserName"
 					/>
 					<Button
 						gapX="gap-x-1.5"
@@ -52,6 +58,9 @@ const isPopupOpen = ref(false);
 const props = defineProps({
 	characterInfo: {
 		type: Object
+	},
+	ssrUserName: {
+		type: String
 	}
 });
 

@@ -5,7 +5,7 @@
 			>" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col mb-10">
-			<CharacterProfile type="result" :characterInfo="characterInfo" />
+			<CharacterProfile type="result" :characterInfo="characterInfo" :ssrUserName="ssrUserName" />
 
 			<ResultBoxContainer type="default">
 				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
@@ -97,8 +97,13 @@ const props = defineProps({
 	copyToClipboard: {
 		type: Function,
 		required: true
+	},
+	ssrUserName: {
+		type: String
 	}
 });
+
+console.log('characterInfo:', props.characterInfo);
 
 const bluePropObject = {
 	function: props.restartTest,
@@ -123,14 +128,13 @@ const gray2PropObject = {
 
 const characterInfo = ref(props.characterInfo);
 
-const userName = ref('');
+const userName = ref(props.ssrUserName || '');
 
 onMounted(() => {
-	// URL에서 username 파라미터 확인
+	// SSR에서 받은 값이 있으면 덮어쓰지 않음
+	if (props.ssrUserName) return;
 	const urlUsername = getUsernameFromUrl();
 	const currentUsername = getUserName();
-
-	// URL 파라미터의 username을 우선적으로 사용
 	userName.value = urlUsername || currentUsername || 'undefined';
 });
 </script>

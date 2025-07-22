@@ -3,7 +3,9 @@
 		<div
 			class="relative bg-gradient-to-br from-[#017FE8] to-[#014ED7] w-full h-full rounded-2xl flex flex-col items-center"
 		>
-			<div class="flex items-center w-full min-h-8 justify-end pr-4 text-[11px] text-white">
+			<div
+				class="flex items-center w-full min-h-8 justify-end pr-4 text-[11px] max-[500px]:text-[10px] text-white"
+			>
 				<p class="uppercase">kartrider 면허증</p>
 				<p
 					class="flex items-center before:content-[''] before:border-l-[1px] before:border-white before:border-solid before:h-2.5 before:mx-1"
@@ -12,11 +14,13 @@
 				</p>
 			</div>
 
-			<div class="bg-black w-full min-h-8" aria-hidden="true"></div>
+			<div class="bg-black w-full min-h-8 max-[500px]:min-h-6" aria-hidden="true"></div>
 
-			<article class="max-w-[220px] max-md:max-w-[40vw] relative rotate-90">
+			<article
+				class="max-w-[220px] max-md:max-w-[40vw] relative rotate-90 m-scale-down card-content-wrapper"
+			>
 				<ul
-					class="card-list flex flex-col relative top-[-110px] left-[22px] max-md:top-[-19.5vw] max-md:left-[6vw]"
+					class="card-list flex flex-col relative top-[-110px] left-[22px] max-md:top-[-19.5vw] max-md:left-[calc(10vw_-_10px)]"
 				>
 					<li :class="[cardTopListStyle, commonTextStyle, 'card-list-item-text']">
 						<p :class="cardTopHeadTextStyle">카트운전면허증 전용상담</p>
@@ -32,7 +36,9 @@
 					</li>
 				</ul>
 
-				<div class="flex flex-col relative top-[40px] left-[-16px]">
+				<div
+					class="flex flex-col relative top-[40px] card-bottom left-0 max-md:right-[1vw] max-md:left-auto"
+				>
 					<div>
 						<div class="flex items-center">
 							<span :class="commonTextStyle">서 명</span>
@@ -47,7 +53,7 @@
 						</div>
 					</div>
 					<div class="flex items-center gap-x-4">
-						<div class="flex items-center gap-x-1 max-md:gap-x-[0.75vw]">
+						<div class="flex items-center gap-x-1 max-md:gap-x-[0.75vw] max-[500px]:gap-x-[2.5vw]">
 							<span
 								:class="[
 									commonTextStyle,
@@ -80,16 +86,19 @@
 						<p
 							class="card-username-text text-base text-white font-semibold font-[system-ui] tracking-[2px]"
 						>
-							{{ getUserName() }}
+							{{ getDisplayUserName() }}
 						</p>
 					</div>
 
-					<div class="leading-[10px] max-md:leading-none">
-						<p :class="commonTextStyle">이 카드는 실제 카드가 아니므로 사용할 수 없으며,</p>
-						<p :class="[commonTextStyle, 'mb-0.5']">타인에게 양도, 대여할 수 없습니다.</p>
+					<div class="leading-[10px] max-md:leading-none mb-0.5">
+						<p :class="[commonTextStyle, 'break-keep card-caution-text max-md:max-w-[222px]']">
+							이 카드는 실제 카드가 아니므로 사용할 수 없으며, 타인에게 양도, 대여할 수 없습니다.
+						</p>
 					</div>
 
-					<p :class="[commonTextStyle, 'mt-1']">If found, please return to KartriderCard.</p>
+					<p :class="[commonTextStyle, 'mt-1 card-en-text ']">
+						If found, please return to KartriderCard.
+					</p>
 
 					<img
 						src="/images/logo/logo-kartrider.svg"
@@ -114,6 +123,13 @@ const props = defineProps({
 	flipRotation: {
 		type: Number,
 		default: 0
+	},
+	ssrUserName: {
+		type: String
 	}
 });
+
+function getDisplayUserName() {
+	return props.ssrUserName || getUserName();
+}
 </script>
