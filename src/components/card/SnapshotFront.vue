@@ -21,22 +21,22 @@
 			>
 
 			<ul :class="`absolute card-text-ul ${cardInformationStyle} flex flex-col gap-y-2 `">
-				<li class="flex items-center">
+				<li class="flex items-center whitespace-nowrap">
 					<span class="text-white profile-description">라이더명:</span>
 					<span :class="`${skyText} profile-description ml-2`">{{ getDisplayUserName() }}</span>
 				</li>
-				<li class="flex items-center">
+				<li class="flex items-center whitespace-nowrap">
 					<span class="text-white profile-description">발급일:</span>
 					<!-- 한국기준 오늘 날짜 -->
 					<span :class="`${skyText} profile-description ml-2`">{{ today }}</span>
 				</li>
-				<li class="flex items-center">
+				<li class="flex items-center whitespace-nowrap">
 					<span class="text-white profile-description">성격 유형:</span>
 					<span :class="`${skyText} profile-description ml-2`">{{
 						props.characterInfo.title
 					}}</span>
 				</li>
-				<li class="flex items-center">
+				<li class="flex items-center whitespace-nowrap">
 					<span class="text-white profile-description">조건:</span>
 					<span :class="`${skyText} profile-description ml-2`">A</span>
 				</li>
