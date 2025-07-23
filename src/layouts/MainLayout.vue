@@ -1,7 +1,7 @@
 <template>
 	<main class="overflow-y-auto overflow-x-hidden scrollbar-hide w-full" :class="getStyle()">
 		<div
-			:class="`relative z-0 flex flex-col items-center ${props.type === 'main' || props.type === 'question' ? 'h-full' : ''}`"
+			:class="`relative z-0 flex flex-col items-center ${props.type === 'main' ? 'h-full' : ''}`"
 		>
 			<div :class="`flex flex-col w-full items-center justify-center z-20 ${questionCondition}`">
 				<slot :loading="loading" :characterInfo="characterInfo" />
