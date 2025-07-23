@@ -1,7 +1,7 @@
 <template>
 	<div
 		ref="cardRef"
-		:class="`card-container rounded-2xl ${imageSize} ${isAnimation ? 'card-3d cursor-pointer' : ''} 
+		:class="`card-container  rounded-2xl ${imageSize} ${isAnimation ? 'card-3d cursor-pointer' : ''} 
 		max-[500px]:w-full max-[500px]:h-[48vw]`"
 		:style="cardStyle"
 		@mousemove="handleMouseMove"

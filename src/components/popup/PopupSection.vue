@@ -2,12 +2,7 @@
 	<section class="popup-section pt-[190px] relative flex flex-col items-center gap-y-2">
 		<div :class="characterObject.top" class="absolute -translate-1/2 left-1/2 z-0">
 			<!-- 로딩 UI -->
-			<div
-				v-if="!imageLoaded"
-				class="flex items-center justify-center w-[200px] h-[200px] max-w-full bg-gray-100 rounded-full"
-			>
-				<span class="text-gray-400">로딩 중...</span>
-			</div>
+			<ImageLoading v-if="!imageLoaded" />
 			<!-- 실제 이미지 -->
 			<img
 				v-show="imageLoaded"
@@ -35,6 +30,7 @@
 import { computed, ref, watch, onUnmounted } from 'vue';
 import ResultBox from '@/components/result/ResultBox.vue';
 import ResultBoxContainer from '@/components/result/ResultBoxContainer.vue';
+import ImageLoading from '@/components/loading/ImageLoading.vue';
 
 const props = defineProps({
 	data: {
