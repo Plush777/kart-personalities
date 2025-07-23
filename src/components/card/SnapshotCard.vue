@@ -7,6 +7,9 @@
 		@mousemove="handleMouseMove"
 		@mouseleave="handleMouseLeave"
 		@click="handleCardClick"
+		@touchstart="handleTouchStart"
+		@touchmove="handleTouchMove"
+		@touchend="handleTouchEnd"
 	>
 		<SnapshotFront
 			v-if="!props.isAnimation"
@@ -66,6 +69,10 @@ const rotationX = ref(0);
 const rotationY = ref(0);
 const flipRotation = ref(0);
 
+// 터치 위치 저장용
+let touchStartX = 0;
+let touchStartY = 0;
+
 // 마우스 이동 처리
 function handleMouseMove(event) {
 	if (!props.isAnimation || !cardRef.value) return;
@@ -87,6 +94,41 @@ function handleMouseMove(event) {
 function handleMouseLeave() {
 	if (!props.isAnimation) return;
 
+	rotationX.value = 0;
+	rotationY.value = 0;
+}
+
+// 터치 시작
+function handleTouchStart(event) {
+	if (!props.isAnimation || !cardRef.value) return;
+	if (event.touches.length !== 1) return;
+
+	const touch = event.touches[0];
+	touchStartX = touch.clientX;
+	touchStartY = touch.clientY;
+}
+
+// 터치 이동
+function handleTouchMove(event) {
+	if (!props.isAnimation || !cardRef.value) return;
+	if (event.touches.length !== 1) return;
+
+	const rect = cardRef.value.getBoundingClientRect();
+	const centerX = rect.left + rect.width / 2;
+	const centerY = rect.top + rect.height / 2;
+
+	const touch = event.touches[0];
+	const touchX = touch.clientX - centerX;
+	const touchY = touch.clientY - centerY;
+
+	const maxRotation = 20;
+	rotationX.value = (touchY / (rect.height / 2)) * -maxRotation;
+	rotationY.value = (touchX / (rect.width / 2)) * maxRotation;
+}
+
+// 터치 종료 시 각도 초기화
+function handleTouchEnd() {
+	if (!props.isAnimation) return;
 	rotationX.value = 0;
 	rotationY.value = 0;
 }

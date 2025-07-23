@@ -53,7 +53,9 @@
 						</div>
 					</div>
 					<div class="flex items-center gap-x-4">
-						<div class="flex items-center gap-x-1 max-md:gap-x-[0.75vw] max-[500px]:gap-x-[2.5vw]">
+						<div
+							class="flex items-center gap-x-1 max-md:gap-x-[0.75vw] [&&]:max-[620px]:gap-x-[2.5vw]"
+						>
 							<span
 								:class="[
 									commonTextStyle,

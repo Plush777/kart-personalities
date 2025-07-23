@@ -1,5 +1,5 @@
 <template>
-	<main class="overflow-y-auto overflow-x-hidden scrollbar-hide" :class="getStyle()">
+	<main class="overflow-y-auto overflow-x-hidden scrollbar-hide w-full" :class="getStyle()">
 		<div
 			:class="`relative z-0 flex flex-col items-center ${props.type === 'main' || props.type === 'question' ? 'h-full' : ''}`"
 		>
@@ -70,7 +70,9 @@ provide('mainLayoutCharacterInfo', characterInfo);
 
 function getStyle() {
 	if (props.type === 'main') return 'my-auto h-[calc(100vh_-_64px)] min-h-[600px]';
-	if (props.type === 'question' || props.type === 'result')
+	if (props.type === 'question')
+		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[911px] ';
+	if (props.type === 'result')
 		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[calc(911px_-_64px)] max-[500px]:min-h-[calc(911px_-_88px)]';
 	if (props.type === '404') return 'px-4';
 

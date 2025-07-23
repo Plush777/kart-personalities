@@ -1,6 +1,6 @@
 <template>
 	<div :class="`flex flex-col relative z-10 text-center size-full ${getTypeClass()}`">
-		<article class="flex flex-col h-full">
+		<article :class="`flex flex-col h-full ${props.type === 'question' ? 'min-h-[769px]' : ''}`">
 			<slot />
 		</article>
 	</div>
