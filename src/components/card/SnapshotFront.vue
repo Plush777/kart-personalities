@@ -1,6 +1,6 @@
 <template>
 	<div
-		:class="`${props.isAnimation || !props.isCapture ? '' : 'flex items-center justify-center h-full'}`"
+		:class="`${props.isAnimation && !props.isCapture ? '' : 'flex items-center justify-center h-full'}`"
 	>
 		<ImageLoading v-if="!imageLoaded" />
 		<div
