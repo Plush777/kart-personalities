@@ -45,7 +45,9 @@
 							<span :class="[commonTextStyle, 'uppercase ']">(authorized signature)</span>
 						</div>
 
-						<div class="grid grid-cols-2 mb-2 max-w-[85px] max-md:max-w-[16vw] font-[system-ui]">
+						<div
+							class="grid grid-cols-2 mb-2 max-w-[85px] max-md:max-w-[16vw] [&&]:max-[500px]:max-w-[90px] font-[system-ui]"
+						>
 							<span :class="[commonNumberStyle, 'card-number-text']">2004</span>
 							<span :class="[commonNumberStyle, 'card-number-text']">0601</span>
 							<span :class="[commonNumberStyle, 'card-number-text']">2004</span>
