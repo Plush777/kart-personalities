@@ -8,6 +8,7 @@
 		/>
 		<Button
 			gapX="gap-x-1.5"
+			bindClass="w-full"
 			effectType="3d-blue"
 			styleType="fill-blue1-md"
 			@click="bluePropObject.function"
@@ -18,7 +19,7 @@
 	</div>
 
 	<teleport to="#popup-root">
-		<Popup type="center" :isOpen="isPopupOpen" @close="closePopup">
+		<Popup type="center" :isOpen="isPopupOpen" @close="closePopup" @after-leave="resetCardRotation">
 			<template #centerContent>
 				<div class="flex flex-col items-center gap-y-4">
 					<div ref="cardRef" class="card-container">
@@ -48,6 +49,7 @@
 					<Button
 						v-if="!props.isSsr"
 						gapX="gap-x-1.5"
+						bindClass="w-full"
 						effectType="3d-blue"
 						styleType="fill-blue1-md"
 						@click="bluePropObjectPopup.function"
@@ -62,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, isRef } from 'vue';
 import domtoimage from 'dom-to-image';
 import { scrollLock } from '@/util/event';
 import { getUserName } from '@/util/sessionStorage';
@@ -94,7 +96,7 @@ const props = defineProps({
 const bluePropObject = {
 	function: openPopup,
 	icon: 'viewDetailPlus',
-	text: '카드 상세보기'
+	text: '상세보기'
 };
 
 const bluePropObjectPopup = {
@@ -105,12 +107,24 @@ const bluePropObjectPopup = {
 
 function openPopup() {
 	isPopupOpen.value = true;
+	resetCardRotation();
 	scrollLock.enable();
 }
 
 function closePopup() {
 	isPopupOpen.value = false;
 	scrollLock.disable();
+}
+
+function resetCardRotation() {
+	const card = snapshotCardRef.value;
+	if (card && card.flipRotation !== undefined) {
+		if (isRef(card.flipRotation)) {
+			card.flipRotation.value = 0;
+		} else {
+			card.flipRotation = 0;
+		}
+	}
 }
 
 function downloadImage() {

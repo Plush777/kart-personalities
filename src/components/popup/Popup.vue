@@ -29,7 +29,11 @@
 		${isOpenStyle(props.type, props.isOpen)}`"
 		v-else-if="props.type === 'center'"
 	>
-		<slot name="centerContent" />
+		<Transition name="popup-fade" @after-leave="$emit('after-leave')">
+			<div v-show="props.isOpen">
+				<slot name="centerContent" />
+			</div>
+		</Transition>
 	</div>
 
 	<div
@@ -42,7 +46,7 @@
 import { ref, watch, nextTick } from 'vue';
 import Close from '@/components/icons/Close.vue';
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'after-leave']);
 
 function closePopup() {
 	emit('close');

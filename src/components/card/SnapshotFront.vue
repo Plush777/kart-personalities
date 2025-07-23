@@ -1,7 +1,5 @@
 <template>
-	<div
-		:class="`${props.isAnimation && !props.isCapture ? '' : 'flex items-center justify-center h-full'}`"
-	>
+	<div :class="centerStyle()">
 		<ImageLoading v-if="!imageLoaded" />
 		<div
 			v-show="imageLoaded"
@@ -104,6 +102,14 @@ function handleImageLoad() {
 function handleImageError(event) {
 	imageError.value = true;
 	event.target.style.display = 'none';
+}
+
+function centerStyle() {
+	if (!props.isAnimation && !props.isCapture) {
+		return 'flex items-center justify-center h-full';
+	}
+
+	return '';
 }
 
 onMounted(() => {

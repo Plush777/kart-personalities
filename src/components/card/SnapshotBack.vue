@@ -46,7 +46,7 @@
 						</div>
 
 						<div
-							class="grid grid-cols-2 mb-2 max-w-[85px] max-md:max-w-[16vw] [&&]:max-[500px]:max-w-[90px] font-[system-ui]"
+							class="grid grid-cols-2 mb-2 max-w-[85px] max-md:max-w-[16vw] [&&]:max-[620px]:max-w-[90px] font-[system-ui]"
 						>
 							<span :class="[commonNumberStyle, 'card-number-text']">2004</span>
 							<span :class="[commonNumberStyle, 'card-number-text']">0601</span>
@@ -56,7 +56,7 @@
 					</div>
 					<div class="flex items-center gap-x-4">
 						<div
-							class="flex items-center gap-x-1 max-md:gap-x-[0.75vw] [&&]:max-[620px]:gap-x-[2.5vw]"
+							class="flex items-center gap-x-1 max-md:gap-x-[0.75vw] [&&]:max-[620px]:gap-x-[18px]"
 						>
 							<span
 								:class="[

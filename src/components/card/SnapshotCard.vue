@@ -19,6 +19,7 @@
 			:isAnimation="props.isAnimation"
 			:userName="displayUserName"
 			:ssrUserName="props.ssrUserName"
+			:isCapture="props.isCapture"
 		/>
 
 		<div v-else class="card-inner">
