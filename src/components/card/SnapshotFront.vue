@@ -50,6 +50,7 @@ import { ref } from 'vue';
 import { getUserName } from '@/util/sessionStorage';
 import { getCharacterImageName } from '@/util/characterUtils';
 import ImageLoading from '@/components/loading/ImageLoading.vue';
+import { onMounted } from 'vue';
 
 const skyText = 'text-[#20D5FF]';
 const today = new Date().toLocaleDateString('ko-KR');
@@ -99,4 +100,10 @@ function handleImageError(event) {
 	imageError.value = true;
 	event.target.style.display = 'none';
 }
+
+onMounted(() => {
+	if (props.ssrUserName) {
+		imageLoaded.value = true;
+	}
+});
 </script>
