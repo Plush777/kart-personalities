@@ -3,9 +3,7 @@
 		<div
 			:class="`relative z-0 flex flex-col items-center ${props.type === 'main' || props.type === 'question' ? 'h-full' : ''}`"
 		>
-			<div
-				:class="`flex flex-col size-full items-center justify-center z-20 ${questionBgCondition}`"
-			>
+			<div :class="`flex flex-col w-full items-center justify-center z-20 ${questionCondition}`">
 				<slot :loading="loading" :characterInfo="characterInfo" />
 			</div>
 		</div>
@@ -34,7 +32,7 @@ const props = defineProps({
 const loading = ref(true);
 const characterInfo = ref(null);
 
-const questionBgCondition = props.type === 'question' ? 'bg-white' : '';
+const questionCondition = props.type === 'question' ? 'bg-white' : 'h-full';
 
 // 컴포넌트 마운트 시 데이터 로드
 onMounted(async () => {
@@ -70,8 +68,7 @@ provide('mainLayoutCharacterInfo', characterInfo);
 
 function getStyle() {
 	if (props.type === 'main') return 'my-auto h-[calc(100vh_-_64px)] min-h-[600px]';
-	if (props.type === 'question')
-		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[911px] ';
+	if (props.type === 'question') return 'bg-white max-w-[500px] mx-auto shadow-lg h-full ';
 	if (props.type === 'result')
 		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[calc(911px_-_64px)] max-[500px]:min-h-[calc(911px_-_88px)]';
 	if (props.type === '404') return 'px-4';

@@ -1,5 +1,5 @@
 <template>
-	<div class="navigation-buttons flex items-center flex-col gap-y-4">
+	<div class="navigation-buttons flex items-center gap-x-2 mt-10">
 		<Button
 			effectType="3d-gray"
 			styleType="fill-gray1-md"

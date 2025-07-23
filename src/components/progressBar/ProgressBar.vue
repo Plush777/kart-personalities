@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center mb-4 gap-x-4">
+	<div class="flex items-center mb-4 gap-x-4 sticky top-0 bg-white z-10">
 		<div class="w-full bg-gray-200 rounded-full h-2">
 			<div
 				class="shadow-sm bg-gradient-to-r from-[#F0F9FF] to-[#0099FF] h-2 rounded-full transition-all duration-300"

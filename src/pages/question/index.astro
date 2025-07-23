@@ -17,6 +17,6 @@ const initialAnswers = [];
 		<ContentsInnerLayout type="question">
 			<Question client:only="vue" questions={questions} initialAnswers={initialAnswers} />
 		</ContentsInnerLayout>
-		<FootSection client:idle />
+		<FootSection isSupportbar={false} client:idle />
 	</MainLayout>
 </HtmlLayout>

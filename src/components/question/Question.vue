@@ -3,14 +3,14 @@
 		<ProgressBar :current-question="currentQuestionIndex + 1" :total-questions="questions.length" />
 
 		<transition name="fade" mode="out-in">
-			<div v-if="isDataLoaded" v-cloak :key="currentQuestionIndex" class="w-full flex-1">
+			<div v-if="isDataLoaded" v-cloak :key="currentQuestionIndex" class="w-full">
 				<QuestionText :question="currentQuestion.question" />
 
 				<div class="">
 					<img
 						:src="`/images/question/img-question-${currentQuestionIndex + 1}.jpg`"
 						:alt="`${currentQuestionIndex + 1}번째 질문: ${currentQuestion.question} 이미지`"
-						class="max-h-[230px] rounded-lg mx-auto mt-2 mb-4"
+						class="rounded-lg mx-auto mt-2 mb-4 aspect-[16/10] w-full max-w-none block"
 					/>
 				</div>
 
