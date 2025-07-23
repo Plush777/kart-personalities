@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center justify-center h-full">
+	<div :class="`${props.isAnimation ? '' : 'flex items-center justify-center h-full'}`">
 		<ImageLoading v-if="!imageLoaded" />
 		<div
 			v-show="imageLoaded"
