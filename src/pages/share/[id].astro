@@ -87,7 +87,12 @@ if (characterInfo && characterInfo.title) {
 <HtmlLayout bodyClassName="bg-sky-50" title={title} description={description} image={image}>
 	<MainLayout client:load type="result">
 		<ContentsInnerLayout client:load type="result">
-			<ResultWrapper client:load ssrUserName={username} characterInfo={characterInfo} />
+			<ResultWrapper
+				client:load
+				isSsr={true}
+				ssrUserName={username}
+				characterInfo={characterInfo}
+			/>
 		</ContentsInnerLayout>
 	</MainLayout>
 	<FootSection client:idle />

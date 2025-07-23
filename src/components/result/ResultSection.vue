@@ -5,7 +5,12 @@
 			>" 와 가장 비슷한 성격을 가지고 있어요.
 		</h2>
 		<div class="flex flex-col mb-10">
-			<CharacterProfile type="result" :characterInfo="characterInfo" :ssrUserName="ssrUserName" />
+			<CharacterProfile
+				type="result"
+				:characterInfo="characterInfo"
+				:ssrUserName="ssrUserName"
+				:isSsr="props.isSsr"
+			/>
 
 			<ResultBoxContainer type="default">
 				<ResultBox title="한줄 요약" contentType="text" :dataText="characterInfo.info.summary" />
@@ -31,7 +36,10 @@
 			</ResultBoxContainer>
 		</div>
 
+		<ButtonGroup v-if="isSsr" :bluePropObject="bluePropObject" />
+
 		<ButtonGroup
+			v-else
 			:bluePropObject="bluePropObject"
 			:grayPropObject="grayPropObject"
 			:gray2PropObject="gray2PropObject"
@@ -100,6 +108,9 @@ const props = defineProps({
 	},
 	ssrUserName: {
 		type: String
+	},
+	isSsr: {
+		type: Boolean
 	}
 });
 
@@ -108,7 +119,7 @@ console.log('characterInfo:', props.characterInfo);
 const bluePropObject = {
 	function: props.restartTest,
 	icon: 'reset',
-	text: '다시 테스트하기',
+	text: props.isSsr ? '나도 테스트 해보기' : '다시 테스트하기',
 	show: true
 };
 

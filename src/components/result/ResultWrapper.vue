@@ -6,6 +6,7 @@
 		:goToQuestion="goToQuestion"
 		:copyToClipboard="copyToClipboard"
 		:ssrUserName="ssrUserName"
+		:isSsr="props.isSsr"
 	/>
 
 	<AnswerNotFound v-else :restart="restartTest" />
@@ -21,6 +22,10 @@ import { computed } from 'vue';
 const props = defineProps({
 	characterInfo: {
 		type: Object
+	},
+	isSsr: {
+		type: Boolean,
+		default: false
 	},
 	ssrUserName: {
 		type: String

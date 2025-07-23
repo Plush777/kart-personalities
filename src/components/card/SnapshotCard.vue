@@ -125,4 +125,11 @@ function getImageSize() {
 const imageSize = getImageSize();
 
 const displayUserName = computed(() => props.userName || getUserName());
+
+// 외부에서 접근할 수 있도록 expose
+defineExpose({
+	rotationX,
+	rotationY,
+	flipRotation
+});
 </script>

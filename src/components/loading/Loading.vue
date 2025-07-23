@@ -6,21 +6,21 @@
 			<img
 				src="/images/face/img-dao-face.webp"
 				alt=""
-				class="loading-image dao-image size-[130px] max-md:size-[25%]"
+				class="loading-image dao-image size-[130px] max-[500px]:size-[105px]"
 			/>
 			<img
 				src="/images/face/img-diz-face.webp"
 				alt=""
-				class="loading-image diz-image size-[120px] max-md:size-[25%]"
+				class="loading-image diz-image size-[120px] max-[500px]:size-[95px]"
 			/>
 			<img
 				src="/images/face/img-bazzi-face.webp"
 				alt=""
-				class="loading-image bazzi-image size-[130px] max-md:size-[25%]"
+				class="loading-image bazzi-image size-[130px] max-[500px]:size-[105px]"
 			/>
 		</div>
 
-		<p class="text-xl font-bold text-gray-600 max-md:text-lg max-[375px]:text-base">
+		<p class="text-xl text-center font-bold text-gray-600 break-keep">
 			{{ userName }}님의 결과를 분석하고 있어요.
 		</p>
 	</div>

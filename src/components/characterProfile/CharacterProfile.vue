@@ -5,6 +5,7 @@
 			v-if="props.type === 'result'"
 			:characterInfo="props.characterInfo"
 			:ssrUserName="props.ssrUserName"
+			:isSsr="props.isSsr"
 		/>
 
 		<!-- intro -->
@@ -42,6 +43,9 @@ const props = defineProps({
 	},
 	ssrUserName: {
 		type: String
+	},
+	isSsr: {
+		type: Boolean
 	}
 });
 

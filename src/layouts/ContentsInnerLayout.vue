@@ -13,7 +13,7 @@
 
 <script setup>
 const pcStyle = 'flex flex-col mx-auto ';
-const mobile500Style = 'max-[500px]:max-w-none max-[500px]:min-w-auto ';
+const mobile500Style = 'max-[500px]:max-w-none max-[500px]:min-w-screen ';
 
 const props = defineProps({
 	type: {

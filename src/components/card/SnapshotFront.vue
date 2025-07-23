@@ -6,7 +6,7 @@
 		<img
 			:src="`/images/rider/img-${getCharacterImageName(props.characterInfo.title)}-card.png`"
 			:alt="`${getDisplayUserName()}의 카트운전면허증 이미지`"
-			:class="`aspect-[16/9] rounded-xl `"
+			:class="`aspect-[16/9] rounded-xl card-image size-full`"
 			@error="handleImageError"
 		/>
 		<span
@@ -15,7 +15,7 @@
 			>의 카트운전면허증</span
 		>
 
-		<ul :class="`absolute ${cardInformationStyle} flex flex-col gap-y-2 `">
+		<ul :class="`absolute card-text-ul ${cardInformationStyle} flex flex-col gap-y-2 `">
 			<li class="flex items-center">
 				<span class="text-white profile-description">라이더명:</span>
 				<span :class="`${skyText} profile-description ml-2`">{{ getDisplayUserName() }}</span>
@@ -74,8 +74,8 @@ function getDisplayUserName() {
 }
 
 const cardInformationStyle = props.isAnimation
-	? 'top-[95px] left-[200px] max-md:gap-y-[2vw] max-md:top-[16vw] max-md:left-[33vw]'
-	: 'top-[80px] left-[170px] max-[500px]:gap-y-[1vw] max-[500px]:top-[16vw] max-[500px]:left-[34.5vw]';
+	? 'top-[95px] left-[200px] max-md:gap-y-[calc(4vw_-_10px)] max-md:top-[16vw] max-md:left-[33vw] [&&]:max-[375px]:top-[60px] [&&]:max-[375px]:left-[130px] [&&]:max-[375px]:gap-y-2'
+	: 'top-[80px] left-[170px] max-[500px]:gap-y-[1.62vw] max-[500px]:top-[17vw] max-[500px]:left-[36vw] ';
 
 const textTopStyle = props.isAnimation ? 'top-[5.4%]' : 'top-[4.4%]';
 
