@@ -6,7 +6,7 @@
 		<img
 			:src="`/images/rider/img-${getCharacterImageName(props.characterInfo.title)}-card.png`"
 			:alt="`${getDisplayUserName()}의 카트운전면허증 이미지`"
-			:class="`aspect-[16/9] rounded-xl card-image size-full`"
+			:class="`aspect-[16/9] rounded-xl card-image bg-gray-200 w-full max-w-none block`"
 			@error="handleImageError"
 		/>
 		<span

@@ -1,10 +1,21 @@
 <template>
 	<section class="popup-section pt-[190px] relative flex flex-col items-center gap-y-2">
 		<div :class="characterObject.top" class="absolute -translate-1/2 left-1/2 z-0">
+			<!-- 로딩 UI -->
+			<div
+				v-if="!imageLoaded"
+				class="flex items-center justify-center w-[200px] h-[200px] max-w-full bg-gray-100 rounded-full"
+			>
+				<span class="text-gray-400">로딩 중...</span>
+			</div>
+			<!-- 실제 이미지 -->
 			<img
+				v-show="imageLoaded"
+				:key="props.data?.popupImage"
 				:class="characterObject.imgSize"
 				:src="props.data?.popupImage"
 				:alt="props.data?.title"
+				@load="imageLoaded = true"
 			/>
 		</div>
 		<div class="relative z-10 border-t border-gray-200 pt-3.5">
@@ -41,6 +52,16 @@ const props = defineProps({
 const isAnimating = ref(false);
 const shouldShowStyles = ref(false);
 let closeTimer = null;
+
+// 이미지 로딩 상태 관리
+const imageLoaded = ref(false);
+
+watch(
+	() => props.data?.popupImage,
+	() => {
+		imageLoaded.value = false;
+	}
+);
 
 // 팝업 상태 변화 감지
 watch(

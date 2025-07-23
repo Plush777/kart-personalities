@@ -32,7 +32,7 @@ const props = defineProps({
 const loading = ref(true);
 const characterInfo = ref(null);
 
-const questionCondition = props.type === 'question' ? 'bg-white' : 'h-full';
+const questionCondition = props.type === 'question' ? 'bg-white flex-1' : 'h-full';
 
 // 컴포넌트 마운트 시 데이터 로드
 onMounted(async () => {

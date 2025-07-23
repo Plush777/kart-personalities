@@ -10,7 +10,7 @@
 					<img
 						:src="`/images/question/img-question-${currentQuestionIndex + 1}.jpg`"
 						:alt="`${currentQuestionIndex + 1}번째 질문: ${currentQuestion.question} 이미지`"
-						class="rounded-lg mx-auto mt-2 mb-4 aspect-[16/10] w-full max-w-none block"
+						class="rounded-lg mx-auto mt-2 mb-4 aspect-[16/10] w-full max-w-none block bg-gray-200"
 					/>
 				</div>
 
