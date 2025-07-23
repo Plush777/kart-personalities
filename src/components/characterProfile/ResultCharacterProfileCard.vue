@@ -42,6 +42,7 @@
 							:characterInfo="props.characterInfo"
 							:isAnimation="false"
 							:ssrUserName="props.ssrUserName"
+							:isCapture="true"
 						/>
 					</div>
 					<Button

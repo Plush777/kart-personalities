@@ -29,6 +29,7 @@
 				:isAnimation="props.isAnimation"
 				:userName="displayUserName"
 				:ssrUserName="props.ssrUserName"
+				:isCapture="props.isCapture"
 			/>
 
 			<SnapshotBack :ssrUserName="props.ssrUserName" :flipRotation="flipRotation" />
@@ -46,6 +47,10 @@ import SnapshotBack from '@/components/card/SnapshotBack.vue';
 
 const props = defineProps({
 	isAnimation: {
+		type: Boolean,
+		default: false
+	},
+	isCapture: {
 		type: Boolean,
 		default: false
 	},

@@ -1,5 +1,7 @@
 <template>
-	<div :class="`${props.isAnimation ? '' : 'flex items-center justify-center h-full'}`">
+	<div
+		:class="`${props.isAnimation || !props.isCapture ? '' : 'flex items-center justify-center h-full'}`"
+	>
 		<ImageLoading v-if="!imageLoaded" />
 		<div
 			v-show="imageLoaded"
@@ -76,6 +78,9 @@ const props = defineProps({
 	},
 	ssrUserName: {
 		type: String
+	},
+	isCapture: {
+		type: Boolean
 	}
 });
 
