@@ -69,8 +69,7 @@ provide('mainLayoutCharacterInfo', characterInfo);
 function getStyle() {
 	if (props.type === 'main') return 'my-auto h-[calc(100vh_-_64px)] min-h-[600px] px-4';
 	if (props.type === 'question') return 'bg-white max-w-[500px] mx-auto shadow-lg h-full ';
-	if (props.type === 'result')
-		return 'bg-white max-w-[500px] mx-auto shadow-lg h-full min-h-[calc(911px_-_64px)] max-[500px]:min-h-[calc(911px_-_88px)]';
+	if (props.type === 'result') return 'bg-white max-w-[500px] mx-auto shadow-lg h-full ';
 	if (props.type === '404') return 'px-4 h-full flex items-center justify-center';
 
 	return '';
