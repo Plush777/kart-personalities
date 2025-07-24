@@ -195,15 +195,13 @@ http://localhost:4321/result?username=gege&result=eyJ0aXRsZSI6IuuqqOyKpCIsInBvcH
 http://localhost:4321/share/gege
 ```
 
-긴 URL을 그대로 저장하는 것이 아닌, URL을 **share/(username)** 와 같은 형태로 짧게 단축하여 클립보드에 저장합니다.
+긴 URL을 그대로 저장하는 것이 아닌, URL을 **share/(username)** 와 같은 형태로 짧게 단축하여 클립보드에 저장합니다. 공유한 URL에 사용자가 접속햇을 때 공유 한 사람의 결과를 보여주기 위해 데이터베이스 (supabase) 에 사용자 이름과 단축하기 전 url을 저장합니다.
 
-  <br/>
+   <img src="./docs/images/db_shortened_urls.png"/>
+
+<br/> <br/>
 
 즉, 공유하기의 로직은 다음과 같습니다.
-
-  <img src="./docs/images/db_shortened_urls.png"/>
-
-  <br/>
 
   <!-- prettier-ignore -->
 
@@ -212,17 +210,39 @@ http://localhost:4321/share/gege
 2. `util > urlShortener.js` 의 `shortenUrl` 함수에서 URL 단축 api를 호출하여 공유용 단축 URL 생성 (URL 단축에 대한 자세한 코드는 `api > shorten.ts`)
 
 3. Supabase에 `{ id (사용자 이름), original_url(단축하기 전 url) }` 로 저장됨.
-4. 다른 사용자가 단축 URL (/share/홍길동)에 접속하면
 
-   4-1. Supabase에서 id가 "홍길동"인 데이터를 찾아 original_url (기존 URL) 을 가져옴.
+4. 사용자가 다른 사람이 공유한 URL (/share/홍길동)에 접속하면 결과 페이지를 보여줘야함.
 
-   4-2. `/share/홍길동` 경로로 접속한 페이지는 Supabase에서 찾은 original_url로 자동으로 이동시킴.
+   🛠️ 기존 로직
 
-   4-3. 그렇게되면 사용자는 다른 사람이 테스트한 결과를 볼 수 있음.
+   /result 로 가든, 공유한 URL로 접속하던 보여줘야하는건 **결과 페이지** 이기 때문에,
+   기존에는 `share/홍길동` 으로 접속하면 supabase에 저장되어있는 original url로 리다이렉트 되게 구현했었음.
+
+   리다이렉트 방식은 구현하기 굉장히 간단했지만, 이후 결과 페이지에 **카드 컴포넌트** 를 추가하면서 해당 방식으론 카드 컴포넌트가 정상적으로 렌더링 되지 않아서 아래 방식으로 바꾸게 됨.
+
+   ***
+
+   ✨ 이후 로직
+   1. `[id].astro` 컴포넌트에서 보여주는건 어차피 결과이기 때문에, 기존 Result 페이지에 사용된 레이아웃을 그대로 가져옴.
+
+   2. 대신 SSR 환경이므로 username은 세션 스토리지 대신 supabase에 저장된 id를 가져오도록 하고, Result 컴포넌트에 **ssrUserName** props로 username을 넘겨줌.
+
+   3. supabase original url에 result 데이터를 쿼리 파라미터 형식으로 저장해두었기 때문에 이 데이터를 기반으로 결과 카드 컴포넌트 및 다른 컴포넌트들을 렌더링 함.
+
+   4. 그리고, 공유 URL 페이지는 **로딩 상태**가 필요 없으므로, 기존 `ResultContent` 컴포넌트 대신 `ResultWraper` 컴포넌트를 사용하여 해당 내용을 바로 렌더링.
+
+   5. `[id].astro`의 Result 컴포넌트에만 따로 `isSsr` props를 추가하여 **테스트 결과 페이지** 와 **공유 결과 페이지** 의 기능을 서로 다르게 아래 테이블 내용 처럼 제한함.
+
+      |          항목          | 결과 페이지 (/result) |      공유 페이지 (/share)       |
+      | :--------------------: | :-------------------: | :-----------------------------: |
+      |     카드 상세보기      |          ✅           |               ✅                |
+      | 카드 이미지로 다운로드 |          ✅           |               ❌                |
+      |    캐릭터 설명보기     |          ✅           |               ✅                |
+      |    다시 테스트하기     |          ✅           | ❌ (나도 테스트해보기로 변경됨) |
+      |   질문으로 돌아가기    |          ✅           |               ❌                |
+      |  테스트 결과 공유하기  |          ✅           |               ❌                |
 
 ---
-
-이는 유명한 URL 단축 서비스인 <a href="https://bitly.com/pages/landing/bringing-us-all-a-bit-closer?gad_source=1&gad_campaignid=19684284166&gbraid=0AAAAAC3Maq4YViGWoIA6VcKbvnRZtBglm&gclid=Cj0KCQjw-NfDBhDyARIsAD-ILeBKXHTCFStR4LY1gUghnKMu6t4WAq95OJtTAckcd62V7P7ImgC6bqIaAm-jEALw_wcB" target="_blank">bitly</a> 와 유사하게 동작합니다.
 
 #### 📉 2-3. 결과별 메타태그 생성
 
@@ -305,9 +325,10 @@ B라는 사용자가 "마리드" 라는 결과를 받고 해당 URL을 공유하
 - https://www.banggooso.com/gl/1034/
 - https://smore.im/quiz/5xjJqtXtZ1
 
-### css 3d button
+### css component
 
-- https://csspro.com/css-3d-buttons/
+- https://csspro.com/css-3d-buttons/ (3d button)
+- https://cssloaders.github.io/ (loading spinner)
 
 ### 이미지
 
