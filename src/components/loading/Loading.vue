@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-y-4 w-full"
+		class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-y-4 size-full justify-center bg-white max-w-[500px] mx-auto shadow-lg"
 	>
 		<div class="flex justify-center items-center">
 			<img
