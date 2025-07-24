@@ -6,7 +6,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
 import Button from '@/components/button/Button.vue';
 import ContentsInnerLayout from '@/layouts/ContentsInnerLayout.vue';
 
-const descStyle = 'text-lg text-gray-600 break-keep max-md:text-base';
+const descStyle = 'text-lg text-gray-600 break-keep max-md:text-sm';
 ---
 
 <HtmlLayout bodyClassName="bg-sky-50" robots="noindex, nofollow">
@@ -19,13 +19,13 @@ const descStyle = 'text-lg text-gray-600 break-keep max-md:text-base';
 				</p>
 			</div>
 
-			<div class="text-center mt-8 max-md:mt-6">
+			<div class="text-center mt-6 max-md:mt-4">
 				<p class={descStyle}>
 					존재하지 않는 페이지이거나, 주소가 변경 또는 삭제되었을 수도 있습니다.
 				</p>
 				<p class={descStyle}>페이지 주소가 정확한지 다시 한번 확인해주세요.</p>
 			</div>
-			<div class="mt-4">
+			<div class="mt-10 max-md:mt-8">
 				<Button
 					effectType="3d"
 					bindClass="mx-auto"
