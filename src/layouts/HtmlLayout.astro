@@ -7,7 +7,8 @@ const {
 	description = '나는 어떤 캐릭터의 성격일까? ',
 	image = '/images/og/og.png',
 	customUrl = null,
-	robots = 'index, follow'
+	robots = 'index, follow',
+	pageType = ''
 } = Astro.props;
 
 // URL 설정 (customUrl이 있으면 사용, 없으면 현재 URL 사용)
@@ -85,7 +86,9 @@ const url = customUrl || Astro.url.href;
 	</head>
 	<body class={bodyClassName}>
 		<div id="app" class="select-none size-full">
-			<div class="flex flex-col justify-between size-full">
+			<div
+				class={`flex flex-col justify-between size-full ${pageType === 'result' ? 'overflow-y-auto overflow-x-hidden scrollbar-hide' : ''}`}
+			>
 				<slot />
 			</div>
 		</div>

@@ -12,7 +12,7 @@ import FootSection from '@/components/section/FootSection.vue';
 const initialAnswers = [];
 ---
 
-<HtmlLayout bodyClassName="bg-sky-50">
+<HtmlLayout bodyClassName="bg-white">
 	<MainLayout type="question" client:load>
 		<ContentsInnerLayout type="question">
 			<Question client:only="vue" questions={questions} initialAnswers={initialAnswers} />

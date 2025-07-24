@@ -13,7 +13,13 @@ const description = '나는 어떤 캐릭터의 성격일까?';
 const image = '/images/og/og.png';
 ---
 
-<HtmlLayout bodyClassName="bg-sky-50" title={title} description={description} image={image}>
+<HtmlLayout
+	pageType="result"
+	bodyClassName="bg-white"
+	title={title}
+	description={description}
+	image={image}
+>
 	<MainLayout client:load type="result">
 		<ContentsInnerLayout type="result">
 			<ResultContent client:load />

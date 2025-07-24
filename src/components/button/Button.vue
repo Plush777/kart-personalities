@@ -65,7 +65,7 @@ const xsSize = 'h-8 text-[13px]';
 const lgPadding = 'p-[0_16px] max-md:p-[0_12px]';
 const mdPadding = 'p-[0_12px]';
 const smPadding = 'p-[0_8px]';
-const xsPadding = 'p-[0_4px]';
+const xsPadding = 'p-[0_8px]';
 
 /* rounded */
 const lgRounded = 'rounded-lg';

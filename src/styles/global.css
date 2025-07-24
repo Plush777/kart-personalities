@@ -105,7 +105,11 @@ i {
 
 /* green */
 .button-3d-green:disabled {
-	@apply border-green-300 text-gray-600 bg-green-100 opacity-100;
+	@apply border-green-300 text-gray-600 bg-green-100 before:bg-green-300 opacity-100;
+}
+
+.button-3d-green:disabled.button-3d-green-shadow::before {
+	box-shadow: 0 0 0 2px oklch(79.2% 0.209 151.711);
 }
 
 .button-3d-green-shadow::before {
@@ -274,7 +278,7 @@ i {
 	}
 
 	.card-3d .profile-description {
-		font-size: clamp(14px, 2.5vw, 20px);
+		font-size: clamp(12px, 2.5vw, 20px);
 	}
 
 	.card-3d .card-image {
@@ -357,10 +361,6 @@ i {
 		height: 178px;
 		min-width: 317px;
 		min-height: 178px;
-	}
-
-	.card-3d .profile-description {
-		font-size: 12px;
 	}
 }
 
